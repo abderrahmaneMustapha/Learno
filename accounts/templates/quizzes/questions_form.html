@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+
+
+{% if  questions_count == 0 %}
+       Empty
+  {% endif %}
+
+<div class="container">
+  <div class="row-2">
+
+    {% for question in  questions  %}
+
+    <div class="col">
+
+    <div class="card">
+      <div class="card-header bg-light">
+        {{question.text}}
+
+      </div>
+
+
+      <div class="card-body bg-secondary text-white" >
+            <form class="form-answer-ajax" action="." method="POST" >
+              {% for answer in answers %}
+                {% if answer.question == question %}
+              {% csrf_token %}
+                <input type="checkbox" name="answer" value="{{answer.id}}">{{answer}}
+                  <br>
+                {%endif%}
+              {%endfor%}
+              <button id="#submit" class="btn btn-success"type="submit" name="button">submit</button>
+            </form>
+
+      </div>
+
+      <div class="card-footer">
+
+
+      </div>
+
+    </div>
+      </div>
+          <br>
+    {% endfor %}
+
+  </div>
+  <a class="btn btn-danger" value="Refresh Page"  href ='{% url "stage_result" stage  stage%}'onClick="window.location.reload()">Done</a>
+</div>
+
+{% endblock %}

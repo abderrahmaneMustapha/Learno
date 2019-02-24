@@ -1,0 +1,30 @@
+{% extends  'base.html'%}
+{% load bootstrap4 %}
+{% block title %}
+Login
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+   <div class="row">
+     <div class="col-lg-8 offset-2">
+       <br/>
+       <br/>
+       <br/>
+       <div>
+         <div class="card">
+           <div class="card-body">
+                 <h4 class="card-title">Sign In</h4>
+<form class="form-group" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Sign In</button>
+  </form>
+
+ <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+ <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+ <a href="{% url 'signup' %}"> create new account</a>
+
+
+{% endblock %}

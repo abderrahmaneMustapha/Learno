@@ -1,0 +1,28 @@
+{% extends 'home.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    {% for quiz in  quizzes  %}
+
+    <div class="col">
+
+
+    <div class="card">
+
+      <div class="card-body">
+        <a  href="{% url 'stages' quiz.name  %}">{{quiz.name}}</a>
+         {%if quiz.id in completed_quiz %}
+          <i class="far fa-check-circle"></i>
+         {% endif %}
+      </div>
+
+    </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

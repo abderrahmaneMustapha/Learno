@@ -1,0 +1,69 @@
+
+
+{% extends 'home.html' %}
+{% load bootstrap4 %}
+{% block title %}{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="container">
+   <div class="row">
+     <div class="col-lg-8 offset-2">
+       <br/>
+       <br/>
+       <br/>
+       <div>
+         <div class="card">
+            <div class="card-header">
+              <img class="rounded-circle offset-5" src="{{ MEDIA_URL }}{{this_student.photo.url }}"
+                        width="70" height="70" />
+
+                 <h5> {{this_student}} </h5>
+                 <div class="row">
+                      Point:   {{this_student.exp}}
+                 </div>
+                   
+                    <!--
+                 {% for interest in interests %}
+               <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
+                 >{{ interest }}</span> {% endfor %}
+
+               </div>
+
+               <div class="card-header ">
+
+                 <h6>Taken Course</h6>
+                 {% for course in taken_course %}
+                 <a class="col" href="#">{{course.course.title}}</a>
+                 {% endfor %}
+
+                 <h6>Taken Module</h6>
+                 {% for module in taken_module %}
+                 <a class="col" href="#">{{module.module.title}}</a>
+                 {% endfor %}
+
+                 <h6> Content complited</h6>
+                 {% for content in taken_content %}
+                 <a class="col" href="#">{{content.content.title}}</a>
+                 {% endfor %}
+
+               </div>
+               -->
+
+
+<div class="card-footer ">
+
+</div>
+<br/>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

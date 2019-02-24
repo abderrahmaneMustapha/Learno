@@ -1,0 +1,37 @@
+
+
+{% extends 'base_course.html' %}
+
+{% block title %}{{course.title}}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row ">
+
+  {% for module in  course_module %}
+<div class="col-3">
+  {% if module.course.title.upper ==  course.title.upper %}
+   {% if module.approved %}
+        <div class="card ">
+
+              <h4 class="card-title">{{module.title}}</h4>
+                  <div class="card-body">
+                    {% if module.photo %}
+                    <img class="card-img-top" src="{{ module.photo.url }}"
+                    alt="Card image" style="width:100%">
+                    {% endif %}
+                     {{module.description | truncatewords:"10"}}
+                     <br>
+                     <a href="{% url 'contents' course.title module.title %}"
+                     class="card-link btn btn-primary">More</a>
+                   </div>
+       </div>
+   {% endif %}
+    {% endif %}
+ </div>
+  {% endfor %}
+
+</div>
+</div>
+{% endblock %}

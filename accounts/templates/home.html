@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'font-awesome/css/fontawesome.min.css' %}">
+      <link rel="stylesheet" href="{% static 'font-awesome/css/brands.min.css' %}">
+      <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
+  </head>
+  <body>
+    <a href="{% url 'home' %}">Home</a>
+    <br>
+    <a href="{% url  'subjects' %}">Subjects</a>
+    <br>
+    <a href="{% url  'quizzes' %}">Quizzes</a>
+  {% if user.is_authenticated %}
+  <br>
+  <a href="{% url 'logout' %}">logout</a>
+  <br>
+   <a href="{% url 'profile' %}">Account</a>
+  <br>
+   <a href="{% url 'leaderboard' %}">leaderboard</a>
+  {% else %}
+  <br>
+<a href="{% url 'signup' %}"> Sign up</a>
+
+<br>
+<a href="{% url 'login' %}"> Sign in</a>
+{% endif %}
+<br>
+    {% block content %}
+
+    Welcome {{request.user.student}}
+    {% endblock %}
+  </body>
+
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+        <script src="{% static 'js/custom.js' %}"></script>
+</html>

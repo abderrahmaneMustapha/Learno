@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="table-responsive-sm">
+  <table class="table table-sm table-hover  table-striped table-dark">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-1">Rank</th>
+          <th class="col-sm-1">photo</th>
+        <th class="col-sm-5">username</th>
+        <th class="col-sm-5">exp</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in all_students %}
+      <tr class="d-flex"  >
+        <th class="col-1">{{ forloop.counter }}</th>
+        <th class="col-sm-1"><img class="rounded-circle img-responsive"
+          src="{{MEDIA_URL}}{{student.photo.url}}" width="50%" height="80%" /></th>
+        <td class="col-sm-5 ">
+          {% if request.user == student.user %}
+          <a class="text-white" href="{% url 'profile' %}">{{student.user}}</a>
+          {% else %}
+          <a class="text-white" href="{% url 'user_profile' student.user %}">{{student.user}}</a></td>
+          {% endif %}
+        <td class="col-sm-4">{{student.exp}}</td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}

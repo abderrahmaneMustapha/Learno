@@ -1,0 +1,17 @@
+{% extends 'base_course.html' %}
+{%block title %}{{module.title}}{% endblock %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-body">
+        {% for cont in module_content %}
+
+            {% if cont.module.title.upper ==  module.title.upper %}
+                   <br>
+                   <a href="{% url 'learn' module.title cont.title %}">{{cont.title}}</a>
+             {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

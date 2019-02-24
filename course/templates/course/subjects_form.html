@@ -1,0 +1,33 @@
+{% extends 'base_course.html' %}
+
+{% block title %}subjects{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row ">
+
+  {% for sub in  subject %}
+<div class="col-3">
+   {% if sub.approved %}
+        <div class="card ">
+
+              <h4 class="card-title">{{sub.title}}</h4>
+                  <div class="card-body">
+                    {% if sub.photo %}
+                    <img class="card-img-top" src="{{ sub.photo.url }}"
+                    alt="Card image" style="width:100%">
+                    {% endif %}
+                     {{sub.description | truncatewords:"10"}}
+                     <br>
+                     <a href="{% url 'courses' sub.title %}"
+                     class="card-link btn btn-primary">More</a>
+                   </div>
+       </div>
+   {% endif %}
+ </div>
+  {% endfor %}
+
+</div>
+</div>
+{% endblock %}
