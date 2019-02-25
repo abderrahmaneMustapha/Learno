@@ -25,6 +25,8 @@
                           <p><a href="{% url 'password_reset' %}">reset password</a></p>
                  <h5>{{ request.user.get_username }}</h5>
                  <div class="row">
+                      Level : {{level}}
+                      <br>
                       Point:   {{request.user.student.exp}} exp
                  </div>
 

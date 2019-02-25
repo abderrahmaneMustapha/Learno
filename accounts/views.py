@@ -72,10 +72,10 @@ def profile(request):
     taken_course = TakenCourse.objects.filter(student = request.user.student )
     taken_module = TakenModule.objects.filter(student = request.user.student)
     taken_content = TakenContent.objects.filter(student = request.user.student)
-
+    level = Student.calculate_level(request.user.student)
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
-        , 'taken_content' : taken_content,})
+        , 'taken_content' : taken_content, 'level':level})
 
 def profiles(request,user):
     this_user = User.objects.get(username = user)
@@ -85,7 +85,12 @@ def profiles(request,user):
     return render(request, 'accounts/profiles.html', {'this_student' : this_student})
 
 def leaderboard_view(request):
-    all_students = Student.objects.all().order_by('-exp')
+    all_students = Student.objects.order_by('-exp')[:20]
+    student_high_rank =  Student.objects.filter(exp__gte = request.user.student.exp )[:5]
+    print(student_high_rank)
+    student_less_rank =  Student.objects.filter(exp__lte = request.user.student.exp ).exclude(user = request.user)[:5]
+    print(student_less_rank)
+
     return render(request, 'accounts/leaderboard.html', {'all_students': all_students})
 @login_required
 def quizzes_view(request):

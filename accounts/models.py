@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from colorful.fields import RGBColorField
+#make the email field unique
 User._meta.get_field('email')._unique = True
+
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=30)
@@ -9,17 +12,47 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    def auto_generate_tag(self):
+        return
 
 
 class Quiz(models.Model):
     name = models.CharField(max_length=255)
     tags = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='quizzes' )
     point = models.IntegerField(null=True, default=0)
+    approved = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False)
     def __str__(self):
         return self.name
+
+class StageLevel(models.Model):
+    Beginner =1
+    Easy = 2
+    Normal = 3
+    Hard = 4
+    Very_hard = 5
+
+    STATUS_CHOICES = (
+        (Beginner , "beginner"),
+        (Easy, "easy"),
+        (Normal, "normal"),
+        (Hard, "hard"),
+        (Very_hard, "very hard"),
+    )
+    text = models.IntegerField(choices = STATUS_CHOICES, default=1)
+    color = RGBColorField(max_length=7, default='#007bff')
+    required_exp = models.PositiveIntegerField(db_index=True,blank=True,default=1)
+
+    def __str__(self):
+        return str(self.text)
+
+
 class Stage(models.Model):
     name = models.CharField(max_length=255)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='stages')
+    level = models.ForeignKey(StageLevel, blank=True , null=True, on_delete=models.CASCADE)
+    approved = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
@@ -27,6 +60,8 @@ class Question(models.Model):
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE, related_name='questiones')
     text = models.CharField('Question', null=True,blank=True,max_length=300)
     point = models.IntegerField(null=True, default=0)
+    approved = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.text
@@ -50,27 +85,57 @@ class Badge(models.Model):
     description = models.TextField(max_length=300)
     point_required = models.FloatField()
 
-class Level(models.Model):
-    exp = models.PositiveIntegerField(default=1)
+class StudentLevel(models.Model):
 
+    Novice  = 1
+    Apprentice = 2
+    Trainee = 3
+    Beginner =  4
+    Amateur  = 5
+    Professional  = 6
+    Master = 7
+    Wizard =8
+    Mage = 9
+    White_Mage = 10
+    Regent = 11
+    King = 12
+
+    STATUS_CHOICES =  (
+        (Novice, "Novice"), (Apprentice, "Apprentice"), (Trainee, "Trainee"),
+        (Beginner , "Beginner"), (Amateur , "Amateur "),  (Professional, "Professional"),
+        (Master, "Master"),
+        (Wizard , "Wizard "), (Mage, "Mage"), (White_Mage, "White Mage"),
+        (Regent, "Regent"),  (Novice, "King"),
+    )
+    name = models.IntegerField(choices = STATUS_CHOICES, default=1 )
+    logo = models.ImageField(upload_to='level_pic/',default='',blank=True)
+    description = models.TextField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='student')
     photo = models.ImageField(upload_to='picture_profile/',default='default-96.png',blank=True)
     quizzes = models.ManyToManyField(Quiz,blank=True, through='TakenQuiz')
     interests = models.ManyToManyField(Tag,blank=True, related_name='interested_students')
-    exp = models.PositiveIntegerField(blank=True,default=1)
+    exp = models.PositiveIntegerField(db_index=True,blank=True,default=1)
+    rank = models.ForeignKey(StudentLevel ,on_delete=models.CASCADE,blank=True, null=True , related_name='level')
 
-
-    def get_unanswered_questions(self, quiz):
-        answered_questions = self.quiz_answers \
-            .filter(answer__question__quiz=quiz) \
-            .values_list('answer__question__pk', flat=True)
-        questions = quiz.questions.exclude(pk__in=answered_questions).order_by('text')
-        return questions
 
     def __str__(self):
         return self.user.username
+
+    def calculate_level(self):
+        import math
+        level = int(1/4 * math.sqrt(self.exp))
+        return level
+    def calculate_rank(self):
+        if   0 <= exp <= 80 :
+            rank = StudentLevel.objects.get(name = 1)
+        return rank
+
+
 
 #this Model contain only  the right answers of a  given student
 class StudentAnswer(models.Model):

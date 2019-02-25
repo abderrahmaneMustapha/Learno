@@ -1,7 +1,9 @@
 from django.contrib import admin
 from .models import( Answer,Badge,Student,StudentAnswer,
-Quiz,Question,TakenQuiz,TakenBadge,Tag, Stage, CompletedStage , LastStudentAnswer)
+Quiz,Question,TakenQuiz,TakenBadge,Tag, Stage, CompletedStage , LastStudentAnswer, StudentLevel
+ , StageLevel)
 """
+
 class YourModelAdmin(admin.ModelAdmin):
 
     form = YourModelForm
@@ -75,3 +77,5 @@ admin.site.register(TakenBadge, TakenBadgeAdmin)
 admin.site.register(Stage, StageAdmin)
 admin.site.register(CompletedStage, CompletedStageAdmin)
 admin.site.register(Tag)
+admin.site.register(StudentLevel)
+admin.site.register(StageLevel)

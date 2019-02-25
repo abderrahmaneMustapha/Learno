@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-
+from colorful.fields import RGBColorField
 from accounts.models import Student
 
 class Subject (models.Model):
@@ -10,6 +10,9 @@ class Subject (models.Model):
     description = models.TextField(blank=True)
     photo = models.ImageField(upload_to='subject_photos/', blank=True,)
     approved = models.BooleanField(default=False)
+    color = RGBColorField(max_length=7, default='#007bff')
+    verified = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.title
@@ -24,6 +27,7 @@ class Course(models.Model):
     photo = models.ImageField(upload_to='courses_photos/', blank=True,)
     approved = models.BooleanField(default=False)
     students = models.ManyToManyField(Student, null=True, related_name='students_enrolled')
+    verified = models.BooleanField(default=False)
     def get_absolute_url(self):
         return reverse("",kwargs={""})
     class Meta:
@@ -39,6 +43,7 @@ class Module(models.Model):
     order = models.PositiveIntegerField(unique=True)
     photo = models.ImageField(upload_to='modules_photos/', blank=True,)
     approved = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['order']
@@ -55,8 +60,7 @@ class Content(models.Model):
     image = models.ImageField(upload_to='content/image/',blank=True)
     order = models.PositiveIntegerField(unique=True)
     approved = models.BooleanField(default=False)
-
-
+    verified = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['order']
