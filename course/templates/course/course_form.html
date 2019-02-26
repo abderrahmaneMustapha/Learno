@@ -1,5 +1,5 @@
 {% extends 'base_course.html' %}
-
+{% load index %}
 {% block title %}{{subject.title}}{% endblock %}
 
 
@@ -10,7 +10,7 @@
 {% for course in subject_course %}
 
 <div class="col-3">
-    {% if course.subject.title.upper ==  subject.title.upper %}
+
       {% if course.approved %}
         <div class="card ">
 
@@ -22,12 +22,22 @@
                     {% endif %}
                      {{course.overview | truncatewords:"10"}}
                      <br>
+
+
+
                      <a href="{% url  'modules' subject.title course.title  %}"
                      class="card-link btn btn-primary">More</a>
                    </div>
+                   <div class="card-footer">
+                     <span class="badge badge-dark">
+                       views {{ views|index:forloop.counter0 }}</span>
+                      {%  if course.id in student_taken_course %}
+                      <i class="fas fa-eye float-right"></i>
+                     {% endif %}
+                   </div>
        </div>
        {% endif %}
-       {% endif %}
+
 
  </div>
   {% endfor %}

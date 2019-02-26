@@ -13,6 +13,7 @@
   <div class="row-2">
 
     {% for question in  questions  %}
+      {% if question.approved%}
 
     <div class="col">
 
@@ -45,6 +46,7 @@
     </div>
       </div>
           <br>
+          {%endif%}
     {% endfor %}
 
   </div>

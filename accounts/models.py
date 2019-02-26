@@ -84,6 +84,7 @@ class Badge(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=300)
     point_required = models.FloatField()
+    logo = models.ImageField(upload_to='badge_logo/',null=True,blank=True)
 
 class StudentLevel(models.Model):
 
@@ -117,11 +118,11 @@ class StudentLevel(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='student')
     photo = models.ImageField(upload_to='picture_profile/',default='default-96.png',blank=True)
-    quizzes = models.ManyToManyField(Quiz,blank=True, through='TakenQuiz')
+    quizzes = models.ManyToManyField(Quiz, blank = True, through='TakenQuiz' ,related_name='quize_student')
     interests = models.ManyToManyField(Tag,blank=True, related_name='interested_students')
     exp = models.PositiveIntegerField(db_index=True,blank=True,default=1)
     rank = models.ForeignKey(StudentLevel ,on_delete=models.CASCADE,blank=True, null=True , related_name='level')
-
+    position = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.user.username
@@ -133,8 +134,6 @@ class Student(models.Model):
     def calculate_rank(self):
         if   0 <= exp <= 80 :
             rank = StudentLevel.objects.get(name = 1)
-        return rank
-
 
 
 #this Model contain only  the right answers of a  given student
@@ -159,7 +158,7 @@ def __str__(self):
 class TakenQuiz(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='taken_quizzes')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='taken_quizzes')
-    score = models.FloatField()
+
     date = models.DateTimeField(auto_now_add=True)
     last_entr =   models.DateTimeField(auto_now=True)
 
@@ -167,10 +166,13 @@ class TakenQuiz(models.Model):
         return self.quiz.name
 class CompletedStage(models.Model):
         student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='completed_stages')
+        quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True, related_name='stage_quizze')
         stage = models.ForeignKey(Stage, on_delete=models.CASCADE, related_name='user_stages')
         score = models.FloatField()
         date = models.DateTimeField(auto_now_add=True)
         last_entr =   models.DateTimeField(auto_now=True)
+        def __str__(self):
+            return self.stage.name
 
 class TakenBadge(models.Model):
      student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='taken_badges')

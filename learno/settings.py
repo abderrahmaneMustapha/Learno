@@ -42,12 +42,11 @@ INSTALLED_APPS = [
     'accounts',
     'django.contrib.admin',
 
-
-
     'course',
 
     'bootstrap4',
     'colorful',
+     'django_q',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +68,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -186,3 +186,20 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'b6a86e0df1be4a353506f2248fe5a0b1'  # App Secret
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'email' , 'password',]
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 RAISE_EXCEPTIONS = True
+
+# settings.py example
+Q_CLUSTER = {
+    'name': 'myproject',
+    'workers': 8,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'cpu_affinity': 1,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
+}

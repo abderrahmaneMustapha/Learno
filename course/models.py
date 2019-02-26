@@ -28,8 +28,7 @@ class Course(models.Model):
     approved = models.BooleanField(default=False)
     students = models.ManyToManyField(Student, null=True, related_name='students_enrolled')
     verified = models.BooleanField(default=False)
-    def get_absolute_url(self):
-        return reverse("",kwargs={""})
+    
     class Meta:
         ordering =['created']
     def __str__(self):

@@ -19,33 +19,41 @@ def subjects(request):
 
 @login_required
 def courses(request, subject):
-    subject_course = Course.objects.all()
+    actual_subject = Subject.objects.get(title = subject)
+    subject_course = Course.objects.filter(subject = actual_subject )
+    views = []
+    student_taken_course = TakenCourse.objects.filter(student = request.user.student).values_list('course', flat=True)
 
+    for course in subject_course :
+        views.append(TakenCourse.objects.filter(course = course ).count())
     return render(request,'course/course_form.html',
-    {'subject':subject ,'subject_course':subject_course, })
+    {'subject':subject ,'subject_course':subject_course, 'student_taken_course':student_taken_course
+         ,'views' : views})
+
 @login_required
 def modules(request, subject, course):
-    course_module = Module.objects.all()
-    my_course= Course.objects.get(title=course)
-    current_student =Student.objects.get(user=request.user)
-    check_taken_course = TakenCourse.objects.filter(student = current_student, course=my_course)
+    actual_course = Course.objects.get(title = course)
+    course_module = Module.objects.filter(course = actual_course)
+    print()
+    check_taken_course = TakenCourse.objects.filter(student =request.user.student, course=actual_course)
     if check_taken_course.count()==0:
         new_taken_course = TakenCourse.objects.create(student = current_student, course=my_course)
-
-    return render(request,'course/modules_form.html',
-    {'course':course ,'course_module':course_module,})
+    student_taken_module = TakenModule.objects.filter(student =request.user.student).values_list('module', flat=True)
+    return render(request,'course/modules_form.html', {'student_taken_module':student_taken_module,
+    'course':course ,'course_module':course_module})
 
 @login_required
 def contents(request, course, module):
-    module_content= Content.objects.all()
     current_module= Module.objects.get(title=module)
+    module_content= Content.objects.filter(module = current_module)
     #current_student = Student.objects.get(user=request.user)
+    student_taken_content = TakenModule.objects.filter( module=current_module)
     check_taken_module = TakenModule.objects.filter(student = request.user.student, module=current_module )
     if check_taken_module.count() == 0:
         new_taken_module = TakenModule.objects.create(student=request.user.student, module=current_module)
 
-    return render(request,'course/contents_form.html',
-    {'module':module ,'module_content':module_content,})
+    return render(request,'course/contents_form.html',  {'module':module ,'module_content':module_content
+        ,'student_taken_content': student_taken_content})
 
 
 @login_required

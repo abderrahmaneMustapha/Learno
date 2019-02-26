@@ -4,12 +4,13 @@
 {% block content %}
     <div class="card">
       <div class="card-body">
-        {% for cont in module_content %}
-
-            {% if cont.module.title.upper ==  module.title.upper %}
+        {% for content in module_content %}
                    <br>
-                   <a href="{% url 'learn' module.title cont.title %}">{{cont.title}}</a>
-             {% endif %}
+                   <a href="{% url 'learn' module.title content.title %}">{{content.title}}</a>
+                      {%  if content.id in student_taken_content%}
+                      <i class="fas fa-eye float-right"></i>
+                     {% endif %}
+
         {% endfor %}
 
     </div>

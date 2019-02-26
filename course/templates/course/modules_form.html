@@ -11,7 +11,7 @@
 
   {% for module in  course_module %}
 <div class="col-3">
-  {% if module.course.title.upper ==  course.title.upper %}
+
    {% if module.approved %}
         <div class="card ">
 
@@ -26,8 +26,16 @@
                      <a href="{% url 'contents' course.title module.title %}"
                      class="card-link btn btn-primary">More</a>
                    </div>
+                   <div class="card-footer">
+                     <span class="badge badge-dark">
+
+                       
+                      {%  if module.id in student_taken_module %}
+                      <i class="fas fa-eye float-right"></i>
+                     {% endif %}
+                   </div>
        </div>
-   {% endif %}
+
     {% endif %}
  </div>
   {% endfor %}

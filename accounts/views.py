@@ -4,13 +4,25 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
-from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,
+from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer)
 from course.models import TakenCourse, TakenModule, TakenContent
 
 
+# background tasks
+
+############
+
+
+
+
+
+############
 def home(request):
+    
+
     return render(request,'home.html',{})
 
 
@@ -95,15 +107,26 @@ def leaderboard_view(request):
 @login_required
 def quizzes_view(request):
     quizzes = Quiz.objects.all()
-    completed_quiz = TakenQuiz.objects.filter(student = request.user.student).values_list('quiz', flat=True)
+    views = []
+    for quiz in quizzes:
+        views.append(TakenQuiz.objects.filter(quiz = quiz).count())
+
+    taken_quiz = TakenQuiz.objects.filter(student = request.user.student).values_list('quiz', flat=True)
     return render(request, 'quizzes/quizzes_form.html',{'quizzes':quizzes,
-                                    'completed_quiz':completed_quiz})
+                                    'taken_quiz':taken_quiz , 'views' : views})
 @login_required
 def stages_view(request,quiz):
     actual_quiz = Quiz.objects.get(name= quiz)
     stages = Stage.objects.filter(quiz = actual_quiz )
-    #completed_quiz = TakenQuiz.objects.filter(student = request.user.student).values_list('quiz', flat=True)
-    return render(request, 'quizzes/stages_form.html',{'stages':stages,})
+    if TakenQuiz.objects.filter(student =request.user.student, quiz = actual_quiz).count()== 0:
+        taken_quiz = TakenQuiz.objects.create(student =request.user.student, quiz = actual_quiz , last_entr = timezone.now() )
+    else :
+        taken_quiz = TakenQuiz.objects.filter(student =request.user.student, quiz = actual_quiz).update(last_entr = timezone.now() )
+
+    completed_stages = CompletedStage.objects.filter(student = request.user.student, quiz=actual_quiz).values_list('stage' , flat=True)
+
+    return render(request, 'quizzes/stages_form.html',{'stages':stages,
+                            'completed_stages' : completed_stages})
 
 
 @login_required
@@ -120,9 +143,9 @@ def questions_view(request,stage):
 
     if questions_count != 0:
         if correct_answers_count == questions_count  :
-            if CompletedStage.objects.filter(student = request.user.student , stage = actual_stage).count() == 0:
-                CompletedStage.objects.create(student = request.user.student , stage = actual_stage, score=1)
-
+            if CompletedStage.objects.filter(student = request.user.student , stage = actual_stage , quiz = actual_stage.quiz).count() == 0:
+                CompletedStage.objects.create(student = request.user.student , stage = actual_stage ,quiz = actual_stage.quiz , score=1)
+                current_student_exp.exp+= 1
 
     answers = Answer.objects.all()
 
