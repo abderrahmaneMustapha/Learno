@@ -25,35 +25,10 @@
                  <div class="row">
                       Point:   {{this_student.exp}}
                  </div>
-                   
-                    <!--
-                 {% for interest in interests %}
-               <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
-                 >{{ interest }}</span> {% endfor %}
-
-               </div>
-
-               <div class="card-header ">
-
-                 <h6>Taken Course</h6>
-                 {% for course in taken_course %}
-                 <a class="col" href="#">{{course.course.title}}</a>
-                 {% endfor %}
-
-                 <h6>Taken Module</h6>
-                 {% for module in taken_module %}
-                 <a class="col" href="#">{{module.module.title}}</a>
-                 {% endfor %}
-
-                 <h6> Content complited</h6>
-                 {% for content in taken_content %}
-                 <a class="col" href="#">{{content.content.title}}</a>
-                 {% endfor %}
-
-               </div>
-               -->
-
-
+                   {% for interest in this_student.interests.all%}
+                   <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
+                     >{{ interest }}</span>
+                   {%endfor%}
 <div class="card-footer ">
 
 </div>

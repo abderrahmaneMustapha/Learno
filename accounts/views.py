@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
-TakenQuiz, Stage, CompletedStage, LastStudentAnswer)
+TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel)
 from course.models import TakenCourse, TakenModule, TakenContent
 
 
@@ -21,7 +21,8 @@ from course.models import TakenCourse, TakenModule, TakenContent
 
 ############
 def home(request):
-    
+
+
 
     return render(request,'home.html',{})
 
@@ -85,15 +86,17 @@ def profile(request):
     taken_module = TakenModule.objects.filter(student = request.user.student)
     taken_content = TakenContent.objects.filter(student = request.user.student)
     level = Student.calculate_level(request.user.student)
+    rank_calculated = Student.calculate_rank(request.user.student)
+    print(StudentLevel.objects.all())
+    #request.user.student.rank = StudentLevel.objects.get()
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
         , 'taken_content' : taken_content, 'level':level})
 
 def profiles(request,user):
     this_user = User.objects.get(username = user)
-    print(this_user)
     this_student = Student.objects.get(user = this_user)
-    print(this_student)
+    print(this_student.interests.all())
     return render(request, 'accounts/profiles.html', {'this_student' : this_student})
 
 def leaderboard_view(request):

@@ -14,6 +14,8 @@
     <div class="card">
       <div class="card-body">
         <a  href="{% url 'questions' stage.name  %}">{{stage.name}}</a>
+        <span data-color = '{{stage.level.color}}'  style="background-color:{{stage.level.color}};"
+        class="badge">{{stage.level.get_text_display}}</span>
     {%if stage.id in completed_stages %}
           <i class="far fa-check-circle"></i>
          {% endif %}

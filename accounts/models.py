@@ -132,8 +132,11 @@ class Student(models.Model):
         level = int(1/4 * math.sqrt(self.exp))
         return level
     def calculate_rank(self):
-        if   0 <= exp <= 80 :
-            rank = StudentLevel.objects.get(name = 1)
+        user_rank = 1
+        if   0 <= self.exp <= 80 :
+            user_rank= 1
+        return user_rank
+
 
 
 #this Model contain only  the right answers of a  given student
