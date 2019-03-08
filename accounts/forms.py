@@ -2,17 +2,33 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .models import Student,Tag,Quiz, Answer, Question
-
+from django.utils import timezone
 
 
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+    password_confirmation = forms.CharField(widget=forms.PasswordInput(),
+     label = 'Password Confirmation', required = True)
     email = forms.CharField(required=True)
     class Meta:
          model = User
-         fields = ("username", "password",'email',)
+         fields = ("username", "password", "password_confirmation" ,'email',)
+    def clean(self):
+        cleaned_data = super(UserForm, self).clean()
+        password = cleaned_data.get("password")
+        password_confirmation = cleaned_data.get("password_confirmation")
 
+        if password != password_confirmation:
+            raise forms.ValidationError(
+                "password and password confirmation does not match"
+            )
+    def save(self, commit=True):
+        user = super(UserForm, self).save(commit)
+        user.last_login = timezone.now()
+        if commit:
+            user.save()
+        return user
 
 class StudentForm(forms.ModelForm):
      photo = forms.ImageField(required=False)

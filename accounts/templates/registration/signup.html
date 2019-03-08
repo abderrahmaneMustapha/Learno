@@ -16,11 +16,10 @@ Sign Up
          <div class="card">
            <div class="card-body">
                  <h4 class="card-title">Sign Up</h4>
-<form method="POST" enctype="multipart/form-data" >
+<form method="POST"  enctype="multipart/form-data" >
     {% csrf_token %}
     {% bootstrap_form user_form %}
     {% bootstrap_form student_form %}
-
     <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
 

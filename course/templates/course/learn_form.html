@@ -8,7 +8,7 @@
   <div class="card-body">
     <div class="embed-responsive  embed-responsive-16by9">
       <iframe width="560" height="315"
-      src="{{ content_learn.video}}"
+      src="{{content_learn.video}}"
       class="embed-responsive-item"
       frameborder="0" allow="accelerometer; autoplay; encrypted-media;
       gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -19,7 +19,7 @@
   </div>
   <div class="card-footer">
     <h1>Take some note about this course</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <form class="form-answer-ajax" method="POST" >
         {% csrf_token %}
       {% bootstrap_form note_form %}
       <button type="submit" class="btn btn-primary" name="save">Save</button>

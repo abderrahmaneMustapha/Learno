@@ -6,8 +6,6 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
-      <link rel="stylesheet" href="{% static 'font-awesome/css/fontawesome.min.css' %}">
-      <link rel="stylesheet" href="{% static 'font-awesome/css/brands.min.css' %}">
       <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
   </head>
   <body>
@@ -16,8 +14,8 @@
     <a href="{% url  'subjects' %}">Subjects</a>
     <br>
     <a href="{% url  'quizzes' %}">Quizzes</a>
+    <br>
   {% if user.is_authenticated %}
-  <br>
   <a href="{% url 'logout' %}">logout</a>
   <br>
    <a href="{% url 'profile' %}">Account</a>
@@ -31,14 +29,38 @@
 <a href="{% url 'login' %}"> Sign in</a>
 {% endif %}
 <br>
-    {% block content %}
+    {% block main %}
+      Welcome {{request.user.student}}
+      <br>
+    <div class="container">
+      <div class="row ">
 
-  
+      {% for sub in  subject %}
+    <div class="col-3">
+       {% if sub.approved %}
+            <div class="card ">
 
-    Welcome {{request.user.student}}
+                  <h4 class="card-title">{{sub.title}}</h4>
+                      <div class="card-body">
+                         {{sub.description | truncatewords:"10"}}
+
+                         <br>
+                         <a href="{% url 'courses' sub.title %}"
+                         class="card-link btn btn-primary">More</a>
+                       </div>
+           </div>
+       {% endif %}
+     </div>
+      {% endfor %}
+
+    </div>
+    </div>
+
+
+
     {% endblock %}
   </body>
-
+      
         <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 
         <script src="{% static 'js/custom.js' %}"></script>

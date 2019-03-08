@@ -42,10 +42,13 @@ INSTALLED_APPS = [
     'accounts',
     'django.contrib.admin',
 
+
     'course',
 
     'bootstrap4',
     'colorful',
+
+    'background_task',
 
 ]
 
@@ -65,7 +68,7 @@ ROOT_URLCONF = 'learno.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, '/accounts', 'templates',)],
         'APP_DIRS': True,
         'OPTIONS': {
 
@@ -90,8 +93,12 @@ WSGI_APPLICATION = 'learno.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'learno',
+        'USER': 'abderrahmane',
+        'PASSWORD': '030898',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -155,6 +162,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 #LOGIN_REDIRECT_URL = '/profile/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
@@ -186,3 +194,6 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'b6a86e0df1be4a353506f2248fe5a0b1'  # App Secret
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'email' , 'password',]
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 RAISE_EXCEPTIONS = True
+
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'

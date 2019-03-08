@@ -12,6 +12,6 @@ class ContentNoteForm(forms.ModelForm):
 
     class Meta:
         model = ContentNote
-        fields = ('user','module','content','note')
-        widgets = {'user': forms.HiddenInput(),'module': forms.HiddenInput(),
-        'content': forms.HiddenInput()}
+        fields = ('user','content','note')
+        widgets = {'user': forms.HiddenInput(),
+                    'content': forms.HiddenInput()}

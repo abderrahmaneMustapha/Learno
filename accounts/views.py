@@ -3,28 +3,40 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from background_task.models import  Task, TaskQuerySet
+from background_task.models_completed import CompletedTask
 
 from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel)
-from course.models import TakenCourse, TakenModule, TakenContent
+from course.models import TakenCourse, TakenModule, TakenContent,Subject
+    #######################
+    # background task
+from background_task import background, tasks
+from django.contrib.auth.models import User
+
+@background
+def hello(student_name):
+    # lookup user by id and send them a message
+    this_user = User.objects.get(username = student_name)
+    Student.calculate_rank(this_user.student)
+    print(this_user.student.rank)
+
+########################
 
 
-# background tasks
-
-############
-
-
-
-
-
-############
 def home(request):
-
-
-
-    return render(request,'home.html',{})
+    subject = Subject.objects.all()
+    """
+    CompletedTask.objects.all().delete()
+    Task.objects.all().delete()
+    
+    """
+    if request.user.is_authenticated:
+        student = Student.objects.only('pk').get(user = request.user)
+        print(student)
+        hello(str(student), repeat= 5 , repeat_until = None)
+    return render(request,'home.html',{'subject' : subject})
 
 
 def signup(request):
@@ -35,16 +47,19 @@ def signup(request):
             user_form = UserForm(request.POST)
             student_form = StudentForm(request.POST, request.FILES)
             if user_form.is_valid() and student_form.is_valid():
-                new_user = User.objects.create_user(**user_form.cleaned_data)
+                new_user = User.objects.create_user(username = request.POST.get('username'),
+                password = request.POST.get('password'), email = request.POST.get('email'))
+
                 new_student = student_form.save(commit=False)
                 new_student.user = new_user
-                print(request.FILES.getlist('photo',))
                 new_student.save()
                 new_student.interests.set(request.POST.getlist('interests',))
-                login(request, authenticate(
+                login_user =  authenticate(
                     username = user_form.cleaned_data["username"],
                     password = user_form.cleaned_data["password"]
-                ))
+                )
+                if login_user is not None:
+                    login(request, login_user)
 
                 return redirect(profile)
 
@@ -65,7 +80,6 @@ def edit_profile(request):
                 new_user = User.objects.get(username = request.user.username)
                 new_student = student_form.save(commit=False)
                 new_student.user = new_user
-                print(request.FILES.getlist('photo',))
                 new_student.save()
                 new_student.interests.set(request.POST.getlist('interests',))
 
@@ -86,12 +100,10 @@ def profile(request):
     taken_module = TakenModule.objects.filter(student = request.user.student)
     taken_content = TakenContent.objects.filter(student = request.user.student)
     level = Student.calculate_level(request.user.student)
-    rank_calculated = Student.calculate_rank(request.user.student)
-    print(StudentLevel.objects.all())
-    #request.user.student.rank = StudentLevel.objects.get()
+    Student.calculate_rank(request.user.student)
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
-        , 'taken_content' : taken_content, 'level':level})
+        , 'taken_content' : taken_content, 'level':level })
 
 def profiles(request,user):
     this_user = User.objects.get(username = user)
@@ -101,6 +113,7 @@ def profiles(request,user):
 
 def leaderboard_view(request):
     all_students = Student.objects.order_by('-exp')[:20]
+    print( "all students" + str(all_students) + "\n")
     student_high_rank =  Student.objects.filter(exp__gte = request.user.student.exp )[:5]
     print(student_high_rank)
     student_less_rank =  Student.objects.filter(exp__lte = request.user.student.exp ).exclude(user = request.user)[:5]

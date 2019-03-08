@@ -22,9 +22,6 @@
                     {% endif %}
                      {{course.overview | truncatewords:"10"}}
                      <br>
-
-
-
                      <a href="{% url  'modules' subject.title course.title  %}"
                      class="card-link btn btn-primary">More</a>
                    </div>
@@ -40,6 +37,7 @@
 
 
  </div>
+
   {% endfor %}
 
 </div>

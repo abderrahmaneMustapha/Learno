@@ -1,0 +1,38 @@
+
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block sidebar %}
+
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'Last Actions' %}</h3>             {# Title modified #}
+            {% load log %}
+            {% get_admin_log 10 as admin_log %}         {# No more filtering #}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    {# Add the author here, at the end #}
+                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}, by {{ entry.user }}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+
+{% endblock %}

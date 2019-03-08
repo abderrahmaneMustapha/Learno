@@ -26,6 +26,7 @@ def courses(request, subject):
 
     for course in subject_course :
         views.append(TakenCourse.objects.filter(course = course ).count())
+
     return render(request,'course/course_form.html',
     {'subject':subject ,'subject_course':subject_course, 'student_taken_course':student_taken_course
          ,'views' : views})
@@ -34,10 +35,13 @@ def courses(request, subject):
 def modules(request, subject, course):
     actual_course = Course.objects.get(title = course)
     course_module = Module.objects.filter(course = actual_course)
-    print()
     check_taken_course = TakenCourse.objects.filter(student =request.user.student, course=actual_course)
+    count_taken_module = TakenModule.objects.filter(student =request.user.student , course=actual_course)
     if check_taken_course.count()==0:
-        new_taken_course = TakenCourse.objects.create(student = current_student, course=my_course)
+        new_taken_course = TakenCourse.objects.create(student = request.user.student, course=actual_course,  subject= actual_course.subject)
+    if count_taken_module == course_module.count():
+        TakenCourse.objects.filter(student = request.user.student, course=actual_course, subject= actual_course.subject).update(completed = True)
+
     student_taken_module = TakenModule.objects.filter(student =request.user.student).values_list('module', flat=True)
     return render(request,'course/modules_form.html', {'student_taken_module':student_taken_module,
     'course':course ,'course_module':course_module})
@@ -46,11 +50,15 @@ def modules(request, subject, course):
 def contents(request, course, module):
     current_module= Module.objects.get(title=module)
     module_content= Content.objects.filter(module = current_module)
-    #current_student = Student.objects.get(user=request.user)
-    student_taken_content = TakenModule.objects.filter( module=current_module)
+    student_taken_content = TakenContent.objects.filter(student = request.user.student, module= current_module).values_list('id', flat =True)
+    count_taken_content = student_taken_content.count()
+
+    print(student_taken_content)
     check_taken_module = TakenModule.objects.filter(student = request.user.student, module=current_module )
     if check_taken_module.count() == 0:
-        new_taken_module = TakenModule.objects.create(student=request.user.student, module=current_module)
+        new_taken_module = TakenModule.objects.create(student=request.user.student, module=current_module, course = current_module.course)
+    if count_taken_content == module_content.count():
+       TakenModule.objects.filter(student=request.user.student, module=current_module , course = current_module.course).update(completed = True)
 
     return render(request,'course/contents_form.html',  {'module':module ,'module_content':module_content
         ,'student_taken_content': student_taken_content})
@@ -60,19 +68,21 @@ def contents(request, course, module):
 def learn(request, module, content):
     content_learn= Content.objects.get(title = content)
     current_student = Student.objects.get(user=request.user)
-    check_taken_content = TakenContent.objects.filter(student = current_student, content=content_learn)
+    print(module)
+    check_taken_content = TakenContent.objects.filter(student = current_student, content=content_learn, module = content_learn.module)
     if check_taken_content.count() ==0:
-        new_taken_content =  TakenContent.objects.create(student = current_student, content=content_learn)
+        new_taken_content =  TakenContent.objects.create(student = current_student, content=content_learn, module = content_learn.module)
+
     note_form = ContentNoteForm()
     if request.method == "POST":
             note_form = ContentNoteForm(request.POST)
             if note_form.is_valid() :
-                form = note_form.save(commit=False)
-                form.user = request.user
-                form.module = Module.objects.get(title = module)
-                form.content = Content.objects.get(title=content)
-                form.note = request.POST.get('note')
-                form.save()
+                if ContentNote.objects.filter(user = request.user, content = content_learn).count()==0:
+                    form = note_form.save(commit=False)
+                    form.content = Content.objects.get(title =content)
+                    form.note = request.POST.get('note')
+                    form.save()
 
     return render(request,'course/learn_form.html',
-    {'content':content ,'content_learn':content_learn, 'note_form' : note_form ,})
+    {'content':content ,'content_learn':content_learn, 'note_form' : note_form ,
+      })
