@@ -9,6 +9,8 @@
       <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
   </head>
   <body>
+    {{request.user.login_count}}
+    {{request.user.last_login}}
     <a href="{% url 'home' %}">Home</a>
     <br>
     <a href="{% url  'subjects' %}">Subjects</a>
@@ -60,7 +62,7 @@
 
     {% endblock %}
   </body>
-      
+
         <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 
         <script src="{% static 'js/custom.js' %}"></script>

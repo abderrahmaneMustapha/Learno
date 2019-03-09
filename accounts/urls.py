@@ -4,7 +4,15 @@ from django.conf.urls.static import static
 from . import views
 from  django.conf import settings
 
+from rest_framework import routers
+router = routers.DefaultRouter()
+router.register('students', views.StudentView)
+
 urlpatterns = [
+    #rest api urls
+    path('api/', include(router.urls)),
+
+
     path('', views.home, name='home'),
     #account views
     path('profile/', views.profile, name='profile'),

@@ -124,7 +124,7 @@ class Student(models.Model):
     interests = models.ManyToManyField(Tag,blank=True, related_name='interested_students')
     exp = models.PositiveIntegerField(db_index=True,blank=True,default=1)
     rank = models.ForeignKey(StudentLevel ,on_delete=models.CASCADE,blank=True, null=True , related_name='level')
-    position = models.PositiveIntegerField(null=True, blank=True)
+    level = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -132,6 +132,7 @@ class Student(models.Model):
     def calculate_level(self):
         import math
         level = int(1/4 * math.sqrt(self.exp))
+        self.level = level
         return level
     def calculate_rank(self):
         all_ranks = StudentLevel.objects.all()
@@ -153,6 +154,9 @@ class Student(models.Model):
         #Professional
         if  501 <= self.exp <= 600:
             self.rank = all_ranks[5]
+        if 601 <= self.exp :
+            self.rank = all_ranks[6]
+
         print(self.rank)
         return self.rank
 
@@ -179,7 +183,7 @@ def __str__(self):
 class TakenQuiz(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='taken_quizzes')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='taken_quizzes')
-
+    
     date = models.DateTimeField(auto_now_add=True)
     last_entr =   models.DateTimeField(auto_now=True)
     completed = models.BooleanField(null=True)

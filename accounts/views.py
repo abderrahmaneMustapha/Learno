@@ -5,11 +5,12 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from background_task.models import  Task, TaskQuerySet
 from background_task.models_completed import CompletedTask
-
+from rest_framework import viewsets
 from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel)
-from course.models import TakenCourse, TakenModule, TakenContent,Subject
+from course.models import TakenCourse, TakenModule, TakenContent,Subject,Course
+from . serializers import StudentSerializer
     #######################
     # background task
 from background_task import background, tasks
@@ -18,11 +19,13 @@ from django.contrib.auth.models import User
 @background
 def hello(student_name):
     # lookup user by id and send them a message
+
     this_user = User.objects.get(username = student_name)
     Student.calculate_rank(this_user.student)
     print(this_user.student.rank)
 
 ########################
+from django.core import serializers
 
 
 def home(request):
@@ -30,11 +33,18 @@ def home(request):
     """
     CompletedTask.objects.all().delete()
     Task.objects.all().delete()
-    
+
     """
+    """
+    this is how we reverse ForeignKey search
+    print(Course.objects.filter(subject__title = 'Programming language').count())
+    """
+    #
+    #"data = serializers.serialize("json", Subject.objects.all(), fields=('title'))
+    #print(data)
     if request.user.is_authenticated:
         student = Student.objects.only('pk').get(user = request.user)
-        print(student)
+
         hello(str(student), repeat= 5 , repeat_until = None)
     return render(request,'home.html',{'subject' : subject})
 
@@ -99,6 +109,7 @@ def profile(request):
     taken_course = TakenCourse.objects.filter(student = request.user.student )
     taken_module = TakenModule.objects.filter(student = request.user.student)
     taken_content = TakenContent.objects.filter(student = request.user.student)
+    print(Student.calculate_rank(request.user.student))
     level = Student.calculate_level(request.user.student)
     Student.calculate_rank(request.user.student)
     return render(request, 'accounts/profile.html',{'interests' : interests ,
@@ -201,3 +212,15 @@ def stage_result_view(request,stage, stage_result):
 
     return render(request, 'quizzes/stage_result_form.html', {'last_student_result' : last_student_result ,
                         'questions_number' : questions_number })
+
+
+
+######## REST API ########
+from rest_framework import permissions
+
+
+class StudentView(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    http_method_names = ['get',]
