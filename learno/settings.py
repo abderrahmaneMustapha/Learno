@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'background_task',
     'social_django',  # <--
 
     'accounts',
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'colorful',
 
     'rest_framework',
-    'background_task',
+
 
 ]
 
