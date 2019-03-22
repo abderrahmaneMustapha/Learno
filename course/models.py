@@ -2,16 +2,24 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from colorful.fields import RGBColorField
-from accounts.models import Student, Tag, Badge
+
+from accounts.models import Student, Tag, Badge, Question
+
+from django.template.defaultfilters import slugify
+from django.utils import timezone
+
 
 class Subject (models.Model):
     title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, null=True, blank=True)
     description = models.TextField(blank=True)
     photo = models.ImageField(upload_to='subject_photos/', blank=True,)
     approved = models.BooleanField(default=False)
     color = RGBColorField(max_length=7, default='#007bff')
     verified = models.BooleanField(default=False)
-
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Subject, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -22,12 +30,14 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     tags = models.ManyToManyField(Tag, blank =True, default =None, related_name='tag_courses' )
     overview = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateField(auto_now_add=True)
     photo = models.ImageField(upload_to='courses_photos/', blank=True,)
     approved = models.BooleanField(default=False)
-
     verified = models.BooleanField(default=False)
-
+    slug = models.SlugField(max_length=200, null=True, blank=True)
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Course, self).save(*args, **kwargs)
     class Meta:
         ordering =['-created']
     def __str__(self):
@@ -43,7 +53,10 @@ class Module(models.Model):
     photo = models.ImageField(upload_to='modules_photos/', blank=True,)
     approved = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-
+    slug = models.SlugField(max_length=200, null=True, blank=True)
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Module, self).save(*args, **kwargs)
     class Meta:
         ordering = ['order']
 
@@ -53,6 +66,7 @@ class Module(models.Model):
 class Content(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE,related_query_name='module_contents')
     title = models.CharField(max_length=200, blank=True)
+    question = models.OneToOneField(Question, on_delete=models.CASCADE, related_query_name='question_contents', null=True, blank=True)
     text = models.TextField()
     video = models.URLField(blank=True)
     file = models.FileField(upload_to='content/file/',blank=True)
@@ -60,7 +74,10 @@ class Content(models.Model):
     order = models.PositiveIntegerField(unique=True)
     approved = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
-
+    slug = models.SlugField(max_length=200, null=True, blank=True)
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Content, self).save(*args, **kwargs)
     class Meta:
         ordering = ['order']
 
@@ -74,7 +91,7 @@ class ContentNote(models.Model):
     note = models.TextField(max_length=300)
 
     def __str__(self):
-        return '{}  {} {} '.format(self.user, self.module , self.content)
+        return '{} {} '.format(self.user , self.content)
 
 
 class TakenCourse(models.Model):
@@ -83,6 +100,7 @@ class TakenCourse(models.Model):
     course  = models.ForeignKey(Course,on_delete=models.CASCADE, related_name='course_taken')
     date = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(null=True)
+
     def __str__(self):
         return str(self.course.title)
 

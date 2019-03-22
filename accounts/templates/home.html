@@ -9,6 +9,7 @@
       <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
   </head>
   <body>
+    {% block bar %}
     {{request.user.login_count}}
     {{request.user.last_login}}
     <a href="{% url 'home' %}">Home</a>
@@ -31,6 +32,7 @@
 <a href="{% url 'login' %}"> Sign in</a>
 {% endif %}
 <br>
+{% endblock %}
     {% block main %}
       Welcome {{request.user.student}}
       <br>
@@ -45,9 +47,8 @@
                   <h4 class="card-title">{{sub.title}}</h4>
                       <div class="card-body">
                          {{sub.description | truncatewords:"10"}}
-
                          <br>
-                         <a href="{% url 'courses' sub.title %}"
+                         <a href="{% url 'courses' sub.slug %}"
                          class="card-link btn btn-primary">More</a>
                        </div>
            </div>
@@ -61,6 +62,7 @@
 
 
     {% endblock %}
+    
   </body>
 
         <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>

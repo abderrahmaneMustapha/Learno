@@ -1,5 +1,4 @@
-
-  $(document).ready(function(){
+$(document).ready(function(){
     var productForm = $(".form-answer-ajax");
     var submitButton = productForm.closest('form').find(':submit');
 

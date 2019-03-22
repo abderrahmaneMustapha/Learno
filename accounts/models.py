@@ -90,17 +90,17 @@ class Badge(models.Model):
 class StudentLevel(models.Model):
 
     Novice  = 1
-    Apprentice = 2
-    Trainee = 3
-    Beginner =  4
-    Amateur  = 5
-    Professional  = 6
-    Master = 7
-    Wizard =8
-    Mage = 9
-    White_Mage = 10
-    Regent = 11
-    King = 12
+    Apprentice = 2   #120
+    Trainee = 3      #50
+    Beginner =  4    #34
+    Amateur  = 5     #22
+    Professional  = 6#17
+    Master = 7       #13
+    Wizard =8        # 9
+    Mage = 9         # 7
+    White_Mage = 10  # 5
+    Regent = 11      #3
+    King = 12        # 1
 
     STATUS_CHOICES =  (
         (Novice, "Novice"), (Apprentice, "Apprentice"), (Trainee, "Trainee"),
@@ -112,6 +112,9 @@ class StudentLevel(models.Model):
     name = models.IntegerField(choices = STATUS_CHOICES, default=1 )
     logo = models.ImageField(upload_to='level_pic/',default=None,blank=True)
     description = models.TextField(max_length=200)
+    graduation_number = models.IntegerField(null=True, blank = True)
+    exp_required = models.  PositiveIntegerField(null=True, blank = True)
+
 
     def __str__(self):
         return self.get_name_display()
@@ -132,33 +135,38 @@ class Student(models.Model):
     def calculate_level(self):
         import math
         level = int(1/4 * math.sqrt(self.exp))
+
         self.level = level
         return level
-    def calculate_rank(self):
-        all_ranks = StudentLevel.objects.all()
-        #Novice
-        if 0 <= self.exp <= 100:
-            self.rank = all_ranks[0]
-        #Apprentice
-        if 101 <= self.exp <= 180:
-            self.rank = all_ranks[1]
-        #Trainee
-        if  181 <= self.exp <= 300:
-            self.rank = all_ranks[2]
-        #Beginner
-        if  301 <= self.exp <= 400:
-            self.rank = all_ranks[3]
-        #Amateur
-        if  401 <= self.exp <= 500:
-            self.rank = all_ranks[4]
-        #Professional
-        if  501 <= self.exp <= 600:
-            self.rank = all_ranks[5]
-        if 601 <= self.exp :
-            self.rank = all_ranks[6]
 
-        print(self.rank)
-        return self.rank
+def calculate_rank():
+
+    users_ranks = StudentLevel.objects.all().order_by('exp_required')
+    for rank in users_ranks:
+        #go to the next rank
+        if rank.name < 12:
+         student = Student.objects.filter(rank = rank).order_by('-exp').first()
+         if student is not None:
+            if student.exp > rank.exp_required:
+                next_rank = StudentLevel.objects.filter(name__gt = rank.name).first()
+                print(next_rank)
+                Student.objects.filter(user = student.user).update(rank = next_rank)
+
+        #go down to the previous rank
+        if rank.name > 1:
+            students = Student.objects.filter(rank = rank)
+            print("all students")
+            print(students)
+            if students.count() > rank.graduation_number :
+                 student = students.order_by('exp').first()
+                 print(student)
+                 previous_rank =  StudentLevel.objects.filter(name__lt = rank.name).last()
+                 Student.objects.filter(user = student.user).update(rank = previous_rank)
+
+
+    print("aaa")
+
+
 
 
 #this Model contain only  the right answers of a  given student
@@ -183,7 +191,7 @@ def __str__(self):
 class TakenQuiz(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='taken_quizzes')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='taken_quizzes')
-    
+
     date = models.DateTimeField(auto_now_add=True)
     last_entr =   models.DateTimeField(auto_now=True)
     completed = models.BooleanField(null=True)

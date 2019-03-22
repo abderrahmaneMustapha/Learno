@@ -2,7 +2,13 @@
 {% load index %}
 {% block title %}{{subject.title}}{% endblock %}
 
+{% block bar %}
+{{ block.super }}
 
+    <a href="{% url 'add-course' subject %}"
+    class="btn btn-warning">Suggest Course</a>
+
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row ">
@@ -10,7 +16,6 @@
 {% for course in subject_course %}
 
 <div class="col-3">
-
       {% if course.approved %}
         <div class="card ">
 
@@ -22,7 +27,7 @@
                     {% endif %}
                      {{course.overview | truncatewords:"10"}}
                      <br>
-                     <a href="{% url  'modules' subject.title course.title  %}"
+                     <a href="{% url  'modules' course.subject.slug course.slug  %}"
                      class="card-link btn btn-primary">More</a>
                    </div>
                    <div class="card-footer">

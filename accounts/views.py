@@ -3,33 +3,27 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
-from background_task.models import  Task, TaskQuerySet
-from background_task.models_completed import CompletedTask
-from rest_framework import viewsets
+
+from django.views.decorators.cache import cache_page
+
 from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
-TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel)
+TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
 from course.models import TakenCourse, TakenModule, TakenContent,Subject,Course
 from . serializers import StudentSerializer
-    #######################
-    # background task
-from background_task import background, tasks
-from django.contrib.auth.models import User
 
-@background
-def hello(student_name):
-    # lookup user by id and send them a message
-
-    this_user = User.objects.get(username = student_name)
-    Student.calculate_rank(this_user.student)
-    print(this_user.student.rank)
-
-########################
 from django.core import serializers
 
+from background_task import background
+@background(schedule=1)
+def notify_user():
+    calculate_rank()
+
+notify_user()
 
 def home(request):
     subject = Subject.objects.all()
+
     """
     CompletedTask.objects.all().delete()
     Task.objects.all().delete()
@@ -42,11 +36,9 @@ def home(request):
     #
     #"data = serializers.serialize("json", Subject.objects.all(), fields=('title'))
     #print(data)
-    if request.user.is_authenticated:
-        student = Student.objects.only('pk').get(user = request.user)
 
-        hello(str(student), repeat= 5 , repeat_until = None)
     return render(request,'home.html',{'subject' : subject})
+
 
 
 def signup(request):
@@ -109,12 +101,16 @@ def profile(request):
     taken_course = TakenCourse.objects.filter(student = request.user.student )
     taken_module = TakenModule.objects.filter(student = request.user.student)
     taken_content = TakenContent.objects.filter(student = request.user.student)
-    print(Student.calculate_rank(request.user.student))
+
     level = Student.calculate_level(request.user.student)
-    Student.calculate_rank(request.user.student)
+    next_level_exp = (4*(level+1))*(4*(level+1))
+
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
         , 'taken_content' : taken_content, 'level':level })
+
+def code_editor(request):
+    return render(request, 'codeeditor_base.html', {})
 
 def profiles(request,user):
     this_user = User.objects.get(username = user)
@@ -142,6 +138,7 @@ def quizzes_view(request):
     return render(request, 'quizzes/quizzes_form.html',{'quizzes':quizzes,
                                     'taken_quiz':taken_quiz , 'views' : views})
 @login_required
+
 def stages_view(request,quiz):
     actual_quiz = Quiz.objects.get(name= quiz)
     stages = Stage.objects.filter(quiz = actual_quiz )
@@ -157,6 +154,7 @@ def stages_view(request,quiz):
 
 
 @login_required
+
 def questions_view(request,stage):
     actual_stage = Stage.objects.get(name=stage)
     questions = Question.objects.filter(stage = actual_stage)
@@ -217,7 +215,7 @@ def stage_result_view(request,stage, stage_result):
 
 ######## REST API ########
 from rest_framework import permissions
-
+from rest_framework import viewsets
 
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()

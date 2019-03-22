@@ -20,10 +20,11 @@
             <div class="card-header">
               <img class="rounded-circle offset-5" src="{{ MEDIA_URL }}{{this_student.photo.url }}"
                         width="70" height="70" />
-                  
+
                      <h5> {{this_student}} </h5>
                  <div class="row">
                       Point:   {{this_student.exp}}
+                     
                  </div>
                    {% for interest in this_student.interests.all%}
                    <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"

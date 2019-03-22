@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+  
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="{% static 'css/ide_style.css' %}"/>
+
+
+
+    <script  src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <link rel="stylesheet" href="{% static  'codemirror/lib/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static  'codemirror/theme/blackboard.css' %}">
+    <script  src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
+    <script  src="{% static 'codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+
+    <script  src="{% static 'codemirror/mode/css/css.js' %}"></script>
+
+
+    <title>{% block title %}{% endblock %}</title>
+    <style media="screen">
+      body {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+
+
+    <div class="header"></div>
+       <div class="wrap">
+         <div class="result">
+           <iframe src="" id="preview">
+
+             <!DOCTYPE html>
+             <html lang="en" dir="ltr">
+               <head>
+                 <meta charset="utf-8">
+                 <title></title>
+               </head>
+               <body>
+
+               </body>
+             </html>
+
+           </iframe>
+
+         </div>
+         <div class="code">
+
+           <button class="accordion">HTML</button>
+           <div  class="pannel">
+               <textarea id="html"></textarea>
+           </div>
+
+           <button class="accordion">CSS</button>
+           <div  class="pannel">
+                 <textarea id="css"></textarea>
+           </div>
+
+           <button class="accordion">JS/jQuery</button>
+
+           <div  class="pannel">
+                 <textarea id="js" ></textarea>
+           </div>
+
+         </div>
+       </div>
+
+
+  </body>
+    <script  src="{% static 'js/main.js' %}"></script>
+
+</html>

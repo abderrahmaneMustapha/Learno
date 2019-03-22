@@ -20,7 +20,7 @@
                     {% endif %}
                      {{sub.description | truncatewords:"10"}}
                      <br>
-                     <a href="{% url 'courses' sub.title %}"
+                     <a href="{% url 'courses' sub.slug %}"
                      class="card-link btn btn-primary">More</a>
                    </div>
        </div>

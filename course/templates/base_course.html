@@ -1,14 +1,14 @@
+{% extends 'home.html' %}
 <!DOCTYPE html>
 {% load static %}
+{% block main %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
-      <link rel="stylesheet" href="{% static 'font-awesome/css/fontawesome.min.css' %}">
-      <link rel="stylesheet" href="{% static 'font-awesome/css/brands.min.css' %}">
-      <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
+
   </head>
   <body>
     {% block content %}
@@ -17,7 +17,7 @@
     {% endblock %}
 
   </body>
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-      <script src="{% static 'js/custom.js' %}"></script>
+
+      <script src="{% static 'js/custom_course.js' %}"></script>
 </html>
+{% endblock %}

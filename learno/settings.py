@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,9 +47,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'colorful',
 
-    'background_task',
-
     'rest_framework',
+    'background_task',
 
 ]
 
@@ -196,6 +194,5 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'b6a86e0df1be4a353506f2248fe5a0b1'  # App Secret
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'email' , 'password',]
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 RAISE_EXCEPTIONS = True
-
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'

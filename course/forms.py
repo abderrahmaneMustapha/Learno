@@ -1,11 +1,19 @@
 from django import forms
 from .models import Subject,Course,Module,ContentNote, Content, TakenCourse
-
-class SubjectForm(forms.ModelForm):
+from accounts.models import Tag
+class CourseForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+       queryset=Tag.objects.all(),
+       widget=forms.CheckboxSelectMultiple,
+       required=False
+   )
 
     class Meta:
-        model = Subject
-        fields = ('title','description','photo')
+        model = Course
+        fields = ('title', 'tags', 'overview')
+        widgets = {'tags' : forms.CheckboxSelectMultiple ,
+                  }
+
 
 
 class ContentNoteForm(forms.ModelForm):

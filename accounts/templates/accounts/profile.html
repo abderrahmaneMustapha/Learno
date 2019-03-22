@@ -20,10 +20,14 @@
                         <br>
                           <p><a href="{% url 'password_reset' %}">reset password</a></p>
                  <h5>{{ request.user.get_username }}</h5>
+                 <a href="{% url 'code-editor' %}">Web editor</a>
+
                  <div class="row">
                       Level : {{level}}
                       <br>
                       Point:   {{request.user.student.exp}} exp
+                      <br>
+
 
                       <img class="" src="{{request.user.student.rank.logo.url}}"
                                 width="7%" height="7%" />
@@ -39,18 +43,14 @@
 
                  <h6>Taken Course</h6>
                  {% for course in taken_course %}
-                 <a class="col" href="{% url  'modules' course.subject course %}">{{course.course.title}}</a>
+                 <a class="col" href="{% url  'modules' course.subject.slug course.course.slug %}">{{course.course.title}}</a>
                  {% endfor %}
 
                  <h6>Taken Module</h6>
                  {% for module in taken_module %}
-                 <a class="col" href="{% url 'contents' module.course.title module %}">{{module.module.title}}</a>
+                 <a class="col" href="{% url 'contents' module.course.slug module.module.slug %}">{{module.module.title}}</a>
                  {% endfor %}
 
-                 <h6> Content complited</h6>
-                 {% for content in taken_content %}
-                 <a class="col" href="{% url 'learn' content.module content %}">{{content.content.title}}</a>
-                 {% endfor %}
                </div>
 
 <div class="card-footer ">

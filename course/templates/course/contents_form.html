@@ -2,19 +2,15 @@
 {%block title %}{{module.title}}{% endblock %}
 
 {% block content %}
-
-        {% for content in module_content %}
+  {% if start_first_content %}
         <div class="card">
           <div class="card-body">
                    <br>
-                   <a href="{% url 'learn' module.title content.title %}">{{content.title}}</a>
-                  
-                      {%  if content.id in student_taken_content %}
-                      <i class="fas fa-eye float-right"></i>
-                     {% endif %}
+                   <a href="{% url 'learn' module start_first_content.slug  %}">Start</a>
+
                    </div>
                </div>
-        {% endfor %}
+{%endif%}
 
 
 {% endblock %}

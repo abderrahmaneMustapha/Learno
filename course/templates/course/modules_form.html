@@ -22,14 +22,24 @@
                     alt="Card image" style="width:100%">
                     {% endif %}
                      {{module.description | truncatewords:"10"}}
+
                      <br>
-                     <a href="{% url 'contents' course.title module.title %}"
+                     {% if module in completed_module %}
+                     <a href="{% url 'contents' course module.slug %}"
                      class="card-link btn btn-primary">More</a>
+                     {%else%}
+                     <a {% if module == next_module %}
+                     href="{% url 'contents' course module.slug %}"
+                     class="card-link btn btn-primary"
+                     class="card-link btn ">More
+                     {%endif%}
+                     </a>
+                     {%endif%}
                    </div>
                    <div class="card-footer">
                      <span class="badge badge-dark">
 
-                       
+
                       {%  if module.id in student_taken_module %}
                       <i class="fas fa-eye float-right"></i>
                      {% endif %}

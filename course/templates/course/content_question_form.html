@@ -1,0 +1,12 @@
+
+
+
+<form  method="POST">
+  {%csrf_token%}
+  {{ this_question }}
+  {% for answer in this_question_answers %}
+  <br>
+    <input type="checkbox" name="answer" value="{{answer.id}}"> {{answer.text}}
+  {%endfor%}
+ <button type="submit" name="button">submit</button>
+</form>

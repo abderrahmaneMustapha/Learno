@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<form class="form-group" method="POST">
+  {% csrf_token %}
+{% bootstrap_form course_form %}
+
+<button type="submit">Save</button>
+</form>
+{% endblock %}
