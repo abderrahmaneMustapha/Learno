@@ -1,4 +1,4 @@
-Django==2.1.6
+Django==2.1.7
 amqp==2.4.1
 arrow==0.13.1
 billiard==3.6.0.0
