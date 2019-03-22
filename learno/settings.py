@@ -15,10 +15,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
 
-TEST_RUNNER = 'django_heroku.HerokuDiscoverRunner'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -44,6 +41,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'django.contrib.admin',
+    'django_heroku',
 
 
     'course',
@@ -202,3 +200,11 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 RAISE_EXCEPTIONS = True
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'
+
+
+
+import django_heroku
+django_heroku.settings(locals())
+
+TEST_RUNNER = 'django_heroku.HerokuDiscoverRunner'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
