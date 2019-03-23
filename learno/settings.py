@@ -24,8 +24,13 @@ SECRET_KEY = 'gz0wegcw&7$z!v@^7^_!k#o%x2k1*&ke-mh^-bm25uh9aj0g7w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = (os.environ.get('HACKIDE_DEBUG') or "").lower() == "true"
 
 ALLOWED_HOSTS = []
+
+# To allow the cross site request over the app
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 # Application definition
@@ -38,28 +43,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
     'accounts',
-    'django.contrib.admin',
-    'django_heroku',
-
-
+    'ide',
     'course',
+
+    'django.contrib.admin',
 
     'bootstrap4',
     'colorful',
 
-
+    'django_heroku',
     'rest_framework',
     'background_task',
     'social_django',  # <--
+
 
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -176,11 +179,11 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-""""
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-"""
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
