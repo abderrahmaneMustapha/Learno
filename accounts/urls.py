@@ -52,8 +52,7 @@ urlpatterns = [
    #email confirmation
    #path('activate/<uidb64>/<token>/',
         #views.activate, name='activate'),
-  # code editor
-  path('editor/', views.code_editor, name='code-editor'),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

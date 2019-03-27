@@ -11,3 +11,9 @@ class codes(models.Model):
     run_status_memory= models.TextField( max_length=500)
     run_status_output= models.TextField( max_length=500)
     run_status_stderr= models.TextField( max_length=500)
+
+class SupportedLanguages(models.Model):
+    name = models.TextField( max_length=500)
+    created = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return self.name

@@ -15,15 +15,13 @@
     <a href="{% url 'home' %}">Home</a>
     <br>
     <a href="{% url  'subjects' %}">Subjects</a>
-    <br>
-    <a href="{% url  'quizzes' %}">Quizzes</a>
-    <br>
   {% if user.is_authenticated %}
-  <a href="{% url 'logout' %}">logout</a>
+  <br>
+  <a href="{% url 'logout' %}">Logout</a>
   <br>
    <a href="{% url 'profile' %}">Account</a>
   <br>
-   <a href="{% url 'leaderboard' %}">leaderboard</a>
+   <a href="{% url 'leaderboard' %}">Leaderboard</a>
   {% else %}
   <br>
 <a href="{% url 'signup' %}"> Sign up</a>
@@ -32,6 +30,7 @@
 <a href="{% url 'login' %}"> Sign in</a>
 {% endif %}
 <br>
+<a href="{% url 'coding-ground' %}">Coding ground</a>
 {% endblock %}
     {% block main %}
       Welcome {{request.user.student}}
@@ -62,7 +61,7 @@
 
 
     {% endblock %}
-    
+
   </body>
 
         <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>

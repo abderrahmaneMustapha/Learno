@@ -109,8 +109,7 @@ def profile(request):
         'taken_course' : taken_course, 'taken_module' : taken_module
         , 'taken_content' : taken_content, 'level':level })
 
-def code_editor(request):
-    return render(request, 'codeeditor_base.html', {})
+
 
 def profiles(request,user):
     this_user = User.objects.get(username = user)
