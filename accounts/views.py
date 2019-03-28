@@ -14,12 +14,7 @@ from . serializers import StudentSerializer
 
 from django.core import serializers
 
-from background_task import background
-@background(schedule=1)
-def notify_user():
-    calculate_rank()
 
-notify_user()
 
 def home(request):
     subject = Subject.objects.all()

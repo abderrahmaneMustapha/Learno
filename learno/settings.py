@@ -54,7 +54,6 @@ INSTALLED_APPS = [
 
     'django_heroku',
     'rest_framework',
-    'background_task',
     'social_django',  # <--
 
 

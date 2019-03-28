@@ -1,5 +1,5 @@
 {% extends 'ide_index.html' %}
-{% load static %}
+
 
 {% block script %}
 {{language_mode}}
@@ -24,5 +24,14 @@
 
 </div>
 </div>
-<script  src="{% static 'js/ide_custome.js' %}"></script>
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code_id"),{
+  lineNumbers: true,
+  mode : '{{language}}',
+  theme : 'dracula'
+  });
+
+  editor.setSize(500, 300);
+</script>
 {% endblock %}
