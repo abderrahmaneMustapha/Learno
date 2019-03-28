@@ -202,8 +202,8 @@ class CompletedStage(models.Model):
         quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True, related_name='stage_quizze')
         stage = models.ForeignKey(Stage, on_delete=models.CASCADE, related_name='user_stages')
         score = models.FloatField()
-        date = models.DateTimeField(auto_now_add=True)
-        last_entr =   models.DateTimeField(auto_now=True)
+        date = models.DateTimeField(auto_now=True)
+        last_entr =   models.DateTimeField(auto_now_add=True)
         def __str__(self):
             return self.stage.name
 
