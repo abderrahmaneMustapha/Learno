@@ -82,11 +82,12 @@ def edit_profile(request):
             user_form = EditUserForm(request.POST, instance=request.user)
             student_form = StudentForm(request.POST, request.FILES, instance=request.user.student)
             if user_form.is_valid() and student_form.is_valid():
-                new_user = User.objects.get(pk = request.user.pk)
-                new_user.username = request.POST.get('username')
-                new_user.password = request.POST.get('password')
-                new_user.email = request.POST.get('email')
-                new_user.save()
+                new_user = User.objects.get(pk = request.user.pk).update(
+                username =  request.POST.get('username'),
+                password =  request.POST.get('password'),
+                email = request.POST.get('email'),
+                )
+                
                 new_student = student_form.save(commit=False)
                 new_student.user = new_user
                 new_student.save()
