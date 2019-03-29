@@ -17,8 +17,9 @@ from django.core import serializers
 
 
 def home(request):
-    subject = ''
+
     subject = Subject.objects.all()
+
 
     """
     CompletedTask.objects.all().delete()
