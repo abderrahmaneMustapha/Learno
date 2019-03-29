@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+     'background_task',
     'accounts',
     'ide',
     'course',
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_heroku',
     'rest_framework',
     'social_django',  # <--
+
 
 
 
