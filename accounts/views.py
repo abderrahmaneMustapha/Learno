@@ -73,7 +73,7 @@ def signup(request):
             'student_form' : student_form,
     })
 
-@login_required
+
 def edit_profile(request):
     user_form = EditUserForm(instance=request.user)
     student_form = StudentForm(instance=request.user.student)
@@ -124,6 +124,7 @@ def profiles(request,user):
     print(this_student.interests.all())
     return render(request, 'accounts/profiles.html', {'this_student' : this_student})
 
+@login_required
 def leaderboard_view(request):
     all_students = Student.objects.order_by('-exp')[:20]
     print( "all students" + str(all_students) + "\n")
