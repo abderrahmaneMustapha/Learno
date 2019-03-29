@@ -1,2 +1,2 @@
-release: python manage.py migrate
 web: gunicorn learno.wsgi
+release: python manage.py migrate
