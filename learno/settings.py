@@ -195,8 +195,8 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testsite_app'
-EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
+EMAIL_HOST_USER = 'abderrahmanemustapha030898@gmail.com'
+EMAIL_HOST_PASSWORD = 'Abdou030898mA'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
