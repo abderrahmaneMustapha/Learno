@@ -16,10 +16,10 @@ from django.core import serializers
 
 from background_task import background
 @background(schedule=1)
-def notify_user():
+def notify_user(repeat=604800):
     calculate_rank()
 
-notify_user()
+notify_user(repeat=604800)
 
 
 def home(request):
