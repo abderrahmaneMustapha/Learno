@@ -24,6 +24,8 @@ SECRET_KEY = 'gz0wegcw&7$z!v@^7^_!k#o%x2k1*&ke-mh^-bm25uh9aj0g7w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+
 # DEBUG = (os.environ.get('HACKIDE_DEBUG') or "").lower() == "true"
 
 ALLOWED_HOSTS = []
@@ -193,7 +195,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abderrahmanemustapha030898@gmail.com'
 EMAIL_HOST_PASSWORD = 'Abdou030898mA'
