@@ -37,7 +37,7 @@
       <br>
     <div class="container">
       <div class="row ">
-
+{% if subject %}
       {% for sub in  subject %}
     <div class="col-3">
        {% if sub.approved %}
@@ -54,7 +54,7 @@
        {% endif %}
      </div>
       {% endfor %}
-
+{% endif %}
     </div>
     </div>
 
