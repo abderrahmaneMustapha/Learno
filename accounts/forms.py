@@ -43,6 +43,7 @@ class StudentForm(forms.ModelForm):
          widgets = {'interests': forms.CheckboxSelectMultiple}
 
 class EditUserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
          model = User
          fields = ("username", "password",'email',)
