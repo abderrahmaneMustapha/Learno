@@ -1,1 +1,1 @@
-web: gunicorn learno.wsgi --log-file
+web: gunicorn learno.wsgi
