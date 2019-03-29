@@ -73,26 +73,17 @@ def signup(request):
             'student_form' : student_form,
     })
 
-
+@login_required
 def edit_profile(request):
     user_form = EditUserForm(instance=request.user)
     student_form = StudentForm(instance=request.user.student)
 
     if request.method == "POST":
-            user_form = EditUserForm(request.POST, instance=request.user)
+            user_form =  EditUserForm(request.POST, instance=request.user)
             student_form = StudentForm(request.POST, request.FILES, instance=request.user.student)
             if user_form.is_valid() and student_form.is_valid():
-                new_user = User.objects.get(pk = request.user.pk)
-                new_user.username = user_form.cleaned_data['username']
-                new_user.password = user_form.cleaned_data['password']
-                new_user.email = user_form.cleaned_data['email']
-                new_user.save()
-
-
-                new_student = student_form.save(commit=False)
-                new_student.user = new_user
-                new_student.save()
-                new_student.interests.set(request.POST.getlist('interests',))
+                user_form.save()
+                student_form.save()
 
                 return redirect(profile)
 
@@ -129,11 +120,10 @@ def profiles(request,user):
 @login_required
 def leaderboard_view(request):
     all_students = Student.objects.order_by('-exp')[:20]
-    print( "all students" + str(all_students) + "\n")
+
     student_high_rank =  Student.objects.filter(exp__gte = request.user.student.exp )[:5]
-    print(student_high_rank)
+
     student_less_rank =  Student.objects.filter(exp__lte = request.user.student.exp ).exclude(user = request.user)[:5]
-    print(student_less_rank)
 
     return render(request, 'accounts/leaderboard.html', {'all_students': all_students})
 @login_required
