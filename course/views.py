@@ -61,6 +61,7 @@ def modules(request, subject, course):
             print(course_module.count())
             if  completed_taken_module.count()  == course_module.count():
                 TakenCourse.objects.filter(student = request.user.student, course=actual_course,  subject= actual_course.subject).update(completed = True)
+                request.user.student.exp += 50
 
     else:
         next_module = Module.objects.first()

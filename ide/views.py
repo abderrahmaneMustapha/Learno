@@ -11,7 +11,7 @@ RUN_URL = u"https://api.jdoodle.com/v1/execute"
 clientSecret = "28c60d0e09ddd9d82ac4d48758a679fe0051c7bf82819590cfd22a068bed1ad5"
 clientId = "8bd8f1555d1454df0f7df8cacf9f4eb9"
 
-permitted_languages = ["c", "cpp","java","ruby", "php", "python2","r", "swift",
+permitted_languages = ["c", "cpp","java","ruby", "php", "python2","python3","r", "swift",
  "csharp", "sql"]
 
 
@@ -36,9 +36,6 @@ def main_editor(request, language):
         template = 'ide/forntend_ide_form.html'
         context = {'language_mode' : language_mode}
         language_mode = MediaForm.media(language)
-        print(language_mode)
-
-
     else:
         if language in permitted_languages:
             source = None
@@ -52,7 +49,7 @@ def main_editor(request, language):
                 "clientSecret": clientSecret,
                 "script":source,
                 "language":language,
-                "versionIndex":"0"}
+                "versionIndex":"1"}
 
                 r = requests.post(RUN_URL,  json=data)
                 output = r.json()['output']
