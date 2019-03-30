@@ -2,7 +2,7 @@
 
 {% extends 'home.html' %}
 {% load bootstrap4 %}
-{% block title %}{% endblock %}
+{% block title %}Profile | {{this_student}} {% endblock %}
 
 
 
@@ -24,7 +24,7 @@
                      <h5> {{this_student}} </h5>
                  <div class="row">
                       Point:   {{this_student.exp}}
-                     
+
                  </div>
                    {% for interest in this_student.interests.all%}
                    <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"

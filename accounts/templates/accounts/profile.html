@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 {% load bootstrap4 %}
-{% block title %}{% endblock %}
+{% block title %}Profile | {{ request.user.get_username }} {% endblock %}
 {% block main %}
 
 <div class="container">
