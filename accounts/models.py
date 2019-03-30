@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from colorful.fields import RGBColorField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 #make the email field unique
 User._meta.get_field('email')._unique = True
 
@@ -138,6 +140,13 @@ class Student(models.Model):
 
         self.level = level
         return level
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 def calculate_rank():
 
