@@ -51,18 +51,19 @@ def modules(request, subject, course):
     completed_module = ''
     next_module  = ''
     student_taken_module  = ''
-    if course_module:
+    if last_taken_module:
+        if course_module:
+            completed_module = Module.objects.filter(course =actual_course , pk__lte = last_taken_module.module.pk)
 
-        completed_module = Module.objects.filter(course =actual_course , pk__lte = last_taken_module.module.pk)
+            next_module = Module.objects.filter( course=actual_course, pk__gt = completed_module.last().pk ).first()
+            student_taken_module = TakenModule.objects.filter(student =request.user.student, course=actual_course).values_list('module', flat=True)
+            print(completed_taken_module.count())
+            print(course_module.count())
+            if  completed_taken_module.count()  == course_module.count():
+                TakenCourse.objects.filter(student = request.user.student, course=actual_course,  subject= actual_course.subject).update(completed = True)
 
-        next_module = Module.objects.filter( course=actual_course, pk__gt = completed_module.last().pk ).first()
-        student_taken_module = TakenModule.objects.filter(student =request.user.student, course=actual_course).values_list('module', flat=True)
-        print(completed_taken_module.count())
-        print(course_module.count())
-        if  completed_taken_module.count()  == course_module.count():
-            TakenCourse.objects.filter(student = request.user.student, course=actual_course,  subject= actual_course.subject).update(completed = True)
-
-
+    else:
+        next_module = Module.objects.first()
     return render(request,'course/modules_form.html', {'student_taken_module':student_taken_module,
     'course':course ,'course_module':course_module, 'completed_module': completed_module , 'next_module': next_module })
 

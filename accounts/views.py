@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 
 from django.views.decorators.cache import cache_page
 
-from .forms import StudentForm, UserForm ,AnswerForm, EditUserForm
+from .forms import StudentForm, UserForm, EditUserForm,SearchForm
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
-from course.models import TakenCourse, TakenModule, TakenContent,Subject,Course
+
+from course.models import TakenCourse, TakenModule, TakenContent,Subject,Course,Subject,Module
 from . serializers import StudentSerializer
 
 from django.core import serializers
@@ -25,11 +26,6 @@ notify_user(repeat=604800)
 def home(request):
 
     subject = Subject.objects.all()
-    """
-    from background_task.models import Task, CompletedTask
-    CompletedTask.objects.all().delete()
-    Task.objects.all().delete()
-    """
 
     """
     this is how we reverse ForeignKey search
@@ -38,8 +34,28 @@ def home(request):
     #
     #"data = serializers.serialize("json", Subject.objects.all(), fields=('title'))
     #print(data)
+    """
+    Seach queryset
 
-    return render(request,'home.html',{'subject' : subject})
+    """
+    search_query = None
+    search_form = SearchForm()
+    if request.method == "POST":
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            from django.contrib.postgres.search import SearchVector, TrigramSimilarity
+            search_for = search_form.cleaned_data.get('search')
+            print(search_for)
+            search_query = Course.objects.annotate(
+                search = SearchVector('title')+
+                SearchVector('subject__description')+
+                SearchVector('subject__title'),
+            ).filter(search= search_for)
+
+            print(search_query)
+
+    return render(request,'home.html',{'subject' : subject, 'search_query': search_query,
+       'search_form':search_form})
 
 
 

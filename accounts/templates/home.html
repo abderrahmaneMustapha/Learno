@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
+{% load bootstrap4 %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    
+
       <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
   </head>
   <body>
@@ -32,12 +33,23 @@
 <br>
 <a href="{% url 'coding-ground' %}">Coding ground</a>
 {% endblock %}
+
     {% block main %}
       Welcome {{request.user.student}}
       <br>
     <div class="container">
       <div class="row ">
-{% if subject %}
+<form class="" method="POST">
+  {%csrf_token%}
+   {% bootstrap_form search_form %}
+   <button class="btn btn-primary"type="submit" name="button">Search</button>
+</form>
+{% if search_query %}
+     {% for search in search_query %}
+      <br>
+        <a href="{% url 'modules' search.subject.slug search.slug %}">{{search.title}}</a>
+     {% endfor %}
+{% else %}
       {% for sub in  subject %}
     <div class="col-3">
        {% if sub.approved %}
@@ -57,9 +69,6 @@
 {% endif %}
     </div>
     </div>
-
-
-
     {% endblock %}
 
   </body>

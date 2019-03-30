@@ -52,3 +52,5 @@ class AnswerForm(forms.Form):
     text = forms.CharField(required = True, max_length=100)
     class Meta:
         fields = ('text')
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length= 25)
