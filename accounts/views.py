@@ -25,11 +25,11 @@ notify_user(repeat=604800)
 def home(request):
 
     subject = Subject.objects.all()
-"""
+    """
     from background_task.models import Task, CompletedTask
     CompletedTask.objects.all().delete()
     Task.objects.all().delete()
-"""
+    """
 
     """
     this is how we reverse ForeignKey search
