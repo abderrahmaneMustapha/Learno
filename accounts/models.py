@@ -134,7 +134,7 @@ class Student(models.Model):
 
     def calculate_level(self):
         import math
-        level = int(1/4 * math.sqrt(self.exp))
+        level = int(1/4 * math.sqrt(self.exp))+1
 
         self.level = level
         return level
