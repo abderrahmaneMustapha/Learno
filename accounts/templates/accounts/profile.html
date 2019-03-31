@@ -27,11 +27,10 @@
                       Point:   {{request.user.student.exp}} exp
                       <br>
 
-
                       <img class="" src="{{request.user.student.rank.logo.url}}"
                                 width="7%" height="7%" />
-
-                 </div>
+                      Rank : {{request.user.student.rank.get_name_display}}
+                     </div>
 
                  {% for interest in interests %}
                <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"

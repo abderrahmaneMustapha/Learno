@@ -24,6 +24,7 @@
                      <h5> {{this_student}} </h5>
                  <div class="row">
                       Point:   {{this_student.exp}}
+                      Rank : {{this_student.rank.get_name_display}}}}
 
                  </div>
                    {% for interest in this_student.interests.all%}
