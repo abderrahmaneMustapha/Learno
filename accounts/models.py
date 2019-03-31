@@ -128,7 +128,7 @@ class Student(models.Model):
     quizzes = models.ManyToManyField(Quiz, blank = True, through='TakenQuiz' ,related_name='quize_student')
     interests = models.ManyToManyField(Tag,blank=True, related_name='interested_students')
     exp = models.PositiveIntegerField(db_index=True,blank=True,default=1)
-    rank = models.ForeignKey(StudentLevel ,on_delete=models.CASCADE,blank=True, null=True , related_name='level')
+    rank = models.ForeignKey(StudentLevel ,on_delete=models.CASCADE,default=1 , related_name='level')
     level = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
