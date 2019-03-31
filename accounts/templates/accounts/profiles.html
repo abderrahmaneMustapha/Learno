@@ -28,11 +28,11 @@
                       <img class="" src="{{this_student.rank.logo.url}}"
                                 width="7%" height="7%" />
                       <br>
-                      Rank : {{this_student.rank.get_name_display}}}}
+                      Rank : {{this_student.rank.get_name_display}}
 
                  </div>
                    {% for interest in this_student.interests.all%}
-                   <span class="badge "  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
+                   <span class="badge"  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
                      >{{ interest }}</span>
                    {%endfor%}
 <div class="card-footer ">

@@ -14,3 +14,9 @@ urlpatterns = [
     path('coding-ground/' ,include('ide.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.SERVE_MEDIA_FILES:
+    urlpatterns += patterns('',
+        url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL.lstrip('/'),
+            'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT}),)
