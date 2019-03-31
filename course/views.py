@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
-from django.shortcuts import render, redirect,  get_object_or_404
+from django.shortcuts import render, redirect,HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -73,6 +73,7 @@ def modules(request, subject, course):
 def contents(request, course, module):
     current_module= Module.objects.get(slug = module)
     module_content= Content.objects.filter(module = current_module)
+    check_taken_module = TakenModule.objects.filter(student = request.user.student, module=current_module )
     start_first_content = None
     if module_content:
         start_first_content = module_content.order_by('id')[0]
@@ -124,6 +125,9 @@ def learn_question(request, module, content, question):
 
     this_question = Question.objects.get(pk = question)
     this_content = Content.objects.get(question = this_question)
+    print(TakenContent.objects.filter(student = request.user.student, content = this_content))
+    if  TakenContent.objects.filter(student = request.user.student, content = this_content).exists() is False:
+        return HttpResponse('you can\'t access this question yet')
     this_question_answers = Answer.objects.filter(question = this_question)
     this_question_right_answers_count = Answer.objects.filter(question = this_question, is_correct = True).count()
     if request.method == "POST":
