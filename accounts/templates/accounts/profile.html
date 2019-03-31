@@ -27,8 +27,12 @@
                       Point:   {{request.user.student.exp}} exp
                       <br>
 
+
+                      <img class="" src="{{request.user.student.rank.logo.url}}"
+                                width="7%" height="7%" />
+                      
+
                       Rank : {{request.user.student.rank.get_name_display}}
-                      <br>
                       Rank description : {{request.user.student.rank.description}}
                      </div>
 

@@ -28,7 +28,7 @@ DEBUG = False
 
 # DEBUG = (os.environ.get('HACKIDE_DEBUG') or "").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nadros.herokuapp.com',]
 
 # To allow the cross site request over the app
 CORS_ORIGIN_ALLOW_ALL = True
