@@ -161,8 +161,8 @@ def learn_question(request, module, content, question):
 def add_course(request, subject):
     course_form = CourseForm()
     if request.method == 'POST':
-        course_form = CourseForm(request.POST )
-        print(course_form.is_valid())
+        course_form = CourseForm(request.POST)
+
 
         if course_form.is_valid():
             course = Course(
