@@ -17,7 +17,7 @@ urlpatterns = [
 
 if settings.SERVE_MEDIA_FILES:
     from django.conf.urls.patterns import patterns
-    urlpatterns += patterns('',
+    urlpatterns +=
         url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL.lstrip('/'),
             'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT}),)
+            {'document_root': settings.MEDIA_ROOT}),
