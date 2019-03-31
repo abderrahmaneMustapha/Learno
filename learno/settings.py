@@ -194,7 +194,7 @@ MEDIA_URL = '/media/'
 """
 here we seve the media file in production
 """
-SERVE_MEDIA_FILES = True.
+SERVE_MEDIA_FILES = True
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
