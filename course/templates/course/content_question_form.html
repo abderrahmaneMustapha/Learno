@@ -6,6 +6,7 @@
     <title>question | {{ this_question.content.title }}</title>
   </head>
   <body>
+    <h1>Question for : this_question.content.title  </h1>
     <form  method="POST">
       {%csrf_token%}
       {{ this_question }}

@@ -19,7 +19,7 @@
                         <a href="{% url 'edit_profile' %}">Edit Profile</a>
                         <br>
                           <p><a href="{% url 'password_reset' %}">reset password</a></p>
-                 <h5>{{ request.user.get_username }}</h5>
+                 <h1>{{ request.user.get_username }}</h1>
 
                  <div class="row">
                       Level : {{level}}
@@ -30,9 +30,10 @@
 
                       <img class="" src="{{request.user.student.rank.logo.url}}"
                                 width="7%" height="7%" />
-                      
 
+                      <br>
                       Rank : {{request.user.student.rank.get_name_display}}
+                      <br>
                       Rank description : {{request.user.student.rank.description}}
                      </div>
 

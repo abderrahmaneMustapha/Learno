@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %}add course{% endblock %}
 {% load bootstrap4 %}
 
 {% block content %}
+<h1>Add your course here :</h1>
 <form class="form-group" method="POST">
   {% csrf_token %}
 {% bootstrap_form course_form %}
