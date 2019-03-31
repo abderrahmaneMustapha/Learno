@@ -26,9 +26,10 @@
                       <br>
                       Point:   {{request.user.student.exp}} exp
                       <br>
-
+                      {% if request.user.student.rank.logo.url % }
                       <img class="" src="{{request.user.student.rank.logo.url}}"
                                 width="7%" height="7%" />
+                      {% endif %}
                       Rank : {{request.user.student.rank.get_name_display}}
                       Rank description : {{request.user.student.rank.description}}
                      </div>
