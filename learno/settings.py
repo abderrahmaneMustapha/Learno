@@ -140,6 +140,9 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
 
 )
 
@@ -205,8 +208,13 @@ EMAIL_HOST_PASSWORD = 'Abdou030898mA'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '849700218836-r57ghovfidb4ppvc37lpi76vfptkdhjd.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'byCvV8gcE_bM7tdJ3EQWFOMO'
+
 SOCIAL_AUTH_GITHUB_KEY = 'a497612ab138f21c8e1a'
 SOCIAL_AUTH_GITHUB_SECRET = '1e9f8c1d0ac469dd7579b02589737aebc556d92e'
+
 SOCIAL_AUTH_FACEBOOK_KEY = '957812227941045'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'b6a86e0df1be4a353506f2248fe5a0b1'  # App Secret
 

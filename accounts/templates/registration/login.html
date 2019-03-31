@@ -21,8 +21,9 @@ Login
     {% bootstrap_form form %}
     <button type="submit" class="btn btn-primary">Sign In</button>
   </form>
-
- <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+  <br>
+  <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
+  <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a>
 <br>
  <a href="{% url 'signup' %}"> create new account</a>
 
