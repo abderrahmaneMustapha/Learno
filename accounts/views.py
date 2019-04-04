@@ -40,17 +40,16 @@ def home(request):
     """
     search_query = None
     search_form = SearchForm()
-    if request.method == "POST":
-        search_form = SearchForm(request.POST)
+    if request.method == "GET":
+        search_form = SearchForm(request.GET)
         if search_form.is_valid():
             from django.contrib.postgres.search import SearchVector, TrigramSimilarity
             search_for = search_form.cleaned_data.get('search')
             print(search_for)
             search_query = Course.objects.annotate(
                 search = SearchVector('title')+
-                SearchVector('subject__description')+
                 SearchVector('subject__title'),
-            ).filter(search= search_for)
+            ).filter(search__icontains= search_for)
 
             print(search_query)
 

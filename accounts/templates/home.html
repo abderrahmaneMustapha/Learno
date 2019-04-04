@@ -10,13 +10,19 @@
       <link rel="stylesheet" href="{% static 'font-awesome/css/all.min.css' %}">
   </head>
   <body>
-    {% block bar %}
-    {{request.user.login_count}}
+
+    {{request.user.date_joined}}
+    <br>
     {{request.user.last_login}}
+    <br>
+    {% block bar %}
+
     <a href="{% url 'home' %}">Home</a>
     <br>
     <a href="{% url  'subjects' %}">Subjects</a>
   {% if user.is_authenticated %}
+  <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
+  <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a>
   <br>
   <a href="{% url 'logout' %}">Logout</a>
   <br>
@@ -39,7 +45,7 @@
       <br>
     <div class="container">
       <div class="row ">
-<form class="" method="POST">
+<form class="" method="GET">
   {%csrf_token%}
    {% bootstrap_form search_form %}
    <button class="btn btn-primary"type="submit" name="button">Search</button>
