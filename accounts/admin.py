@@ -41,8 +41,8 @@ class BadgeAdmin(admin.ModelAdmin):
     list_filter = ('name','description')
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['user', 'exp']
-    list_filter = ('exp','user')
+    list_display = ['user', 'exp', 'rank']
+    list_filter = ('rank','user')
 
 class QuizAdmin(admin.ModelAdmin):
     list_display = ['name', 'tags']

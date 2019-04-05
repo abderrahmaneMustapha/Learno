@@ -16,15 +16,19 @@ from . serializers import StudentSerializer
 from django.core import serializers
 
 from background_task import background
+
+from background_task.models import *
+from background_task.models_completed  import *
 @background(schedule=1)
-def notify_user(repeat=604800):
+def notify_user():
     calculate_rank()
 
-notify_user(repeat=604800)
+notify_user()
 
 
 def home(request):
-
+    CompletedTask.objects.all().delete()
+    Task.objects.all().delete()
     subject = Subject.objects.all()
 
     """
@@ -40,8 +44,8 @@ def home(request):
     """
     search_query = None
     search_form = SearchForm()
-    if request.method == "GET":
-        search_form = SearchForm(request.GET)
+    if request.method == "POST":
+        search_form = SearchForm(request.POST)
         if search_form.is_valid():
             from django.contrib.postgres.search import SearchVector, TrigramSimilarity
             search_for = search_form.cleaned_data.get('search')
