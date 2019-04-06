@@ -189,11 +189,11 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-"""
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-"""
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
