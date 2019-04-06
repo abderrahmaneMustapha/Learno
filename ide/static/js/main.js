@@ -10,15 +10,18 @@ lineNumbers: true,
 mode : 'css',
 theme : 'blackboard',
 });
+
 var jsEditor = CodeMirror.fromTextArea(document.getElementById("js"),{
 lineNumbers: true,
-mode : 'js',
+mode : 'javascript',
 theme : 'blackboard',
 
 });
 
 
+
 $(document).ready(function(){
+
   $('textarea').keydown(function(e){
 
 
@@ -55,7 +58,6 @@ $(document).ready(function(){
   }
 
   function getJS(){
-
     var js = jsEditor.getValue();
     return js;
   }
@@ -68,7 +70,8 @@ $('textarea').keyup(function(){
     var html = getHTML();
 
     var css = '<style>' + getCSS() + '</style>';
-    var js = '<script>' + getJS() + '</script>';
+    var js = '<script >' + getJS() + '</script>';
+    window.onerror = true;
     $('body', targetIframe).append(html);
     $('head', targetIframe).append(css);
     $('body', targetIframe).append(js);

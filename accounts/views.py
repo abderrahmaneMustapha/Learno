@@ -29,7 +29,20 @@ notify_user()
 def home(request):
     CompletedTask.objects.all().delete()
     Task.objects.all().delete()
-    subject = Subject.objects.all()
+
+    """
+    COURSES
+
+    """
+    all_courses = Course.objects.filter(approved = True)
+    suggested_courses = all_courses.order_by('?')[:5]
+
+
+    """
+    SBJECTS
+
+    """
+    all_subject= Subject.objects.filter(approved = True)
 
     """
     this is how we reverse ForeignKey search
@@ -38,10 +51,15 @@ def home(request):
     #
     #"data = serializers.serialize("json", Subject.objects.all(), fields=('title'))
     #print(data)
+
+
+
     """
     Seach queryset
 
     """
+
+
     search_query = None
     search_form = SearchForm()
     if request.method == "POST":
@@ -57,8 +75,8 @@ def home(request):
 
             print(search_query)
 
-    return render(request,'home.html',{'subject' : subject, 'search_query': search_query,
-       'search_form':search_form})
+    return render(request,'home.html',{'all_subject' : all_subject, 'search_query': search_query,
+       'search_form':search_form, 'all_courses':all_courses, 'suggested_courses' : suggested_courses})
 
 
 
