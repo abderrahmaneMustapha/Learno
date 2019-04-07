@@ -1,51 +1,103 @@
-{% extends 'base_course.html' %}
+{% extends 'home.html' %}
 {% load index %}
 {% block title %}{{subject.title}}{% endblock %}
 
 {% block bar %}
 {{ block.super }}
+{% endblock %}
 
+
+{% block header %}
+<h1>Level Up Your Skills</h1>
+<p class="lead">See our courses Below. Learn something new every day with Learno lorem ipsum dolor sit amet.</p>
+<p><a href="#" class="btn btn-primary">Sign up and get a 7-day free trial</a></p>
+{% endblock %}
+
+
+{% block main %}
+
+
+<section class="site-section bg-light">
+  <div class="container">
     <a href="{% url 'add-course' subject %}"
     class="btn btn-warning">Suggest Course</a>
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center">
+        <h2>{{subject.title}}</h2>
+        <p class="lead">{{subject.description}}</p>
+      </div>
+    </div>
 
-{% endblock %}
-{% block content %}
-<h1>Courses about : {{subject.title}}</h1>
-<div class="container">
-  <div class="row ">
+    <div class="row top-course">
+      {% for course in top_course %}
+          {% if course.approved %}
+              <div class="col-md-4 col-sm-6 col-12">
+                <a href="{% url  'modules' course.subject.slug course.slug  %}" class="course">
+                  {% if course.photo %}
+                  <img src="{{ course.photo.url }}"
+                 alt="Image placeholder"">
+                  {% endif %}
 
-{% for course in subject_course %}
-
-<div class="col-3">
-      {% if course.approved %}
-        <div class="card ">
-
-              <h4 class="card-title">{{course.title}}</h4>
-                  <div class="card-body">
-                    {% if course.photo %}
-                    <img class="card-img-top" src="{{ course.photo.url }}"
-                    alt="Card image" style="width:100%">
-                    {% endif %}
-                     {{course.overview | truncatewords:"10"}}
-                     <br>
-                     <a href="{% url  'modules' course.subject.slug course.slug  %}"
-                     class="card-link btn btn-primary">More</a>
-                   </div>
-                   <div class="card-footer">
+                  <h2>{{course.title}}</h2>
+                   <p>{{course.overview | truncatewords:"10"}}<p>
                      <span class="badge badge-dark">
                        views {{ views|index:forloop.counter0 }}</span>
-                      {%  if course.id in student_taken_course %}
-                      <i class="fas fa-eye float-right"></i>
-                     {% endif %}
-                   </div>
-       </div>
-       {% endif %}
+                  <p>Enroll Now</p>
+                </a>
+              </div>
+          {% endif %}
+      {% endfor %}
+    </div>
 
+    <!-- END row -->
 
- </div>
-
+    <div class="row top-course">
+      {% for course in middle_course %}
+          {% if course.approved %}
+      <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+          <a href="{% url  'modules' course.subject.slug course.slug  %}" class="course">
+            {% if course.photo %}
+            <img src="{{ course.photo.url }}"
+           alt="Image placeholder"">
+            {% endif %}
+          <h2>{{course.title}}</h2>
+          <p>{{course.overview | truncatewords:"10"}}<p>
+            <span class="badge badge-dark">
+              views {{ views|index:forloop.counter0 }}</span>
+          <p>Enroll Now</p>
+        </a>
+      </div>
+      {% endif %}
   {% endfor %}
 
-</div>
-</div>
+
+    </div>
+    <!-- END row -->
+
+
+    <div class="row top-course">
+      {% for course in bottom_course %}
+          {% if course.approved %}
+              <div class="col-md-4 col-sm-6 col-12">
+                <a href="{% url  'modules' course.subject.slug course.slug  %}" class="course">
+                  {% if course.photo %}
+                  <img src="{{ course.photo.url }}"
+                 alt="Image placeholder"">
+                  {% endif %}
+
+                  <h2>{{course.title}}</h2>
+                   <p>{{course.overview | truncatewords:"10"}}<p>
+                     <span class="badge badge-dark">
+                       views {{ views|index:forloop.counter0 }}</span>
+                  <p>Enroll Now</p>
+                </a>
+              </div>
+          {% endif %}
+      {% endfor %}
+    </div>
+    <!-- END row -->
+  </div>
+</section>
+<!-- END section -->
+
 {% endblock %}

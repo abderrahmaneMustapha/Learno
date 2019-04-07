@@ -26,6 +26,13 @@ def subjects(request):
 def courses(request, subject):
      #actual_subject = Subject.objects.get(slug = subject)
     subject_course = Course.objects.filter(subject__slug = subject )
+    middle_course =subject_course[:(subject_course.count())/2]
+    top_course =subject_course[(subject_course.count()/2):(subject_course.count()*3)/4]
+    bottom_course =subject_course[((subject_course.count()*3)/4):]
+
+    print(middle_course.count())
+    print(bottom_course.count())
+    print(top_course.count())
 
     views = []
     student_taken_course = TakenCourse.objects.filter(student = request.user.student).values_list('course', flat=True)
@@ -35,7 +42,7 @@ def courses(request, subject):
 
 
     return render(request,'course/course_form.html',
-    {'subject':subject ,'subject_course':subject_course, 'student_taken_course':student_taken_course
+    {'subject':subject ,'middle_course':middle_course, 'bottom_course':bottom_course,'top_course':top_course,  'student_taken_course':student_taken_course
          ,'views' : views  })
 
 @login_required

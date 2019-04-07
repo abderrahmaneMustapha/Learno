@@ -42,7 +42,7 @@
               </li>
 
 
-              {% if url_name == 'login' or url_name == 'signup' %}
+              {% if url_name == 'login' or url_name == 'signup' or url_name == 'profile' or url_name == 'courses' %}
               {% else %}
               <li class="nav-item dropdown {% if url_name == 'courses' %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="{% url  'subjects' %}" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Subjects</a>
@@ -75,6 +75,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'coding-ground' %}">Coding gound</a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+              </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>

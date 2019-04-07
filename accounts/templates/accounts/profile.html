@@ -16,8 +16,12 @@
               <img class="circle offset-5" src="{{request.user.student.photo.url}}"
                         width="70" height="70" />
                 {%endif%}
-                        <a href="{% url 'edit_profile' %}">Edit Profile</a>
-                        <br>
+                      <div class="row">
+                        <a class="offset-1" href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a class="offset-1"  href="{% url 'social:begin' 'google-oauth2' %}">add Google</a>
+                        <a class="offset-1"   href="{% url 'social:begin' 'github' %}">add GitHub</a>
+                      </div>
+
                           <p><a href="{% url 'password_reset' %}">reset password</a></p>
                  <h1>{{ request.user.get_username }}</h1>
 
@@ -25,12 +29,7 @@
                       Level : {{level}}
                       <br>
                       Point:   {{request.user.student.exp}} exp
-                      <br>
 
-                      <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a>
-                      <br>
-                      <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a>
-                        <br>
                       <img class="" src="{{request.user.student.rank.logo.url}}"
                                 width="7%" height="7%" />
 
