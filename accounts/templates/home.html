@@ -32,14 +32,19 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          {% with url_name=request.resolver_match.url_name %}
 
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'home' %}">Home</a>
+
+                <a class="nav-link {% if url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
               </li>
 
-              <li class="nav-item dropdown">
+
+              {% if url_name == 'login' or url_name == 'signup' %}
+              {% else %}
+              <li class="nav-item dropdown {% if url_name == 'courses' %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="{% url  'subjects' %}" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Subjects</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown05">
 
@@ -50,7 +55,7 @@
 
               </li>
 
-              <li class="nav-item dropdown">
+              <li class="{% if url_name == 'modules' %}active{% endif %} nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Online Courses</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   {% for course in all_courses %}
@@ -60,16 +65,24 @@
                 </div>
 
               </li>
+              {% endif %}
 
 
+
               <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog</a>
+                <a class="nav-link" href="{% url 'leaderboard' %}">leaderboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" href="{% url 'coding-ground' %}">Coding gound</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link" href="#">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
               </li>
             </ul>
 
@@ -90,31 +103,37 @@
 
 
           </div>
+
+          {% endwith %}
         </div>
       </nav>
     </header>
     <!-- END header -->
 {% endblock %}
 
+<section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/big_image_1.jpg' %});">
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+
+        <div class="mb-5 element-animate">
+          {% block header %}
+          <h1>Learn by Doing</h1>
+          <p class="lead">"say goodbye for teaching hello for learning"</p>
+          <p><a href="{% url  'signup' %}" class="btn btn-primary">Sign up </a></p>
+          {% endblock %}
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
 <!-- CONTENT -->
     {% block main %}
-    <section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/big_image_1.jpg' %});">
-      <div class="container">
-        <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-8 text-center">
 
-            <div class="mb-5 element-animate">
-              <h1>Learn by Doing</h1>
-              <p class="lead">"say goodbye for teaching hello for learning"</p>
-              <p><a href="#" class="btn btn-primary">Sign up </a></p>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END section -->
 
     <section class="school-features d-flex" style="background-image: url({% static 'images/big_image_3.jpg' %});">
 
@@ -245,7 +264,7 @@
           <div class="col-md-7 text-center element-animate">
             <h2>Sign Up </h2>
             <p class="lead mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quidem tempore expedita facere facilis, dolores!</p>
-            <p><a href="#" class="btn btn-primary">Sign up </a></p>
+            <p><a href="{% url 'signup' %}" class="btn btn-primary">Sign up </a></p>
           </div>
         </div>
       </div>

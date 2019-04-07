@@ -1,38 +1,36 @@
-{% extends  'base.html'%}
+{% extends  'home.html'%}
 {% load bootstrap4 %}
 {% block title %}
 Sign Up
 {% endblock %}
 
+{% block header %}
+  <h1>Register</h1>
+{% endblock %}
 
-{% block content %}
-<div class="container">
-   <div class="row">
-     <div class="col-lg-8 offset-2">
-       <br/>
-       <br/>
-       <br/>
-       <div>
-         <div class="card">
-           <div class="card-body">
-                 <h4 class="card-title">Sign Up</h4>
+{% block main %}
+    <section class="site-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-5 box">
+            <h2 class="mb-5">Register new account</h2>
 <form method="POST"  enctype="multipart/form-data" >
     {% csrf_token %}
     {% bootstrap_form user_form %}
     {% bootstrap_form student_form %}
-    <button type="submit" class="btn btn-primary">Sign Up</button>
+    <button type="submit" class="btn btn-primary">Sign Up</button><br>
+    <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
+    <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a><br>
+    <br>
+  Already have account<a href="{% url 'login' %}">login</a>
+
   </form>
+</div>
+</div>
+</div>
+</section>
+<!-- END section -->
 
 
-   <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
-   <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a><br>
-   <br>
- Already have account<a href="{% url 'login' %}">login</a>
- <br/>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 {% endblock %}
