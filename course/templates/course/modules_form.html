@@ -1,55 +1,62 @@
 
 
-{% extends 'base_course.html' %}
+{% extends 'home.html' %}
 
 {% block title %}{{course.title}}{% endblock %}
 
-
-{% block content %}
-<div class="container">
-  <div class="row ">
-<h1>Modules about : {{course.title}}</h1>
-  {% for module in  course_module %}
-<div class="col-3">
-
-   {% if module.approved %}
-        <div class="card ">
-
-              <h4 class="card-title">{{module.title}}</h4>
-                  <div class="card-body">
-                    {% if module.photo %}
-                    <img class="card-img-top" src="{{ module.photo.url }}"
-                    alt="Card image" style="width:100%">
-                    {% endif %}
-                     {{module.description | truncatewords:"10"}}
-
-                     <br>
-                     {% if module in completed_module %}
-                     <a href="{% url 'contents' course module.slug %}"
-                     class="card-link btn btn-primary">More</a>
-                     {%else%}
-                     <a {% if module == next_module %}
-                     href="{% url 'contents' course module.slug %}"
-                     class="card-link btn btn-primary"
-                     class="card-link btn ">More
-                     {%endif%}
-                     </a>
-                     {%endif%}
-                   </div>
-                   <div class="card-footer">
-                     <span class="badge badge-dark">
+{% block bar %}
+{{ block.super }}
+{% endblock %}
 
 
-                      {%  if module.id in student_taken_module %}
-                      <i class="fas fa-eye float-right"></i>
-                     {% endif %}
-                   </div>
-       </div>
+{% block headercontain %}
+<section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url({{course.photo.url}});">
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-12">
 
-    {% endif %}
+        <div class="mb-5 element-animate">
+
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="mb-0">{{course.title}}</h1>
+              <p>{{course.owner}}</p>
+              <p class="lead mb-5">{{course.overview}}</p>
+
+              <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-primary mr-2">Start Series</a> <a href="#" class="btn btn-outline-white">Add To Watch List</a></p>
+            </div>
+            <div class="col-md-4">
+              <img src="{{course.photo.url}}" alt="Image placeholder" class="img-fluid">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+<!-- END section -->
+
+{% block main %}
+<section class="site-section episodes">
+ <div class="container">
+   {% for module in  course_module %}
+    {% if module.approved %}
+   <div class="row bg-light align-items-center p-4 episode">
+     <div class="col-md-3">
+       <span class="episode-number">{{forloop.counter}}</span>
+     </div>
+     <div class="col-md-9">
+       <p class="meta">Episode {{forloop.counter}}</p>
+       <h2>
+         <a href="{% if module in completed_module or  module == next_module %}{% url 'contents' course module.slug %}{% else %}#{%endif%}">
+           {{module.title}}</a></h2>
+       <p>{{module.description}}</p>
+     </div>
+   </div>
+   {% endif %}
+   {% endfor %}
  </div>
-  {% endfor %}
-
-</div>
-</div>
+</section>
 {% endblock %}

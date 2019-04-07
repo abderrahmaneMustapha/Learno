@@ -124,6 +124,7 @@ class StudentLevel(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='student')
      #is_conf = model.BooleanField(default=False)
+    bio = models.TextField(null=True, max_length = 500)
     photo = models.ImageField(upload_to='picture_profile/',default='default-96.png',blank=True)
     quizzes = models.ManyToManyField(Quiz, blank = True, through='TakenQuiz' ,related_name='quize_student')
     interests = models.ManyToManyField(Tag,blank=True, related_name='interested_students')

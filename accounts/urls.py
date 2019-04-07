@@ -12,7 +12,7 @@ urlpatterns = [
     #rest api urls
     path('api/', include(router.urls)),
 
-
+    path('about', views.about, name='about'),
     path('', views.home, name='home'),
     #account views
     path('profile/', views.profile, name='profile'),

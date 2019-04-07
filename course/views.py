@@ -73,7 +73,7 @@ def modules(request, subject, course):
     else:
         next_module = Module.objects.first()
     return render(request,'course/modules_form.html', {'student_taken_module':student_taken_module,
-    'course':course ,'course_module':course_module, 'completed_module': completed_module , 'next_module': next_module })
+    'course':actual_course ,'course_module':course_module, 'completed_module': completed_module , 'next_module': next_module })
 
 @login_required
 

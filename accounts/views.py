@@ -248,6 +248,11 @@ def stage_result_view(request,stage, stage_result):
 
 
 
+def about(request):
+    admins = Student.objects.filter(user__is_staff = True)
+    print(admins)
+    return render(request, 'about.html', { })
+
 ######## REST API ########
 from rest_framework import permissions
 from rest_framework import viewsets
