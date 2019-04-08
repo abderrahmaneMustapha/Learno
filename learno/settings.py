@@ -211,7 +211,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abderrahmanemustapha030898@gmail.com'
 EMAIL_HOST_PASSWORD = 'Abdou030898mA'
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL= True
+EMAIL_USE_SSL= False
 DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
 
