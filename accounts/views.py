@@ -265,7 +265,7 @@ def contact(request):
                 +str(contact_us.cleaned_data.get('phone')) + "\n"
                 +str(contact_us.cleaned_data.get('email')) + "\n"
                 +str(contact_us.cleaned_data.get('text')),
-                str(contact_us.cleaned_data.get('email')),
+                 "",
                 ['abderrahmanemustapha030898@gmail.com','salaheddineguenadza14@gmail.com','alilougt@gmail.com'],
                 fail_silently=False,
             )
