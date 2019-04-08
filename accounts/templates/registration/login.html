@@ -22,6 +22,8 @@ Login
     {% csrf_token %}
     {% bootstrap_form form %}
     <button type="submit" class="btn btn-primary">Sign In</button>
+    <br>    
+    <p><a href="{% url 'password_reset' %}">reset password</a></p>
     <br>
     <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
     <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a>

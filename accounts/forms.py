@@ -48,9 +48,12 @@ class EditUserForm(forms.ModelForm):
          fields = ('username','email',)
 
 
-class AnswerForm(forms.Form):
-    text = forms.CharField(required = True, max_length=100)
-    class Meta:
-        fields = ('text')
 class SearchForm(forms.Form):
     search = forms.CharField(max_length= 25)
+
+class ContactUs(forms.Form):
+    name = forms.CharField(max_length=100)
+    phone = forms.CharField(max_length=100)
+    email = forms.EmailField(max_length=100)
+    subject= forms.CharField(max_length=100)
+    text = forms.CharField(max_length=500, widget =forms.Textarea)

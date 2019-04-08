@@ -1,0 +1,23 @@
+{% extends 'home.html' %}
+{% load bootstrap4 %}
+{% block title %}Contact US{% endblock %}
+
+{% block header %}
+      <h1>Contact Us</h1>
+{% endblock %}
+
+{% block main %}
+<section class="site-section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <form  method="POST">
+            {% csrf_token %}
+            {% bootstrap_form  contact_us %}
+            <input type="submit" value="Send Message" class="btn btn-primary">
+            </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

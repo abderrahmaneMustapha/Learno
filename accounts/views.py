@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from django.views.decorators.cache import cache_page
 
-from .forms import StudentForm, UserForm, EditUserForm,SearchForm
+from .forms import StudentForm, UserForm, EditUserForm,SearchForm,ContactUs
 from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
 
@@ -35,7 +35,7 @@ def home(request):
 
     """
     all_courses = Course.objects.filter(approved = True)
-    suggested_courses = all_courses.order_by('?')[:5]
+    suggested_courses = all_courses.order_by('?')[:6]
 
 
     """
@@ -253,6 +253,24 @@ def about(request):
     print(admins)
     return render(request, 'about.html', { })
 
+def contact(request):
+    contact_us = ContactUs()
+    if request.method == "POST":
+        contact_us = ContactUs(request.POST)
+        if contact_us.is_valid():
+            from django.core.mail import send_mail
+            send_mail(
+                contact_us.cleaned_data.get('subject'),
+                str(contact_us.cleaned_data.get('name'))+"\n"
+                +str(contact_us.cleaned_data.get('phone')) + "\n"
+                +str(contact_us.cleaned_data.get('email')) + "\n"
+                +str(contact_us.cleaned_data.get('text')),
+                str(contact_us.cleaned_data.get('email')),
+                ['abderrahmanemustapha030898@gmail.com','salaheddineguenadza14@gmail.com','alilougt@gmail.com'],
+                fail_silently=False,
+            )
+
+    return render(request, 'contact.html', {'contact_us': contact_us,})
 ######## REST API ########
 from rest_framework import permissions
 from rest_framework import viewsets
