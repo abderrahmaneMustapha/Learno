@@ -205,9 +205,8 @@ here we seve the media file in production
 SERVE_MEDIA_FILES = True
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abderrahmanemustapha030898@gmail.com'
 EMAIL_HOST_PASSWORD = 'Abdou030898mA'
