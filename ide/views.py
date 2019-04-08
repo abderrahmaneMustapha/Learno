@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponseNotFound
-from .models import codes
+from django.shortcuts import render,redirect
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponse, HttpResponseRedirect
+
 import requests, json, os
-from .models import SupportedLanguages
+from .models import SupportedLanguages,Code,WebCode,OtherCode
 from .forms import MediaForm
 
 
@@ -32,10 +32,24 @@ def main_editor(request, language):
     template = ''
     context = {}
     language_mode= ''
+
+    """
+    Web Programming languages
+
+    """
     if language == 'frontend-editor':
         template = 'ide/forntend_ide_form.html'
         context = {'language_mode' : language_mode}
         language_mode = MediaForm.media(language)
+        if request.method == "POST":
+            if request.POST.get('html'):
+                this_code = Code.objects.create(owner = request.user.student)
+                web_code = WebCode.objects.create(code = this_code, css = request.POST.get('css'),
+                html= request.POST.get('html'), js = request.POST.get('js') )
+                return redirect(ide_index)
+            else:
+                context['err'] = 'cant save empty code'
+
     else:
         if language in permitted_languages:
             source = None
