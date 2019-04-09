@@ -101,7 +101,8 @@ def signup(request):
                 )
                 if login_user is not None:
                     login(request, login_user)
-
+                else:
+                    student_form.add_error(None, 'Cant signup')
                 return redirect(profile)
 
     return render(request,'registration/signup.html',{
