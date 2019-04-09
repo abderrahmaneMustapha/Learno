@@ -76,7 +76,7 @@ def home(request):
             print(search_query)
 
     return render(request,'home.html',{'all_subject' : all_subject, 'search_query': search_query,
-       'search_form':search_form, 'all_courses':all_courses, 'suggested_courses' : suggested_courses})
+       'search_form':search_form, 'all_courses':all_courses,'suggested_courses' : suggested_courses})
 
 
 
@@ -141,10 +141,11 @@ def profile(request):
 
     level = Student.calculate_level(request.user.student)
     next_level_exp = (4*(level+1))*(4*(level+1))
-
+    print(next_level_exp)
+    providers = request.user.social_auth.values_list('provider')
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
-        , 'taken_content' : taken_content, 'level':level })
+        , 'taken_content' : taken_content, 'level':level,'providers': providers})
 
 
 

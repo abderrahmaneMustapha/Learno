@@ -12,6 +12,8 @@
        <div>
          <div class="card">
             <div class="card-header">
+
+
               {% if request.user.student.photo %}
               <img class="circle offset-5" src="{{request.user.student.photo.url}}"
                         width="70" height="70" />
@@ -24,6 +26,8 @@
 
                           <p><a href="{% url 'password_reset' %}">change password</a></p>
                  <h1>{{ request.user.get_username }}</h1>
+                <br>
+                <p>related account: {{providers}}</p>
 
                  <div class="row">
                       Level : {{level}}
