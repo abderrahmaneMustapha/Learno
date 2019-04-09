@@ -39,8 +39,15 @@ def main_editor(request, language):
     """
     if language == 'frontend-editor':
         template = 'ide/forntend_ide_form.html'
-        context = {'language_mode' : language_mode}
+        html = '<h1>a</h1>'
+        css = 'h1 { color : red}'
+        js = """var spanElements = document.getElementsByTagName('h1');
+        for (var i = 0; i < spanElements.length; i++) {
+        spanElements[i].style.color = 'green';
+        }"""
+        context = {'language_mode' : language_mode, 'html' : html, 'css' : css, 'js' : js}
         language_mode = MediaForm.media(language)
+
         if request.method == "POST":
             if request.POST.get('html'):
                 this_code = Code.objects.create(owner = request.user.student)
