@@ -9,14 +9,14 @@
 <h1>The {{language}} IDE </h1>
 <div class="row">
 <div class="col-md-1 offset-1">
-<form class="form-group" method="post" id="code_form">
+<form class="form-group" method="POST" id="code_form">
   {% csrf_token %}
+  <button type="submit" class="btn btn-primary" name="save">Save</button>
   <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{% if source %}{{source}}{% endif %}</textarea>
-  <button type="submit" name="button">Run</button>
+  <button type="submit" class="btn btn-success" name="run">Run</button>
 </form>
 
 <textarea class="offset-5" rows="8" cols="60" readonly>
-
   {% if output %}
    {{output}}
   {% endif %}

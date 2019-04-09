@@ -23,15 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gz0wegcw&7$z!v@^7^_!k#o%x2k1*&ke-mh^-bm25uh9aj0g7w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # DEBUG = (os.environ.get('HACKIDE_DEBUG') or "").lower() == "true"
 
-ALLOWED_HOSTS = ['nadros.herokuapp.com',]
+ALLOWED_HOSTS = ['*']
 
-# To allow the cross site request over the app
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 
