@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-
+{% block content %}
   <h1>CSS / HTML / JS  EDITOR</h1>
     <div class="header"></div>
        <div class="wrap">
@@ -54,8 +54,8 @@
            <p>{{err}}</p>
            <form class="form-code-ajax" method="POST">
             {%csrf_token%}
-            <button type="submit" class="btn btn-primary" name="button">Save</button>
-            <input type="text" name="title" value="">
+            <button type="submit" class="btn btn-primary" name="button">Share</button>
+            title :<input type="text" name="title" value="">
            <button class="accordion">HTML</button>
            <div  class="pannel">
 
@@ -82,7 +82,7 @@
          </div>
        </div>
 
-
+{%endblock%}
   </body>
       <script  src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
       <script  src="{% static 'codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>

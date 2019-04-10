@@ -18,7 +18,11 @@ permitted_languages = ["c", "cpp","java","ruby", "php", "python2","python3","r",
 def ide_index(request):
 
     languages = SupportedLanguages.objects.all()
-    return render(request,'ide_index.html', {'languages': languages })
+    web_codes = WebCode.objects.all()
+    other_codes = OtherCode.objects.all()
+
+    return render(request,'ide_index.html', {'languages': languages, 'web_codes':web_codes,
+    'other_codes':other_codes })
 
 def media(language):
     """"
@@ -50,8 +54,8 @@ def main_editor(request, language):
 
         if request.method == "POST":
             if request.POST.get('html'):
-                this_code = Code.objects.create(owner = request.user.student)
-                web_code = WebCode.objects.create(code = this_code, css = request.POST.get('css'),
+                this_code = Code.objects.create(title = request.POST.get('title'),owner = request.user.student)
+                web_code = WebCode.objects.create(code = this_code,  css = request.POST.get('css'),
                 html= request.POST.get('html'), js = request.POST.get('js') )
                 return redirect(ide_index)
             else:
@@ -76,9 +80,10 @@ def main_editor(request, language):
                         output = r.json()['output']
                 if 'save' in request.POST:
                     if source:
-                        this_code = Code.objects.create(owner = request.user.student)
+                        this_code = Code.objects.create(owner = request.user.student, title = request.POST.get('title'))
                         supprted_language = SupportedLanguages.objects.get(name = language)
                         other_code = OtherCode.objects.create(code = this_code, content = source, lang = supprted_language)
+                        return redirect(ide_index)
                     else:
                         context['err'] = 'cant save empty code'
             import re
@@ -92,3 +97,44 @@ def main_editor(request, language):
             return HttpResponseNotFound()
     context['language'] = language
     return render(request,template,context);
+
+def share_frontend(request,slug,pk):
+    code = WebCode.objects.get(code__slug = slug, code__pk = pk)
+    if request.method == "POST":
+        WebCode.objects.filter(code__pk = pk).update( html = request.POST.get('html'),
+            css = request.POST.get('css'),
+             js = request.POST.get('js'))
+
+    return render(request, 'ide/share_frontend_form.html',{'code': code})
+
+
+def share_code(request,slug,pk):
+    other_code = OtherCode.objects.get(code__pk = pk)
+    language =other_code.lang.name
+    source = None
+    output = None
+    if request.method == "POST":
+        source = request.POST.get('code')
+        if 'run' in request.POST:
+            if source:
+                data = {
+                "clientId": clientId,
+                "clientSecret": clientSecret,
+                "script":source,
+                "language":language,
+                "versionIndex":"1"}
+
+                r = requests.post(RUN_URL,  json=data)
+                output = r.json()['output']
+        if 'save' in request.POST:
+            if source:
+                OtherCode.objects.filter(code__pk = pk).update(content = source)
+            else:
+                context['err'] = 'cant save empty code'
+    import re
+    language = "".join(re.findall("[a-zA-Z]+", language))
+    language_mode = MediaForm.media(language)
+    context = {'output' : output , 'source': source, 'language_mode' : language_mode, 'other_code' : other_code}
+
+    context['language'] = language
+    return render(request, 'ide/share_code_form.html',context)

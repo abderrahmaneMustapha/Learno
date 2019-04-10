@@ -1,9 +1,11 @@
 from django.db import models
 from accounts.models import Student
+from django.template.defaultfilters import slugify
 
 
 class Code(models.Model):
     owner  = models.ForeignKey(Student, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=100)
     title = models.CharField(max_length= 50)
     created = models.DateTimeField(auto_now_add = True)
     modified = models.DateTimeField(auto_now = True)
@@ -11,7 +13,7 @@ class Code(models.Model):
         self.slug= slugify(self.title)
         super(Code, self).save(*args, **kwargs)
     def __str__(self):
-        return self.name
+        return self.title
 
 class Vote(models.Model):
     up  = 0
@@ -40,6 +42,6 @@ class OtherCode(models.Model):
 
 class WebCode(models.Model):
     code = models.OneToOneField(Code, on_delete = models.CASCADE)
+    html = models.TextField( max_length=500)
     css = models.TextField( max_length=500)
     js = models.TextField( max_length=500)
-    html = models.TextField( max_length=500)

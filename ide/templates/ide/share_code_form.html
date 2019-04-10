@@ -1,20 +1,20 @@
 {% extends 'ide_index.html' %}
 
-
 {% block script %}
 {{language_mode}}
 {% endblock %}
 
 {% block content %}
-<h1>The {{language}} IDE </h1>
+<h1>The {{other_code.lang.name}} IDE </h1>
 <div class="row">
 <div class="col-md-1 offset-1">
 <form class="form-group" method="POST" id="code_form">
   {% csrf_token %}
+  {% if request.user.username == other_code.code.owner.user.username %}
   <button type="submit" class="btn btn-primary" name="save">Share</button>
-   title : <input type="text" name="title" value="">
-    {{err}}
-  <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{% if source %}{{source}}{% endif %}</textarea>
+  {% endif %}
+   title :{{other_code.code.title}}
+  <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{{other_code.content}}</textarea>
   <button type="submit" class="btn btn-success" name="run">Run</button>
 </form>
 

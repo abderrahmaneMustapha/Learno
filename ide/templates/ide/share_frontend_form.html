@@ -1,0 +1,60 @@
+{% extends 'ide/forntend_ide_form.html' %}
+
+{% block content %}
+<h1>CSS / HTML / JS  EDITOR</h1>
+  <div class="header"></div>
+     <div class="wrap">
+       <div class="result">
+           <iframe onerror="true" src="" id="preview">
+
+             <!DOCTYPE html>
+             <html lang="en" dir="ltr">
+               <head>
+                 <meta charset="utf-8">
+                 <title></title>
+               </head>
+               <body>
+
+               </body>
+             </html>
+
+           </iframe>
+
+
+       </div>
+
+       <div class="code">
+         <p>{{err}}</p>
+         <form class="form-code-ajax" method="POST">
+          {%csrf_token%}
+          {% if request.user.username == code.code.owner.user.username %}
+          <button type="submit" class="btn btn-primary" name="button">Update</button>
+          {% endif %}
+          <p> title : {{code.code.title}}</p>
+         <button class="accordion">HTML</button>
+         <div  class="pannel">
+
+             <textarea name="html" id="html">{{code.html}}</textarea>
+
+         </div>
+
+         <button class="accordion">CSS</button>
+         <div  class="pannel">
+
+               <textarea  name="css" id="css">{{code.css}}</textarea>
+
+         </div>
+
+         <button class="accordion">JS/jQuery</button>
+
+         <div  class="pannel">
+
+               <textarea  name="js" id="js" >{{code.js}}</textarea>
+
+         </div>
+
+          </form>
+       </div>
+     </div>
+
+{% endblock %}
