@@ -26,6 +26,70 @@
 
   </head>
   <body>
+    <header role="banner">
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-light">
+        <div class="container">
+          <a class="navbar-brand absolute" href="{% url 'home' %}">Learno</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          {% with url_name=request.resolver_match.url_name %}
+
+          <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+
+                <a class="nav-link {% if url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+              </li>
+
+
+              <li class="nav-item">
+                <a class="nav-link {% if url_name == 'leaderboard' %}active{% endif %}" href="{% url 'leaderboard' %}">leaderboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if url_name == 'coding-ground' %}active{% endif %}" href="{% url 'coding-ground' %}">Coding gound</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link{% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link{% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav absolute-right">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a href="{% url 'login' %}" class="nav-link">Login</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url  'signup' %}" class="nav-link">Register</a>
+              </li>
+              {%endif%}
+            </ul>
+
+
+          </div>
+
+          {% endwith %}
+        </div>
+      </nav>
+    </header>
+    <!-- END header -->
+
 
     {% block content %}
 

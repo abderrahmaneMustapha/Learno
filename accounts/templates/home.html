@@ -69,24 +69,24 @@
 
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'leaderboard' %}">leaderboard</a>
+                <a class="nav-link {% if url_name == 'leaderboard' %}active{% endif %}" href="{% url 'leaderboard' %}">leaderboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'coding-ground' %}">Coding gound</a>
+                <a class="nav-link {% if url_name == 'coding-ground' %}active{% endif %}" href="{% url 'coding-ground' %}">Coding gound</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-link {% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
               </li>
 
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
+                <a class="nav-link {% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                <a class="nav-link {% if url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
               </li>
             </ul>
 
