@@ -79,7 +79,8 @@ def main_editor(request, language):
                         this_code = Code.objects.create(owner = request.user.student)
                         supprted_language = SupportedLanguages.objects.get(name = language)
                         other_code = OtherCode.objects.create(code = this_code, content = source, lang = supprted_language)
-
+                    else:
+                        context['err'] = 'cant save empty code'
             import re
             language = "".join(re.findall("[a-zA-Z]+", language))
             language_mode = MediaForm.media(language)

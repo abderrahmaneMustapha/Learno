@@ -4,8 +4,14 @@ from accounts.models import Student
 
 class Code(models.Model):
     owner  = models.ForeignKey(Student, on_delete=models.CASCADE)
+    title = models.CharField(max_length= 50)
     created = models.DateTimeField(auto_now_add = True)
     modified = models.DateTimeField(auto_now = True)
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Code, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.name
 
 class Vote(models.Model):
     up  = 0

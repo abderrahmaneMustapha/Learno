@@ -27,7 +27,9 @@
                           <p><a href="{% url 'password_reset' %}">change password</a></p>
                  <h1>{{ request.user.get_username }}</h1>
                 <br>
+                {% if providers %}
                 <p>related account: {{providers}}</p>
+                {% endif %}
 
                  <div class="row">
                       Level : {{level}}

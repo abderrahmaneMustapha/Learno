@@ -12,6 +12,7 @@
 <form class="form-group" method="POST" id="code_form">
   {% csrf_token %}
   <button type="submit" class="btn btn-primary" name="save">Save</button>
+    {{err}}
   <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{% if source %}{{source}}{% endif %}</textarea>
   <button type="submit" class="btn btn-success" name="run">Run</button>
 </form>
