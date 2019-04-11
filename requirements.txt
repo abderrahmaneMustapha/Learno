@@ -15,6 +15,7 @@ django-compat==1.0.15
 django-heroku==0.3.1
 django-picklefield==2.0
 djangorestframework==3.9.2
+django-tinymce==2.8.0
 gunicorn==19.9.0
 idna==2.8
 kombu==4.3.0
