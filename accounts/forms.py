@@ -22,8 +22,8 @@ class UserForm(forms.ModelForm):
         if password != password_confirmation or validate_password(password, user=user) is not None:
             raise forms.ValidationError(
                 "password and password confirmation does not match",
-                _(password_validators_help_texts()),
-                code='pw_invalid'
+                password_validators_help_texts(),
+
             )
     def save(self, commit=True):
         user = super(UserForm, self).save(commit)
