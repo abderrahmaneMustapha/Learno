@@ -5,8 +5,8 @@ from django.template.defaultfilters import slugify
 
 class Code(models.Model):
     owner  = models.ForeignKey(Student, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=100)
-    title = models.CharField(max_length= 50)
+    slug = models.SlugField(max_length=100, null=True)
+    title = models.CharField(max_length= 50, null = True)
     created = models.DateTimeField(auto_now_add = True)
     modified = models.DateTimeField(auto_now = True)
     def save(self, *args, **kwargs):
