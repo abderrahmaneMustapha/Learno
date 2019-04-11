@@ -121,10 +121,8 @@ def learn(request, module, content):
                     form.save()
                 else:
                     ContentNote.objects.filter(user = request.user, content = content_learn).update(note = note_form.cleaned_data['note'])
-
-
     return render(request,'course/learn_form.html',
-    {'content':content ,'content_learn':content_learn, 'note_form' : note_form ,
+    {'content':content ,'content_learn':content_learn,'note_form' : note_form ,
       })
 @login_required
 

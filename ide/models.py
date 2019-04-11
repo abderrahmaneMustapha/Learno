@@ -14,7 +14,7 @@ class Code(models.Model):
         super(Code, self).save(*args, **kwargs)
     def __str__(self):
         return self.title
-
+"""
 class Vote(models.Model):
     up  = 0
     down = 1
@@ -26,7 +26,7 @@ class Vote(models.Model):
 
     def __str__(self):
         return self.owner
-
+"""
 class SupportedLanguages(models.Model):
     name = models.TextField( max_length=500)
     created = models.DateField(auto_now_add=True)

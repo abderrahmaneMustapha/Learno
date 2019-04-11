@@ -1,13 +1,15 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from colorful.fields import RGBColorField
-
-from accounts.models import Student, Tag, Badge, Question
-
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
+
+from accounts.models import Student, Tag, Badge, Question
+
+
+from tinymce.models import HTMLField
+from colorful.fields import RGBColorField
 
 class Subject (models.Model):
     title = models.CharField(max_length=200)
@@ -67,7 +69,7 @@ class Content(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE,related_query_name='module_contents')
     title = models.CharField(max_length=200, blank=True)
     question = models.OneToOneField(Question, on_delete=models.CASCADE, related_query_name='question_contents', null=True, blank=True)
-    text = models.TextField()
+    text = HTMLField()
     video = models.URLField(blank=True)
     file = models.FileField(upload_to='content/file/',blank=True)
     image = models.ImageField(upload_to='content/image/',blank=True)

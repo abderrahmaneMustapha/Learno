@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from colorful.fields import RGBColorField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+
 #make the email field unique
 User._meta.get_field('email')._unique = True
 

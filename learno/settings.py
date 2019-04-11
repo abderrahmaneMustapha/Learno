@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'django_heroku',
     'rest_framework',
     'social_django',  # <--
-
+    'tinymce',
 
 
 
@@ -160,6 +160,20 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_by_email',
 )
 
+
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
+TINYMCE_DEFAULT_CONFIG = {
+     'height': 720,
+    'width': 1120,
+    'theme': "advanced",
+    'plugins': "style",
+    'theme_advanced_buttons3_add': "|,spellchecker",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'menubar': True,
+    'statusbar': True,
+    }
 
 
 # Internationalization

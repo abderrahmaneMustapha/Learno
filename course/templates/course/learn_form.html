@@ -1,8 +1,10 @@
+
 {% extends 'base_course.html'  %}
 {% load bootstrap4 %}
 {% block title %}{{content.title}}{% endblock %}
 
 {% block learn %}
+
 <h1>{{content.title}}</h1>
 <div class="card">
   <div class="card-body">
@@ -13,8 +15,12 @@
       frameborder="0" allow="accelerometer; autoplay; encrypted-media;
       gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    {{ content_learn.text}}
 
+    <div contenteditable>
+
+         {{content_learn.text | safe}}
+
+  </div>
 
   </div>
   <div class="card-footer">
@@ -22,7 +28,7 @@
     <form class="form-answer-ajax" method="POST" >
         {% csrf_token %}
       {% bootstrap_form note_form %}
-      <button type="submit" class="btn btn-primary" name="save">Save</button>
+      <button type="submit" class="btn btn-primary"  name="save">Save</button>
 
     </form>
 
