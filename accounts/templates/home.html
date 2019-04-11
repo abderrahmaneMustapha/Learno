@@ -3,7 +3,7 @@
 {% load bootstrap4 %}
 <html lang="en" dir="ltr">
   <head>
-    <title>{% block title %}learno{% endblock %}</title>
+    <title>{% block title %}Learno | Home{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -74,11 +74,11 @@
               <li class="nav-item">
                 <a class="nav-link {% if url_name == 'coding-ground' %}active{% endif %}" href="{% url 'coding-ground' %}">Coding gound</a>
               </li>
-
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link {% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
               </li>
-
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>

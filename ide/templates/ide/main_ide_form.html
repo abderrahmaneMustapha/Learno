@@ -4,6 +4,8 @@
 {% block script %}
 {{language_mode}}
 {% endblock %}
+{% block title %}{{ block.super }} | {{language}} {%endblock%}
+{% block head %}{% endblock %}
 
 {% block content %}
 <h1>The {{language}} IDE </h1>

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.auth.password_validation import *
 from .models import Student,Tag,Quiz, Answer, Question
 from django.utils import timezone
 
@@ -18,10 +18,12 @@ class UserForm(forms.ModelForm):
         cleaned_data = super(UserForm, self).clean()
         password = cleaned_data.get("password")
         password_confirmation = cleaned_data.get("password_confirmation")
-
-        if password != password_confirmation:
+        user = super(UserForm, self)
+        if password != password_confirmation or validate_password(password, user=user) is not None:
             raise forms.ValidationError(
-                "password and password confirmation does not match"
+                "password and password confirmation does not match",
+                _(password_validators_help_texts()),
+                code='pw_invalid'
             )
     def save(self, commit=True):
         user = super(UserForm, self).save(commit)

@@ -4,6 +4,9 @@
 {{language_mode}}
 {% endblock %}
 
+{% block title %}{{ block.super }} | {{other_code.lang.name}}{%endblock%}
+
+{% block head %}{% endblock %}
 {% block content %}
 <h1>The {{other_code.lang.name}} IDE </h1>
 <div class="row">

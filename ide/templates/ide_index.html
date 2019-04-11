@@ -26,6 +26,7 @@
 
   </head>
   <body>
+    {%block head %}
     <header role="banner">
 
       <nav class="navbar navbar-expand-md navbar-dark bg-light">
@@ -51,9 +52,11 @@
                 <a class="nav-link {% if url_name == 'coding-ground' %}active{% endif %}" href="{% url 'coding-ground' %}">Coding gound</a>
               </li>
 
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link{% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-link {% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
               </li>
+              {% endif %}
 
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
@@ -89,7 +92,7 @@
       </nav>
     </header>
     <!-- END header -->
-
+{% endblock %}
 
     {% block content %}
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponse, HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
 import requests, json, os
 from .models import SupportedLanguages,Code,WebCode,OtherCode
 from .forms import MediaForm
@@ -32,6 +32,8 @@ def media(language):
     return forms.Media(js={'all' :
     'codemirror/mode/'+language+'/'+language+'.js'})
 
+
+@login_required
 def main_editor(request, language):
     template = ''
     context = {}
@@ -98,6 +100,8 @@ def main_editor(request, language):
     context['language'] = language
     return render(request,template,context);
 
+
+@login_required
 def share_frontend(request,slug,pk):
     code = WebCode.objects.get(code__slug = slug, code__pk = pk)
     if request.method == "POST":
@@ -108,6 +112,8 @@ def share_frontend(request,slug,pk):
     return render(request, 'ide/share_frontend_form.html',{'code': code})
 
 
+
+@login_required
 def share_code(request,slug,pk):
     other_code = OtherCode.objects.get(code__pk = pk)
     language =other_code.lang.name
