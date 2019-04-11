@@ -11,7 +11,7 @@
 <form class="form-group" method="POST" id="code_form">
   {% csrf_token %}
   {% if request.user.username == other_code.code.owner.user.username %}
-  <button type="submit" class="btn btn-primary" name="save">Share</button>
+  <button type="submit" class="btn btn-primary" name="save">Update</button>
   {% endif %}
    title :{{other_code.code.title}}
   <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{{other_code.content}}</textarea>
