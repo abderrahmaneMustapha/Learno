@@ -159,6 +159,7 @@ def learn_question(request, module, content, question):
             else:
                 TakenModule.objects.filter(student=request.user.student, module=this_content.module , course = this_content.module.course).update(completed = True)
                 request.user.student.exp += 20
+                request.user.student.save()
                 return redirect(reverse('modules', args=(this_content.module.course.subject.slug, this_content.module.course.slug)))
     return render(request, 'course/content_question_form.html',{'this_question' : this_question,
         'this_question_answers' : this_question_answers,})
