@@ -69,6 +69,7 @@ def modules(request, subject, course):
             if  completed_taken_module.count()  == course_module.count():
                 TakenCourse.objects.filter(student = request.user.student, course=actual_course,  subject= actual_course.subject).update(completed = True)
                 request.user.student.exp += 50
+                request.user.student.save()
 
     else:
         next_module = Module.objects.first()
@@ -107,6 +108,7 @@ def learn(request, module, content):
     if check_taken_content is not True:
         new_taken_content =  TakenContent.objects.create(student = current_student, content=content_learn, module = content_learn.module)
         request.user.student.exp += 1
+        request.user.student.save()
 
     note_form = ContentNoteForm()
     if request.method == "POST":

@@ -145,7 +145,7 @@ def profile(request):
     providers = request.user.social_auth.values_list('provider')
     return render(request, 'accounts/profile.html',{'interests' : interests ,
         'taken_course' : taken_course, 'taken_module' : taken_module
-        , 'taken_content' : taken_content, 'level':level,'providers': providers})
+        , 'taken_content' : taken_content, 'level':level,'next_level_exp':next_level_exp ,'providers': providers})
 
 
 

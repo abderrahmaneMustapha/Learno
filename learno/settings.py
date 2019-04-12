@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
+
     'background_task',
     'accounts',
     'ide',
@@ -57,8 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',  # <--
     'tinymce',
-
-
+    
 
 ]
 
@@ -175,6 +177,10 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     }
 
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

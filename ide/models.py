@@ -12,8 +12,7 @@ class Code(models.Model):
     def save(self, *args, **kwargs):
         self.slug= slugify(self.title)
         super(Code, self).save(*args, **kwargs)
-    def __str__(self):
-        return self.title
+
 """
 class Vote(models.Model):
     up  = 0
@@ -30,8 +29,7 @@ class Vote(models.Model):
 class SupportedLanguages(models.Model):
     name = models.TextField( max_length=500)
     created = models.DateField(auto_now_add=True)
-    def __str__(self):
-        return self.name
+
 
 
 class OtherCode(models.Model):
