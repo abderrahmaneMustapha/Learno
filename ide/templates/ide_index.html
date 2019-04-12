@@ -110,7 +110,10 @@
           </div>
         </section>
         <!-- END section -->
-      <h1>Our code editors</h1>
+
+      <h1>Our code editor</h1>
+      <p>code editor</p>
+
       <a href="{% url 'main-editor'  'frontend-editor'%}"> CSS/JavaScript/HTML</a>
 
       {% for language in languages  %}
@@ -118,7 +121,7 @@
         <a href="{% url 'main-editor' language%}">{{language.name}}</a>
 
       {%endfor%}
-      <h1>Web Codes</h1>
+      <h1>Python/C++/C/Java codes</h1>
       {% for web_code in web_codes %}
       <a href="{% url 'share-editor-frontend' web_code.code.title web_code.code.pk %}">{{web_code.code.title}}</a>
       <br>
