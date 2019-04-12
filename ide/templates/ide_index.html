@@ -115,7 +115,7 @@
 
       {% for language in languages  %}
       <br>
-        <a href="{% url 'main-editor' language%}">{{language}}</a>
+        <a href="{% url 'main-editor' language%}">{{language.name}}</a>
 
       {%endfor%}
       <h1>Web Codes</h1>
