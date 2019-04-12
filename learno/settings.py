@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
-
     'background_task',
     'accounts',
     'ide',
@@ -60,7 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',  # <--
     'tinymce',
-    
+
 
 ]
 
