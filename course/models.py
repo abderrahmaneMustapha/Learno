@@ -24,7 +24,7 @@ class Subject (models.Model):
         super(Subject, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 class Course(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='created_course')
@@ -43,14 +43,15 @@ class Course(models.Model):
     class Meta:
         ordering =['-created']
     def __str__(self):
-        return  self.title
+        return  str(self.title)
+    def get_course_tags(self):
+        return str(list(self.tags.all().values_list('name', flat=True)))
 
 
 class Module(models.Model):
     course = models.ForeignKey(Course,on_delete=models.CASCADE, related_name='course_modules')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    source = models.URLField(default = None, blank =True)
     order = models.PositiveIntegerField(unique=True)
     photo = models.ImageField(upload_to='modules_photos/', blank=True,)
     approved = models.BooleanField(default=False)
@@ -71,7 +72,6 @@ class Content(models.Model):
     question = models.OneToOneField(Question, on_delete=models.CASCADE, related_query_name='question_contents', null=True, blank=True)
     text = HTMLField()
     video = models.URLField(blank=True)
-    file = models.FileField(upload_to='content/file/',blank=True)
     image = models.ImageField(upload_to='content/image/',blank=True)
     order = models.PositiveIntegerField(unique=True)
     approved = models.BooleanField(default=False)
@@ -101,7 +101,7 @@ class TakenCourse(models.Model):
     subject  = models.ForeignKey(Subject,on_delete=models.CASCADE,default = None, related_name='course_subject_taken')
     course  = models.ForeignKey(Course,on_delete=models.CASCADE, related_name='course_taken')
     date = models.DateTimeField(auto_now_add=True)
-    completed = models.BooleanField(null=True)
+    completed = models.BooleanField (default=False)
 
     def __str__(self):
         return str(self.course.title)
@@ -111,7 +111,7 @@ class TakenModule(models.Model):
     course  = models.ForeignKey(Course,on_delete=models.CASCADE, default=None, related_name='module_course_taken')
     module =  models.ForeignKey(Module,on_delete=models.CASCADE, related_name='module_taken')
     date = models.DateTimeField(auto_now_add=True)
-    completed = models.BooleanField(null=True)
+    completed = models.BooleanField(default=False)
     def __str__(self):
         return str(self.module.title)
 

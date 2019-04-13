@@ -16,8 +16,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-    def auto_generate_tag(self):
-        return
+
 
 
 class Quiz(models.Model):
@@ -29,6 +28,8 @@ class Quiz(models.Model):
     verified = models.BooleanField(default=False)
     def __str__(self):
         return self.name
+    def get_quiz_tags(self):
+        return str(list(self.tags.all().values_list('name', flat= True)))
 
 class StageLevel(models.Model):
     Beginner =1
@@ -142,11 +143,14 @@ class Student(models.Model):
         level = int(1/4 * math.sqrt(self.exp))+1
 
         self.level = level
+        self.save()
         return level
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Student.objects.create(user=instance)
+    def get_student_interests(self):
+        return str(list(self.interests.all().values_list('name', flat=True)))
 
 def calculate_rank():
 

@@ -22,7 +22,6 @@ def subjects(request):
 
 
 @login_required
-
 def courses(request, subject):
      #actual_subject = Subject.objects.get(slug = subject)
     subject_course = Course.objects.filter(subject__slug = subject )
@@ -46,7 +45,6 @@ def courses(request, subject):
          ,'views' : views  })
 
 @login_required
-
 def modules(request, subject, course):
     actual_course = Course.objects.get(slug = course)
     course_module = Module.objects.filter(course = actual_course)
@@ -129,7 +127,6 @@ def learn(request, module, content):
 @login_required
 
 def learn_question(request, module, content, question):
-
     this_question = Question.objects.get(pk = question)
     this_content = Content.objects.get(question = this_question)
     print(TakenContent.objects.filter(student = request.user.student, content = this_content))
@@ -155,7 +152,7 @@ def learn_question(request, module, content, question):
                 StudentAnswer.objects.create(student= request.user.student , question=this_question, stage=this_question.stage)
                 request.user.student.exp+= answered.question.point
                 request.user.student.save()
-            next_content = Content.objects.filter(module__slug= module, pk__gt = this_content.pk).first()
+            next_content = Content.objects.filter(module__slug= module, order__gt = this_content.order).first()
             if next_content is not None:
                 return redirect(reverse('learn', args=(next_content.module.slug, next_content.slug)))
             else:

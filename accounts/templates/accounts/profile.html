@@ -26,6 +26,9 @@
 
                           <p><a href="{% url 'password_reset' %}">change password</a></p>
                  <h1>{{ request.user.get_username }}</h1>
+                 {% if request.user.student.bio %}
+                 <p>{{request.user.student.bio}}</p>
+                 {% endif %}
                 <br>
                 {% if providers %}
                 <p>related account: {{providers}}</p>
@@ -44,7 +47,7 @@
                       <br>
                       Rank description : {{request.user.student.rank.description}}
                      </div>
-
+                       {{request.user.student.get_student_interests}}
                  {% for interest in interests %}
                <span class="badge text-white"  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
                  >{{ interest }}</span> {% endfor %}
