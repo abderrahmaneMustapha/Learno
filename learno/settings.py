@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',  # <--
     'tinymce',
-    
+
 
 
 ]
@@ -247,15 +247,36 @@ RAISE_EXCEPTIONS = True
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'
 
+
 """
 celery configuration
 """
+redis_host = os.environ.get('REDIS_HOST', 'localhost')
+# Channel layer definitions
+# http://channels.readthedocs.org/en/latest/deploying.html#setting-up-a-channel-backend
+CHANNEL_LAYERS = {
+    "default": {
+        # This example app uses the Redis channel layer implementation asgi_redis
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(redis_host, 6379)],
+        },
+        "ROUTING": "multichat.routing.channel_routing",
+    },
+}
+from celery.schedules import crontab
 # Celery application definition
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULE = {
+'task-number-one': {
+        'task': 'accounts.tasks.calculate_rank_task',
+        'schedule': 5.0,
+    }
+}
 
 """
 end of celery configuration
