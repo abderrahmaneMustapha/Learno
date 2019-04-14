@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',  # <--
     'tinymce',
-    'django_celery_beat',
+    
 
 
 ]
