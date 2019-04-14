@@ -251,16 +251,12 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'
 """
 celery configuration
 """
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get('REDISCLOUD_URL', 'redis://localhost:6379')],
-        },
-        "ROUTING": "chat.routing.channel_routing",
-    },
-}
-from celery.schedules import crontab
+redis_url = os.getenv('REDISTOGO_URL')
+
+urlparse.uses_netloc.append('redis')
+url = urlparse.urlparse(redis_url)
+conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+
 # Celery application definition
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
