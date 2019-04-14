@@ -251,7 +251,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LfBWpYUAAAAAJTyRkqWJ6IKktj7Cbe5upwZfasi'
 """
 celery configuration
 """
-from urllib.parse import urlparse
+from urlparse import urlparse
 redis_url = os.getenv('REDISTOGO_URL')
 
 urlparse.uses_netloc.append('redis')
