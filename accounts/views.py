@@ -15,20 +15,8 @@ from . serializers import StudentSerializer
 
 from django.core import serializers
 
-from background_task import background
-
-from background_task.models import *
-from background_task.models_completed  import *
-@background(schedule=1)
-def notify_user():
-    calculate_rank()
-
-notify_user()
-
 
 def home(request):
-    CompletedTask.objects.all().delete()
-    Task.objects.all().delete()
 
     """
     COURSES

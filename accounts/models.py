@@ -156,28 +156,31 @@ def calculate_rank():
 
     users_ranks = StudentLevel.objects.all().order_by('exp_required')
     for rank in users_ranks:
+        #go down to the previous rank
+        if rank.name > 1:
+            students = Student.objects.filter(rank = rank)
+            print("all students of " + str(rank))
+            print(students)
+            if students.count() > rank.graduation_number :
+
+                 student = students.order_by('exp').first()
+                 print("last student studentin : "+str(student.rank))
+                 print(student)
+                 previous_rank =  StudentLevel.objects.filter(name__lt = rank.name).last()
+                 Student.objects.filter(user = student.user).update(rank = previous_rank)
         #go to the next rank
         if rank.name < 12:
          student = Student.objects.filter(rank = rank).order_by('-exp').first()
          if student is not None:
             if student.exp > rank.exp_required:
                 next_rank = StudentLevel.objects.filter(name__gt = rank.name).first()
-                print(next_rank)
-                Student.objects.filter(user = student.user).update(rank = next_rank)
-
-        #go down to the previous rank
-        if rank.name > 1:
-            students = Student.objects.filter(rank = rank)
-            print("all students")
-            print(students)
-            if students.count() > rank.graduation_number :
-                 student = students.order_by('exp').first()
-                 print(student)
-                 previous_rank =  StudentLevel.objects.filter(name__lt = rank.name).last()
-                 Student.objects.filter(user = student.user).update(rank = previous_rank)
+                students = Student.objects.filter(rank = next_rank)
+                if students.count()  <= next_rank.graduation_number:
+                    Student.objects.filter(user = student.user).update(rank = next_rank)
 
 
-    print("aaa")
+
+
 
 
 

@@ -8,6 +8,9 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('students', views.StudentView)
 
+
+from .tasks import calculate_rank_task
+calculate_rank_task.apply_async()
 urlpatterns = [
     #rest api urls
     path('api/', include(router.urls)),

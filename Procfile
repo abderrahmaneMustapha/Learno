@@ -1,3 +1,3 @@
 web: gunicorn learno.wsgi
-worker: python manage.py process_tasks
+worker: celery -A learno worker -l info
 release: python manage.py migrate
