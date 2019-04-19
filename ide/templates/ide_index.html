@@ -114,22 +114,22 @@
       <h1>Our code editor</h1>
       <p>code editor</p>
 
-      <a href="{% url 'main-editor'  'frontend-editor'%}"> CSS/JavaScript/HTML</a>
+      <a href="{% url 'main-editor'  'frontend-editor' %}"> CSS/JavaScript/HTML</a>
 
       {% for language in languages  %}
       <br>
-        <a href="{% url 'main-editor' language%}">{{language.name}}</a>
+        <a href="{% url 'main-editor' language.name%}">{{language.name}}</a>
 
       {%endfor%}
-      <h1>Python/C++/C/Java codes</h1>
+      <h1>Web Codes</h1>
       {% for web_code in web_codes %}
-      <a href="{% url 'share-editor-frontend' web_code.code.title web_code.code.pk %}">{{web_code.code.title}}</a>
+      <a href="{% url 'share-editor-frontend' web_code.code.slug web_code.code.pk %}">{{web_code.code.title}}</a>
       <br>
       {% endfor %}
        <br>
       <h1>Other Codes</h1>
       {% for other_code in other_codes %}
-      <a href="{% url 'share-editor-code' other_code.code.title other_code.code.pk %}">{{other_code.code.title}}</a>
+      <a href="{% url 'share-editor-code' other_code.code.slug other_code.code.pk %}">{{other_code.code.title}}</a>
       <br>
       {% endfor %}
       {% endblock %}

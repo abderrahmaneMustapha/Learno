@@ -261,7 +261,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
 'task-number-one': {
         'task': 'accounts.tasks.calculate_rank_task',
-        'schedule': 5.0,
+        'schedule': 604800.0,
     }
 }
 

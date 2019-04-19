@@ -125,7 +125,9 @@
           {% block header %}
           <h1>Learn by Doing</h1>
           <p class="lead">"say goodbye for teaching hello for learning"</p>
+            {% if not request.user.is_authenticated %}
           <p><a href="{% url  'signup' %}" class="btn btn-primary">Sign up </a></p>
+            {% endif %}
           {% endblock %}
         </div>
 
@@ -263,7 +265,7 @@
       </div>
     </section>
     <!-- END section -->
-
+{% if not request.user.is_authenticated %}
     <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/big_image_3.jpg' %});">
       <div class="container">
         <div class="row justify-content-center align-items-center intro">
@@ -275,6 +277,7 @@
         </div>
       </div>
     </section>
+  {% endif %}
     <!-- END section -->
 
 

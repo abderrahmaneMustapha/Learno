@@ -63,18 +63,21 @@ $(document).ready(function(){
   }
 
   //append input to iframe body
-$('textarea').keyup(function(){
-    var targetIframe = $('#preview')[0].contentWindow.document;
-    targetIframe.open();
-    targetIframe.close();
-    var html = getHTML();
+  var execute = function(){
+      var targetIframe = $('#preview')[0].contentWindow.document;
+      targetIframe.open();
+      targetIframe.close();
+      var html = getHTML();
 
-    var css = '<style>' + getCSS() + '</style>';
-    var js = '<script >' + getJS() + '</script>';
-    window.onerror = true;
-    $('body', targetIframe).append(html);
-    $('head', targetIframe).append(css);
-    $('body', targetIframe).append(js);
+      var css = '<style>' + getCSS() + '</style>';
+      var js = '<script >' + getJS() + '</script>';
+      window.onerror = true;
+      $('body', targetIframe).append(html);
+      $('head', targetIframe).append(css);
+      $('body', targetIframe).append(js);
 
-  });
+    }
+var interval = setTimeout(execute, 1);
+$('textarea').keyup(execute)
+
 });

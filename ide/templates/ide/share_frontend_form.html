@@ -28,7 +28,7 @@
          <form class="form-code-ajax" method="POST">
           {%csrf_token%}
           {% if request.user.username == code.code.owner.user.username %}
-          <button type="submit" class="btn btn-primary" name="button">Update</button>
+          <button type="submit" class="btn btn-primary" name="button" >Update</button>
           {% endif %}
           <p> title : {{code.code.title}}</p>
          <button class="accordion">HTML</button>
