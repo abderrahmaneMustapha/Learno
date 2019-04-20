@@ -231,7 +231,7 @@ here we seve the media file in production
 """
 SERVE_MEDIA_FILES = True
 
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -263,8 +263,8 @@ celery configuration
 """
 
 # Celery application definition
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://nadros.herokuapp.com'
+CELERY_RESULT_BACKEND = 'redis://nadros.herokuapp.com'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
