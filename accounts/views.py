@@ -123,17 +123,37 @@ def edit_profile(request):
 @login_required
 def profile(request):
     interests = request.user.student.interests.all()
+
+    #get the user taken course and user created course number
     taken_course = TakenCourse.objects.filter(student = request.user.student )
-    taken_module = TakenModule.objects.filter(student = request.user.student)
-    taken_content = TakenContent.objects.filter(student = request.user.student)
+    total_course =  Course.objects.filter(owner = request.user).count()
+    #get completed modules and total modules for each course
+    #number of completed modules in each course
+    skills_comp= []
+    #number of modules in each course
+    skills_mod = []
+    for course in taken_course:
+        temp = TakenModule.objects.filter(student = request.user.student, course__title= course, completed = True).count()
+        temp0 = Module.objects.filter(course__title= course).count()
+        skills_mod.append(temp0)
+        skills_comp.append(temp)
+
+
+    #get the total number of the codes
+    from ide.models import WebCode,OtherCode
+    web_code = WebCode.objects.filter(code__owner = request.user.student).order_by('?')
+    other_code = OtherCode.objects.filter(code__owner = request.user.student).order_by('?')
+    total_code = web_code.count() + other_code.count()
+
+    #get all the student answered questions
+    total_answers = StudentAnswer.objects.filter(student = request.user.student).count()
 
     level = Student.calculate_level(request.user.student)
     next_level_exp = (4*(level+1))*(4*(level+1))
     print(next_level_exp)
-    providers = request.user.social_auth.values_list('provider')
-    return render(request, 'accounts/profile.html',{'interests' : interests ,
-        'taken_course' : taken_course, 'taken_module' : taken_module
-        , 'taken_content' : taken_content, 'level':level,'next_level_exp':next_level_exp ,'providers': providers})
+    #providers = request.user.social_auth.values_list('provider')
+    return render(request, 'accounts/profile.html',{'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3], 'interests' : interests ,'total_code' : total_code,
+    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course})
 
 
 
@@ -145,13 +165,11 @@ def profiles(request,user):
 
 @login_required
 def leaderboard_view(request):
-    all_students = Student.objects.order_by('-exp')[:20]
-
-    student_high_rank =  Student.objects.filter(exp__gte = request.user.student.exp )[:5]
-
-    student_less_rank =  Student.objects.filter(exp__lte = request.user.student.exp ).exclude(user = request.user)[:5]
-
-    return render(request, 'accounts/leaderboard.html', {'all_students': all_students})
+    all_students = Student.objects.order_by('-exp')[:10]
+    student_high_rank =  Student.objects.filter(exp__gte = request.user.student.exp )[:2]
+    student_less_rank =  Student.objects.filter(exp__lte = request.user.student.exp ).exclude(user = request.user)[:2]
+    king = all_students[0]
+    return render(request, 'accounts/leaderboard.html', {'king':king, 'all_students': all_students})
 @login_required
 def quizzes_view(request):
     quizzes = Quiz.objects.all()

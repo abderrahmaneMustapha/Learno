@@ -1,0 +1,72 @@
+<section class="school-features d-flex" style="background-color: #FFFFFF">
+  <div class="container">
+     <div class="row">
+       <div class="col-lg-12 col-md-12 col-xl-12 ">
+         <div>
+           <div class="card bg-light">
+              <div class="card-header">
+                    <div class="row">
+                {% if request.user.student.photo %}
+                <img class="img-circle" src="{{request.user.student.photo.url}}"  alt="profile photo" />
+                  {%endif%}
+                <div class="col">
+                    <h1 class="card-text">{{ request.user.get_username }}</h1>
+                    <div class="row">
+                      <img id="rank" src="{{request.user.student.rank.logo.url}}" />
+                         <div class="col">
+                           <p>Rank : {{request.user.student.rank.get_name_display}}</p>
+                           <p>  Rank description : {{request.user.student.rank.description}}</p>
+                         </div>
+
+                    </div>
+                </div>
+                </div>
+                        {% if request.user.student.bio %}
+                        <div id="bio" class="d-flex justify-content-center">
+                              <p>{{request.user.student.bio}}</p>
+                        </div>
+                        {% endif %}
+
+
+                  <a class="btn btn-success col-md-12" href="{% url 'edit_profile' %}">Edit Profile</a>
+                  <a class="btn btn-warning col-md-12" href="{% url 'password_reset' %}">change password</a>
+
+                  {% if providers %}
+                  <p>related account: {{providers}}</p>
+                  {% endif %}
+                    <p class="d-flex justify-content-center">LEVEL : {{level}}</p>
+                   <div class="progress col-md-12"">
+                      <p>Point: {{request.user.student.exp}} exp</p>
+                    </div>
+                         {{request.user.student.get_student_interests}}
+                   {% for interest in interests %}
+                 <span class="badge text-white"  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
+                   >{{ interest }}</span> {% endfor %}
+
+                 </div>
+                 <div class="card-body">
+
+                   <h6>Taken Course</h6>
+                   {% for course in taken_course %}
+                   <a class="col" href="{% url  'modules' course.subject.slug course.course.slug %}">{{course.course.title}}</a>
+                   {% endfor %}
+
+                   <h6>Taken Module</h6>
+                   {% for module in taken_module %}
+                   <a class="col" href="{% url 'contents' module.course.slug module.module.slug %}">{{module.module.title}}</a>
+                   {% endfor %}
+
+                 </div>
+
+  <div class="card-footer ">
+
+  </div>
+  <br/>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+  </div>
+</section>

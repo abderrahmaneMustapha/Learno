@@ -41,7 +41,7 @@ class StudentForm(forms.ModelForm):
     )
      class Meta:
          model = Student
-         fields = ('photo','interests',)
+         fields = ('bio','photo','interests',)
          widgets = {'interests': forms.CheckboxSelectMultiple}
 
 class EditUserForm(forms.ModelForm):

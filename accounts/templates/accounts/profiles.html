@@ -1,11 +1,6 @@
-
-
 {% extends 'home.html' %}
 {% load bootstrap4 %}
 {% block title %}Profile | {{this_student}} {% endblock %}
-
-
-
 
 {% block main %}
 
@@ -18,7 +13,7 @@
        <div>
          <div class="card">
             <div class="card-header">
-              <img class="rounded-circle offset-5" src="{{ MEDIA_URL }}{{this_student.photo.url }}"
+              <img class="img-circle offset-5" src="{{ MEDIA_URL }}{{this_student.photo.url }}"
                         width="70" height="70" />
 
                      <h1> {{this_student}} </h1>

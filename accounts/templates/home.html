@@ -5,10 +5,10 @@
   <head>
     <title>{% block title %}Learno | Home{% endblock %}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
-
+      <link rel="stylesheet" href="{%  static 'css/leaderboard.css' %}">
     <link rel="stylesheet" href="{%  static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
@@ -19,6 +19,8 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block style %}
+    {% endblock %}
   </head>
   <body>
 
@@ -116,7 +118,7 @@
 {% endblock %}
 
 {% block headercontain %}
-<section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/big_image_1.jpg' %});">
+<section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url({% static 'images/big_image_1.jpg' %});">
   <div class="container">
     <div class="row align-items-center site-hero-inner justify-content-center">
       <div class="col-md-8 text-center">
@@ -143,7 +145,7 @@
     {% block main %}
 
 
-    <section class="school-features d-flex" style="background-image: url({% static 'images/big_image_3.jpg' %});">
+    <section class="school-features d-flex" style="background-color: #699132;">
 
       <div class="inner">
         <div class="media d-block feature">
@@ -333,7 +335,7 @@
 
     {% endblock %}
 
-    <footer class="site-footer" style="background-image: url({% static 'images/big_image_3.jpg' %});">
+    <footer class="site-footer" style="background-color: #699132;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-4">
@@ -370,9 +372,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div style="color: #fff;"class="col-md-12">
 
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Alilou</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Alilou</a> and <a href="#" target="_blank">Toumi Abderramane</a>
 
           </div>
         </div>

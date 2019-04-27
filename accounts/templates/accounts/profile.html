@@ -1,81 +1,166 @@
 {% extends 'home.html' %}
+{% load static %}
 {% load bootstrap4 %}
 {% block title %}Profile | {{ request.user.get_username }} {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block header %}
+<h1>Profile</h1>
+{% endblock %}
+
 {% block main %}
-
+<section>
 <div class="container">
-   <div class="row">
-     <div class="col-lg-8 offset-2">
-       <br/>
-       <br/>
-       <br/>
-       <div>
-         <div class="card">
-            <div class="card-header"> 
+<div class="row info-profile">
+        <div class="col-lg-4">
+           <div class="profile-card-4 z-depth-3">
+            <div class="card">
+              <div class="card-body text-center bg-success rounded-top">
+               <div class="user-box">
+                <img src="{{request.user.student.photo.url}}" alt="user avatar">
+              </div>
+              <h5 class="mb-1 text-white">{{ request.user.get_username }}</h5>
+             </div>
+              <div class="card-body">
+                <ul class="list-group shadow-none">
 
-              {% if request.user.student.photo %}
-              <img class="circle offset-5" src="{{request.user.student.photo.url}}"
-                        width="70" height="70" />
-                {%endif%}
-                      <div class="row">
-                        <a class="offset-1" href="{% url 'edit_profile' %}">Edit Profile</a>
-                        <a class="offset-1"  href="{% url 'social:begin' 'google-oauth2' %}">add Google</a>
-                        <a class="offset-1"   href="{% url 'social:begin' 'github' %}">add GitHub</a>
-                      </div>
+                <li class="list-group-item">
+                  <div class="list-icon">
+                    <i class="fa fa-envelope"></i>
+                  </div>
+                  <div class="list-details">
+                    <span>{{ request.user.email }}</span>
+                    <small>Email Address</small>
+                  </div>
+                </li>
 
-                          <p><a href="{% url 'password_reset' %}">change password</a></p>
-                 <h1>{{ request.user.get_username }}</h1>
-                 {% if request.user.student.bio %}
-                 <p>{{request.user.student.bio}}</p>
-                 {% endif %}
-                <br>
-                {% if providers %}
-                <p>related account: {{providers}}</p>
-                {% endif %}
-
-                 <div class="row">
-                      Level : {{level}}
-                      <br>
-                      Point:   {{request.user.student.exp}} exp
-
-                      <img class="" src="{{request.user.student.rank.logo.url}}"
-                                width="7%" height="7%" />
-
-                      <br>
-                      Rank : {{request.user.student.rank.get_name_display}}
-                      <br>
-                      Rank description : {{request.user.student.rank.description}}
-                     </div>
-                       {{request.user.student.get_student_interests}}
-                 {% for interest in interests %}
-               <span class="badge text-white"  data-color = '{{interest.color}}'  style="background-color:{{ interest.color }};"
-                 >{{ interest }}</span> {% endfor %}
-
+                </ul>
+                <div class="row text-center mt-4">
+                  <div class="col p-2">
+                   <h4 class="mb-1 line-height-5">{{total_code}}</h4>
+                    <small class="mb-0 font-weight-bold">Codes</small>
+                   </div>
+                    <div class="col p-2">
+                      <h4 class="mb-1 line-height-5">{{total_course}}</h4>
+                     <small class="mb-0 font-weight-bold">Courses</small>
+                    </div>
+                    <div class="col p-2">
+                     <h4 class="mb-1 line-height-5">{{total_answers}}</h4>
+                     <small class="mb-0 font-weight-bold">Answers</small>
+                    </div>
+                 </div>
                </div>
-               <div class="card-header ">
-
-                 <h6>Taken Course</h6>
-                 {% for course in taken_course %}
-                 <a class="col" href="{% url  'modules' course.subject.slug course.course.slug %}">{{course.course.title}}</a>
-                 {% endfor %}
-
-                 <h6>Taken Module</h6>
-                 {% for module in taken_module %}
-                 <a class="col" href="{% url 'contents' module.course.slug module.module.slug %}">{{module.module.title}}</a>
-                 {% endfor %}
-
+               <div class="card-footer text-center">
+                 <a href="{{request.user.social_auth.providers}}" class="btn-social btn-github waves-effect waves-light m-1"><i class="fa fa-github"></i></a>
                </div>
+             </div>
+           </div>
+        </div>
+        <div class="col-lg-8 ">
+           <div class="card z-depth-3">
+            <div class="card-body">
+            <ul class="nav nav-pills nav-pills-success nav-justified">
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#skills" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Skills</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'edit_profile' %}" class="btn btn-warning"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
+                </li>
+            </ul>
+            <div class="tab-content p-3">
+                <div class="tab-pane active show" id="profile">
+                    <h5 class="mb-3">User Profile</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Bio</h6>
+                            <p>
+                              {% if request.user.student.bio %}
+                                  {{request.user.student.bio}}
+                              {% else %}
+                               nothing here :)
+                              {% endif %}
 
-<div class="card-footer ">
+                            </p>
+                            <h6>Rank : {{request.user.student.rank}} </h6>
+                            <img class="rounded-circle img-responsive"
+                            src="{{request.user.student.rank.logo.url}}" width="20%" height="30%" />
+                            <p>
+                                {{request.user.student.rank.description}}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Interests : </h6>
+                            {% for interest in interests %}
+                            <a href="javascript:void();"  style="background-color:{{ interest.color }};" data-color = '{{interest.color}}'  class="badge badge-dark badge-pill">{{ interest }}</a>
+                            {% endfor %}
 
-</div>
-<br/>
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some Shared Codes</h5>
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                  {% for code in  web_code %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'share-editor-frontend' code.code.slug code.code.pk %}"><strong>{{code.code.title}}</strong></a>
+                                        </td>
+                                    </tr>
+                                   {% endfor %}
+                                   {% for code in  other_code %}
+                                     <tr>
+                                         <td>
+                                             <a href="{% url 'share-editor-code' code.code.slug code.code.pk %}"><strong>{{code.code.title}}</strong></a>
+                                         </td>
+                                     </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+                <div class="tab-pane row" id="skills">
+                  <div class="card-box">
+           <h4 class="m-t-0 m-b-20 header-title">Skills</h4>
+           <div class="p-b-10" data-target='#myprogress' data-offset="0" data-spy="scroll">
+             {% for course in taken_course %}
+                   <p>{{course}}</p>
 
-</div>
+                   {% load index %}
 
+                 <div class="progress progress-striped active">
+                   <div  id = "myprogress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{skills_comp|index:forloop.counter0}}" aria-valuemin="0" aria-valuemax="{{skills_mod|index:forloop.counter0}}" >
+                   </div>
+                   <script type="text/javascript">
+                              var a = parseInt({{skills_comp|index:forloop.counter0}}) * 100 / parseInt({{skills_mod|index:forloop.counter0}});
+                              document.getElementById("myprogress").style.width =  a + "%";
+
+                   </script>
+               </div>
+              {% endfor %}
+
+
+
+           </div>
+       </div>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
 </div>
-</div>
-</div>
-</div>
+</section>
 
 {% endblock %}

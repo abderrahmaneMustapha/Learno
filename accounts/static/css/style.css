@@ -1,3 +1,4 @@
+
 body {
   background: #fff;
   font-family: "Source Sans Pro", arial, sans-serif;
@@ -126,12 +127,12 @@ header .navbar .dropdown-menu:before {
 }
 
 header .navbar .dropdown-menu .dropdown-item:hover {
-  background: #007bff;
+  background: #699132;
   color: #fff;
 }
 
 header .navbar .dropdown-menu .dropdown-item.active {
-  background: #007bff;
+  background: #699132;
   color: #fff;
 }
 
@@ -246,7 +247,7 @@ header .navbar.navbar-light .nav-link.active {
   text-transform: uppercase;
   line-height: 74px;
   border-radius: 50%;
-  background: #007bff;
+  background: #699132;
   color: #fff;
   font-size: 30px;
 }
@@ -430,7 +431,8 @@ header .navbar.navbar-light .nav-link.active {
 .school-instructors.text-dark .feature .icon > span:before {
   font-size: 50px;
   margin-left: 0;
-  color: #007bff;
+  color: #699132;
+
 }
 
 .img-bg {
@@ -541,7 +543,7 @@ textarea.form-control {
 
 .btn.btn-outline-primary {
   border-width: 2px;
-  color: #007bff;
+  color: #699132;
 }
 
 .btn.btn-outline-primary:hover, .btn.btn-outline-primary:focus, .btn.btn-outline-primary:active {
@@ -633,7 +635,7 @@ textarea.form-control {
 }
 
 .owl-carousel .owl-dots .owl-dot.active {
-  background: #007bff;
+  background: #699132;
 }
 
 .owl-carousel.home-slider {
@@ -848,10 +850,10 @@ textarea.form-control {
 }
 
 .box.hover:hover .box-body, .box.hover:focus .box-body {
-  background: #007bff;
+  background: #699132;
   color: #fff;
   padding: 30px 20px;
-  border-color: #007bff;
+  border-color: #699132;
 }
 
 .box.hover:hover h2, .box.hover:focus h2 {
@@ -864,7 +866,7 @@ textarea.form-control {
 }
 
 .breadcrumb-custom li a {
-  color: #007bff;
+  color: #699132;
 }
 
 .breadcrumb-custom li a:hover {
@@ -971,7 +973,7 @@ textarea.form-control {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: #007bff;
+  background: #699132;
 }
 
 .text-black {
@@ -1000,7 +1002,7 @@ textarea.form-control {
 
 .media-feature .icon {
   font-size: 60px;
-  color: #007bff;
+  color: #699132;
 }
 
 .media-feature h3 {
@@ -1015,7 +1017,7 @@ textarea.form-control {
   -ms-transform: scale(1.05);
   transform: scale(1.05);
   z-index: 2;
-  border-bottom: 10px solid #007bff;
+  border-bottom: 10px solid #699132;
 }
 
 .media-custom {
@@ -1087,7 +1089,7 @@ textarea.form-control {
   display: block;
   text-align: left;
   text-decoration: none;
-  color: #007bff;
+  color: #699132;
   position: relative;
   -webkit-box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;
@@ -1315,6 +1317,7 @@ blockquote p {
 
 .copyright {
   font-size: 14px;
+  color: #fff;
 }
 
 .element-animate {
@@ -1428,4 +1431,27 @@ blockquote p {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px;
   }
+}
+
+div .leaderboard{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 400px;
+  color: #000;
+}
+.leaderboard a {
+  color: #000;
+}
+
+div.card{
+  background-color : transparent;
+  border-style : none;
+  color: #000;
+}
+.container {
+  padding: 1;
+}
+ h4 {
+  color: #000;
+  line-height: 1.5;
 }
