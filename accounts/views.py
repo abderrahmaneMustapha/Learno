@@ -7,10 +7,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
 
 from .forms import StudentForm, UserForm, EditUserForm,SearchForm,ContactUs
-from .models import (Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
+from .models import ( Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
 TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
 
-from course.models import TakenCourse, TakenModule, TakenContent,Subject,Course,Subject,Module
+from course.models import ContentNote,  TakenCourse, TakenModule, TakenContent,Subject,Course,Subject,Module
 from . serializers import StudentSerializer
 
 from django.core import serializers
@@ -150,18 +150,48 @@ def profile(request):
 
     level = Student.calculate_level(request.user.student)
     next_level_exp = (4*(level+1))*(4*(level+1))
-    print(next_level_exp)
+
+    #get all student notes
+    taken_note = ContentNote.objects.filter(user = request.user)
     #providers = request.user.social_auth.values_list('provider')
     return render(request, 'accounts/profile.html',{'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3], 'interests' : interests ,'total_code' : total_code,
-    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course})
+    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course, 'taken_note':taken_note})
 
 
 
 def profiles(request,user):
-    this_user = User.objects.get(username = user)
-    this_student = Student.objects.get(user = this_user)
-    print(this_student.interests.all())
-    return render(request, 'accounts/profiles.html', {'this_student' : this_student})
+    this_student = Student.objects.get(user__username = user)
+    interests = this_student.interests.all()
+
+    #get the user taken course and user created course number
+    taken_course = TakenCourse.objects.filter(student = this_student )
+    total_course =  Course.objects.filter(owner = this_student.user).count()
+    #get completed modules and total modules for each course
+    #number of completed modules in each course
+    skills_comp= []
+    #number of modules in each course
+    skills_mod = []
+    for course in taken_course:
+        temp = TakenModule.objects.filter(student = this_student, course__title= course, completed = True).count()
+        temp0 = Module.objects.filter(course__title= course).count()
+        skills_mod.append(temp0)
+        skills_comp.append(temp)
+
+
+    #get the total number of the codes
+    from ide.models import WebCode,OtherCode
+    web_code = WebCode.objects.filter(code__owner = this_student).order_by('?')
+    other_code = OtherCode.objects.filter(code__owner = this_student).order_by('?')
+    total_code = web_code.count() + other_code.count()
+
+    #get all the student answered questions
+    total_answers = StudentAnswer.objects.filter(student = this_student).count()
+
+    level = Student.calculate_level(this_student)
+    next_level_exp = (4*(level+1))*(4*(level+1))
+    return render(request, 'accounts/profiles.html', {'this_student' : this_student, 'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3],
+    'interests' : interests ,'total_code' : total_code,
+    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course})
 
 @login_required
 def leaderboard_view(request):

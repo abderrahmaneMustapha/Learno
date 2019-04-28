@@ -78,7 +78,7 @@ def modules(request, subject, course):
 
 def contents(request, course, module):
     current_module= Module.objects.get(slug = module)
-    module_content= Content.objects.filter(module = current_module)
+    module_content= Content.objects.filter(module__slug = module)
     check_taken_module = TakenModule.objects.filter(student = request.user.student, module=current_module )
     start_first_content = None
     if module_content:

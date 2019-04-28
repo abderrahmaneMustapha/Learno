@@ -1,18 +1,16 @@
 {% extends 'base_course.html' %}
 {%block title %}{{module.title}}{% endblock %}
 
-{% block content %}
+{% block header %}
+
 <h1>About module</h1>
-<p>{{module.description}}</p>
-  {% if start_first_content %}
-        <div class="card">
-          <div class="card-body">
-                   <br>
-                   <a href="{% url 'learn' module start_first_content.slug  %}">Start</a>
-
-                   </div>
-               </div>
-{%endif%}
-
+<p>{{start_first_content.module.description}}</p>
+{% if start_first_content %}
+<p><a class="btn btn-primary" href="{% url 'learn' module start_first_content.slug  %}">
+Start The First Lesson
+</a></p>
+{%else%}
+<p>there is nothing to learn here </p>
+{% endif %}
 
 {% endblock %}

@@ -1,11 +1,11 @@
 $(document).ready(function(){
-  var productForm = $(".form-answer-ajax")
+  var productForm = $(".form-note-ajax")
   var submitButton = productForm.closest('form').find(':submit');
 
 
   productForm.submit(function(event){
     event.preventDefault();
-    console.log(" form is not sending")
+
 
 
     var thisForm = $(this);
@@ -20,8 +20,8 @@ $(document).ready(function(){
        data : formData,
 
        success : function(data){
-            submitButton.attr("disabled", true);
-            alert("Update Successful");
+            /*submitButton.attr("disabled", true);
+            alert("Update Successful");*/
 
 
 

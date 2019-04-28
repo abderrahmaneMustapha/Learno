@@ -69,6 +69,9 @@
                     <a href="javascript:void();" data-target="#skills" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Skills</span></a>
                 </li>
                 <li class="nav-item">
+                    <a href="javascript:void();" data-target="#notes" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">notes</span></a>
+                </li>
+                <li class="nav-item">
                     <a href="{% url 'edit_profile' %}" class="btn btn-warning"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
             </ul>
@@ -87,8 +90,9 @@
 
                             </p>
                             <h6>Rank : {{request.user.student.rank}} </h6>
-                            <img class="rounded-circle img-responsive"
-                            src="{{request.user.student.rank.logo.url}}" width="20%" height="30%" />
+                            <img class="img-responsive"
+                            src="{{request.user.student.rank.logo.url}}" width="15%" height="25%" />
+                            <h6>Rank description :</h6>
                             <p>
                                 {{request.user.student.rank.description}}
                             </p>
@@ -101,7 +105,7 @@
 
                         </div>
                         <div class="col-md-12">
-                            <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Some Shared Codes</h5>
+                            <h5 class="mt-2 mb-3"><span class=" ion-code float-right"></span> Some Shared Codes</h5>
                             <table class="table table-hover table-striped">
                                 <tbody>
                                   {% for code in  web_code %}
@@ -148,11 +152,55 @@
 
            </div>
        </div>
-
-
-
-
                 </div>
+
+                <div class="tab-pane row" id="notes">
+                  <div class="card-box">
+                    <table class="table table-hover table-striped">
+                         <thead>
+                            <tr>
+                              <th>content</th>
+                              <th>module</th>
+                              <th>course</th>
+                            </tr>
+                         </thead>
+                        <tbody>
+                          {% for note in taken_note %}
+
+                            <tr  data-toggle="modal" data-target="#myModal" class="select">
+                                <td>
+                                    <strong>{{note.content}}</strong>
+                                </td>
+                                <td>
+                                    <strong>{{note.content.module}}</strong>
+                                </td>
+                                <td>
+                                    <strong>{{note.content.module.course}}</strong>
+                                </td>
+                            </tr>
+                              <!-- note text -->
+                              <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">{{note.content}}</h4>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>{{note.note}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                           {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+
 
             </div>
         </div>
