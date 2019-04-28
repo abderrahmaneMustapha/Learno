@@ -127,6 +127,7 @@ def learn(request, module, content):
 @login_required
 
 def learn_question(request, module, content, question):
+
     this_question = Question.objects.get(pk = question)
     this_content = Content.objects.get(question = this_question)
     print(TakenContent.objects.filter(student = request.user.student, content = this_content))
@@ -134,6 +135,8 @@ def learn_question(request, module, content, question):
         return HttpResponse('you can\'t access this question yet')
     this_question_answers = Answer.objects.filter(question = this_question)
     this_question_right_answers_count = Answer.objects.filter(question = this_question, is_correct = True).count()
+
+    result = None
     if request.method == "POST":
         count = 0
         result= False
@@ -160,7 +163,9 @@ def learn_question(request, module, content, question):
                 request.user.student.exp += 20
                 request.user.student.save()
                 return redirect(reverse('modules', args=(this_content.module.course.subject.slug, this_content.module.course.slug)))
-    return render(request, 'course/content_question_form.html',{'this_question' : this_question,
+        else:
+            result = False
+    return render(request, 'course/content_question_form.html',{'result': result, 'this_question' : this_question,
         'this_question_answers' : this_question_answers,})
 
 def add_course(request, subject):

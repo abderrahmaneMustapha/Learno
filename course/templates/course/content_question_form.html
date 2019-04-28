@@ -1,21 +1,40 @@
+{% extends 'base_course.html'  %}
+{% load bootstrap4 %}
+{% block bar %}{% endblock %}
+{% block headercontain %}{% endblock %}
+{% block title %}question | {{ this_question.content.title }}{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+{% load static %}
+{% if result == False %}
+<div class="alert alert-danger text-center" role="alert">
+  Wrong answer try again
+  <audio autoplay>
+  <source src="{% static 'wrong.mp3' %}" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio>
+</div>
+{% endif %}
+<section class=" d-flex justify-content-center align-self-center">
+  <div class="content">
+    <div class="card row ">
+      <div class="card-body col-lg-12">
+        <h4 class="text-center">{{ this_question }}</h4>
+        <hr>
+        <form  method="POST">
+          {%csrf_token%}
+          {% for answer in this_question_answers %}
+          <br>
+            <input type="checkbox" name="answer" value="{{answer.id}}"> {{answer.text}}
+          {%endfor%}
+          <br>
+          <hr>
+         <button class=" btn btn-success" type="submit" name="button">submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>question | {{ this_question.content.title }}</title>
-  </head>
-  <body>
-    <h1>Question for : {{this_question.content.title}} </h1>
-    <form  method="POST">
-      {%csrf_token%}
-      {{ this_question }}
-      {% for answer in this_question_answers %}
-      <br>
-        <input type="checkbox" name="answer" value="{{answer.id}}"> {{answer.text}}
-      {%endfor%}
-     <button type="submit" name="button">submit</button>
-    </form>
+</section>
 
-  </body>
-</html>
+{% endblock %}

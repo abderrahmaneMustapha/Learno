@@ -7,52 +7,57 @@
 
 {% block learn %}
 
-<h1>{{content.title}}</h1>
+<nav class ="navbar" style="background-color:#699132;">
+  <h1 class="text-white">{{content.title}}</h1>
+</nav>
 
-<div class="card">
-  <div class="card-body">
-    <div class="embed-responsive-21by9 embed-responsive ">
-      <iframe
-      src="{{content_learn.video}}"
-      class="embed-responsive-item"
-      frameborder="0" allow="accelerometer; autoplay; encrypted-media;
-      gyroscope; picture-in-picture" allowfullscreen></iframe>
+<section>
+  <div class="card">
+    <div class="card-body">
+      <div class="embed-responsive-21by9 embed-responsive ">
+        <iframe
+        src="{{content_learn.video}}"
+        class="embed-responsive-item"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media;
+        gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div contenteditable>
+           {{content_learn.text | safe}}
     </div>
 
-    <div contenteditable>
-         {{content_learn.text | safe}}
-  </div>
+    </div>
 
-  </div>
+    <!-- note text -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Take some note about this course</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form class="form-note-ajax" method="POST" >
+                {% csrf_token %}
+              {% bootstrap_form note_form %}
+              <button type="submit" class="btn btn-primary"  name="save">Save</button>
 
-  <!-- note text -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Take some note about this course</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form class="form-note-ajax" method="POST" >
-              {% csrf_token %}
-            {% bootstrap_form note_form %}
-            <button type="submit" class="btn btn-primary"  name="save">Save</button>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
+
+  <div class="card-footer">
+    <a class="btn btn-success" href="{% url 'learn-question' content_learn.module.slug content_learn.slug content_learn.question.pk %} ">next</a>
+  </div>
+  <button data-target="#myModal" data-toggle="modal" class="select position-fixed btn btn-warning" type="button" name="button" >take notes</button>
   </div>
 
-<div class="card-footer">
-  <a class="btn btn-success" href="{% url 'learn-question' content_learn.module.slug content_learn.slug content_learn.question.pk %} ">next</a>
-</div>
-<button data-target="#myModal" data-toggle="modal" class="select position-fixed btn btn-warning" type="button" name="button" >take notes</button>
-</div>
+</section>
 
 
 {% endblock %}
