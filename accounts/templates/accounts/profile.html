@@ -21,7 +21,23 @@
                <div class="user-box">
                 <img src="{{request.user.student.photo.url}}" alt="user avatar">
               </div>
+
+
+              <p class="text-white">Level : {{request.user.student.level}}</p>
               <h5 class="mb-1 text-white">{{ request.user.get_username }}</h5>
+
+
+               <div class="progress progress-striped active">
+                   <div  id = "points" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="" >
+                        {{request.user.student.exp}} exp
+                   </div>
+                   <script type="text/javascript">
+                     var a = parseInt({{request.user.student.exp}}) * 100 / parseInt({{next_level_exp}});
+                     document.getElementById("points").style.width =  a + "%";
+                   </script>
+
+               </div>
+               <p class="text-white">next level : {{next_level_exp}} exp</p>
              </div>
               <div class="card-body">
                 <ul class="list-group shadow-none">
@@ -91,7 +107,7 @@
                             </p>
                             <h6>Rank : {{request.user.student.rank}} </h6>
                             <img class="img-responsive"
-                            src="{{request.user.student.rank.logo.url}}" width="15%" height="25%" />
+                            src="{{request.user.student.rank.logo.url}}" width="15%" height="21%" />
                             <h6>Rank description :</h6>
                             <p>
                                 {{request.user.student.rank.description}}

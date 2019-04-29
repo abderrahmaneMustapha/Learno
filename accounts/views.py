@@ -149,6 +149,7 @@ def profile(request):
     total_answers = StudentAnswer.objects.filter(student = request.user.student).count()
 
     level = Student.calculate_level(request.user.student)
+    print(level)
     next_level_exp = (4*(level+1))*(4*(level+1))
 
     #get all student notes

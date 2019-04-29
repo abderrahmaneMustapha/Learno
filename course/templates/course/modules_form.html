@@ -1,7 +1,10 @@
 
 
 {% extends 'home.html' %}
-
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/modules.css' %}">
+{% endblock %}
 {% block title %}{{course.title}}{% endblock %}
 
 {% block bar %}
@@ -23,11 +26,13 @@
               <p>{{course.owner}}</p>
               <p class="lead mb-5">{{course.overview}}</p>
 
-              <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-primary mr-2">Start Series</a></p>
+              <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-primary mr-2">
+                {% if next_module.order == 1 %}Start {% else %} Continue {%endif%}</a></p>
             </div>
             <div class="col-md-4">
-              <img src="{{course.photo.url}}" alt="Image placeholder" class="img-fluid">
+              <img src="{{course.photo.url}}" alt="{{course.title}} course background " class="img-fluid">
             </div>
+
           </div>
 
         </div>
@@ -43,18 +48,49 @@
  <div class="container">
    {% for module in  course_module %}
     {% if module.approved %}
+
+      <!-- note text -->
+      <div class="modal fade text-white" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body bg-danger">
+              You cant access this yet
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of note -->
+
+  <a {% if module in completed_module or  module == next_module %}
+    href="{% url 'contents' course module.slug %}" {% else %} href="#"
+     data-target="#myModal" data-toggle="modal" {%endif%}>
+
    <div class="row bg-light align-items-center p-4 episode">
      <div class="col-md-3">
        <span class="episode-number">{{forloop.counter}}</span>
      </div>
-     <div class="col-md-9">
-       <p class="meta">Episode {{forloop.counter}}</p>
-       <h2>
-         <a href="{% if module in completed_module or  module == next_module %}{% url 'contents' course module.slug %}{% else %}#{%endif%}">
-           {{module.title}}</a></h2>
+     <div class="col-md-7">
+
+       <h2>{{module.title}}</h2>
        <p>{{module.description}}</p>
+
      </div>
+     <div class="float-right col-md-2">
+       {% for c_module  in  completed_module %}
+            {% if c_module.title == module.title %}
+               <i class="fas fa-check fa-lg"></i>
+            {% else %}
+                  {% if module.title == next_module.title %}
+                  <i class="fas fa-exclamation fa-lg"></i>
+                  {% else %}
+                    <i class="fas fa-times fa-lg"></i>
+                  {% endif %}
+            {% endif %}
+       {% endfor %}
+     </div>
+
    </div>
+   </a>
    {% endif %}
    {% endfor %}
  </div>
