@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Student
+from course.models import Course
 from django.template.defaultfilters import slugify
 
 
@@ -14,22 +15,18 @@ class Code(models.Model):
         super(Code, self).save(*args, **kwargs)
     def __str__(self):
         return str(self.title)
-"""
-class Vote(models.Model):
-    up  = 0
-    down = 1
 
-    STATUS_CHOICES =  ( (up, "up"), (down, "down"), )
+class Vote(models.Model):
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     code  = models.ForeignKey(Code, on_delete=models.CASCADE)
-    vote = models.IntegerField(choices = STATUS_CHOICES, null = True)
-
+    vote = models.BooleanField(default= False)
     def __str__(self):
-        return self.owner
-"""
+        return str(self.owner)
+
 class SupportedLanguages(models.Model):
     name = models.TextField( max_length=500)
     created = models.DateField(auto_now_add=True)
+    course = models.ForeignKey(Course,on_delete = models.CASCADE, null = True)
 
 
 

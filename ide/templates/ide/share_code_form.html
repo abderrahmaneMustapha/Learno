@@ -8,35 +8,86 @@
 
 {% block head %}{% endblock %}
 {% block content %}
-<h1>The {{other_code.lang.name}} IDE </h1>
-<div class="row">
-<div class="col-md-1 offset-1">
-<form class="form-group" method="POST" id="code_form">
-  {% csrf_token %}
-  {% if request.user.username == other_code.code.owner.user.username %}
-  <button type="submit" class="btn btn-primary" name="save">Update</button>
-  {% endif %}
-   title :{{other_code.code.title}}
-  <textarea id="code_id" rows="8" cols="100" name="code"  form="code_form" autofocus>{{other_code.content}}</textarea>
-  <button type="submit" class="btn btn-success" name="run">Run</button>
-</form>
 
-<textarea class="offset-5" rows="8" cols="60" readonly>
-  {% if output %}
-   {{output}}
-  {% endif %}
-</textarea>
+<section class="site-section main-ide" style= "background-color:#343A40;">
+  <div class="container" >
 
-</div>
-</div>
+      <form class="form-group" method="POST" id="code_form">
+        <div class="d-flex flex-row justify-content" >
+          {% csrf_token %}
+          <i class="mt-4 text-white fas fa-edit col-md- col-xs- col-sm-1"></i>
+          <input class="form-control col-md-2 col-xs-1 col-sm-1 bg-dark border
+               border-dark text-white"
+          type="text" name="title" value="{{other_code.code.title}}" readonly>
+
+          <h3 class=" mt-3 text-white text-center col-md-6 col-sm-4
+          col-xs-5">{{other_code.lang.name}}</h3>
+          <div class="col-md-3 col-sm-2 col-xs-2 d-flex flex-row">
+            <button type="submit" name="vote"
+            class="btn btn-dark">
+            {% if voted_check %}
+            <i class="fas fa-star text-warning"></i>
+            <br>
+            voted
+            {%else%}
+            <i class="fas fa-star"></i>
+            <br>
+            vote
+            {%endif%}
+            </button>
+            {% if request.user.username == other_code.code.owner.user.username %}
+            <button type="submit" class="btn btn-dark text-white"
+            name="save">
+              <i class="fas fa-recycle"></i>
+              <br>
+              update
+            </button>
+            {% endif %}
+            <a href="{% url 'coding-ground' %}" class="btn btn-dark text-white"
+            >
+              <i class="fas fa-times"></i>
+              <br>
+              close
+            </a>
+
+
+          </div>
+
+        </div>
+        <div class="row">
+
+      <textarea class="cole-md-12 cole-sm-12" id="code_id" name="code"  form="code_form" autofocus>
+      {{other_code.content}}
+      </textarea>
+      <button type="submit" class="btn btn-success badge" name="run">Run</button>
+        <textarea rows="5"class="col-md-12 cole-sm-12" readonly>
+          {% if output %}
+           {{output}}
+        {% endif %}
+        </textarea>
+        </div>
+          </form>
+
+
+  </div>
+
+
+</section>
+
+
+
+
 
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById("code_id"),{
   lineNumbers: true,
+  {% if language == 'java' %}
+  mode : 'javascript',
+  {% else %}
   mode : '{{language}}',
+  {% endif %}
   theme : 'dracula'
   });
-
-  editor.setSize(500, 300);
+  editor.setSize(1200, 300);
 </script>
 {% endblock %}

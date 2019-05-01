@@ -1,4 +1,27 @@
 textarea {
    resize: none;
+}
 
+.new-code img {
+  width: 40%;
+  height: 40%;
+}
+
+.code img, .web img  {
+  width: 15%;
+  height: 15%;
+  margin-right: 2px;
+
+}
+
+.card, .new-code{
+  margin-top: 2rem;
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-ide .container{
+  margin-top:-5%;
 }

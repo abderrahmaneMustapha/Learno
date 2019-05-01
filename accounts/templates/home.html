@@ -288,7 +288,7 @@
       <div class="container">
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center">
-            <h2>Top Courses</h2>
+            <h2>Some Courses</h2>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum magnam illum maiores adipisci pariatur, eveniet.</p>
           </div>
         </div>
@@ -298,7 +298,7 @@
 
             <a href="{% url 'modules' course.subject.slug course.slug %}" class="course">
                 {% if course.photo %}
-              <img src="{{ course.photo.url }}" alt="Image placeholder">
+              <img src="{{ course.photo.url }}" alt=" {{course}} logo">
                 {% endif %}
               <h2>{{course.overview |truncatewords:5}}</h2>
               <p>Enroll Now</p>
@@ -326,7 +326,7 @@
             <blockquote class="testimonial">
               &ldquo; Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt incidunt nihil ab cumque molestiae commodi. &rdquo;
             </blockquote>
-            <p>&mdash; Toumi Abderramane Student, leano team </p>
+            <p>&mdash; Toumi Abderramane Student, learno team </p>
           </div>
         </div>
       </div>

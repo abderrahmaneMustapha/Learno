@@ -6,6 +6,7 @@
 {% block footer %}{% endblock %}
 {% block content %}
 {% load static %}
+
 {% if result == False %}
 <div class="alert alert-danger text-center" role="alert">
   Wrong answer try again
@@ -14,6 +15,7 @@
 </audio>
 </div>
 {% endif %}
+
 <section class=" d-flex justify-content-center align-self-center">
   <div class="content">
     <div class="card row ">

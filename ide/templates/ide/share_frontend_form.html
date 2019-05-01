@@ -27,8 +27,10 @@
          <p>{{err}}</p>
          <form class="form-code-ajax" method="POST">
           {%csrf_token%}
+          <button type="submit" name="vote"
+           class="btn {% if voted_check %}btn-danger {%else%} btn-info {%endif%}">vote</button>
           {% if request.user.username == code.code.owner.user.username %}
-          <button type="submit" class="btn btn-primary" name="button" >Update</button>
+          <button type="submit" class="btn btn-success" name="update" >Update</button>
           {% endif %}
           <p> title : {{code.code.title}}</p>
          <button class="accordion">HTML</button>

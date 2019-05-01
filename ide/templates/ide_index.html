@@ -7,7 +7,7 @@
     <title>{% block title %}coding-ground{% endblock %}</title>
     <script  type="text/javascript" src="{% static 'codemirror/lib/codemirror.js' %}"></script>
   {% block script %} {% endblock %}
-      <link rel="stylesheet" href="{% static 'css/code_ide_style.css' %}">
+
       <link rel="stylesheet" href="{% static  'codemirror/lib/codemirror.css' %}">
       <link rel="stylesheet" href="{% static  'codemirror/theme/dracula.css' %}">
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,900" rel="stylesheet">
@@ -15,14 +15,17 @@
       <link rel="stylesheet" href="{%  static 'css/bootstrap.css' %}">
       <link rel="stylesheet" href="{% static 'css/animate.css' %}">
       <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-
+      <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/fontawesome.css' %}">
+      <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}">
       <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
-      <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
-      <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
 
       <!-- Theme Style -->
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+
+      <!--main and other code ide styles -->
+        <link rel="stylesheet" href="{% static 'css/code_ide_style.css' %}">
 
 
   </head>
@@ -112,27 +115,135 @@
         </section>
         <!-- END section -->
 
-      <h1>Our code editor</h1>
-      <p>code editor</p>
+     <section class="site-section">
+       <div class="container">
+         <div class="row">
 
-      <a href="{% url 'main-editor'  'frontend-editor' %}"> CSS/JavaScript/HTML</a>
+        <!-- code editors start-->
+        <div class="new-code col-md-12 col-sm-12 col-lg-12 bg-light text-center">
+              <p>code editors</p>
+          <div class="d-flex justify-content-between">
 
-      {% for language in languages  %}
-      <br>
-        <a href="{% url 'main-editor' language.name%}">{{language.name}}</a>
+            <a href="{% url 'main-editor' 'frontend-editor' %}" class="badge badge-light col-md-2">
+           <div class="media d-block feature ">
+           <img src="{%static 'images/javascript.jpg' %}"   alt="{{language.name}} code editor logo">
+             <div class="media-body">
+               <p class="mt-3">Web</p>
+             </div>
+           </div>
+            </a>
+            {% for language in languages  %}
+          <a href="{% url 'main-editor' language.name %}" class="badge badge-light  col-md-2">
+         <div class="media d-block feature text-center">
+         <img src="{{language.course.photo.url}}"   alt="{{language.name}} code editor logo">
+           <div class="media-body">
+             <p class="mt-3">{{language.name}}</p>
+           </div>
+         </div>
+          </a>
+            {%endfor%}
+          </div>
 
-      {%endfor%}
-      <h1>Web Codes</h1>
-      {% for web_code in web_codes %}
-      <a href="{% url 'share-editor-frontend' web_code.code.slug web_code.code.pk %}">{{web_code.code.title}}</a>
-      <br>
-      {% endfor %}
-       <br>
-      <h1>Other Codes</h1>
-      {% for other_code in other_codes %}
-      <a href="{% url 'share-editor-code' other_code.code.slug other_code.code.pk %}">{{other_code.code.title}}</a>
-      <br>
-      {% endfor %}
+      </div>
+      <!-- code editors end-->
+
+       <!-- shared  code list  container start -->
+         <div class="d-flex justify-content-between ">
+           <!-- web code list start -->
+               <div class="card web col-md-5 text-center ">
+                 <h4 class="text-muted">Web</h4>
+                 <div class="card-body ">
+                   <hr>
+                   {% for web_code in web_codes %}
+                   <a   href="{% url 'share-editor-frontend' web_code.code.slug web_code.code.pk %}"
+                     class="badge badge-light ">
+                     <img class="float-left" src="{%static 'images/javascript.jpg' %}"  alt="{{language.name}} code editor logo">
+                     <p class="mt-4">{{web_code.code.title}}</p>
+                   </a>
+                   <hr>
+                   {% endfor %}
+                 </div>
+               </div>
+        <!-- web code list end -->
+
+         <!-- other code list start -->
+               <div class=" card code col-md-5 text-center">
+                 <h4 class="text-muted">Other</h4>
+                 <div class="card-body">
+
+                   <hr>
+                   {% for other_code in other_codes %}
+                   <a  href="{% url 'share-editor-code' other_code.code.slug other_code.code.pk %}" class="badge badge-light">
+                     <img class="float-left" src="{{other_code.lang.course.photo.url}}"   alt="{{language.name}} code editor logo">
+                      <p class="mt-4">{{other_code.code.title}}</p>
+                   </a>
+                   <hr>
+                   {% endfor %}
+                 </div>
+
+               </div>
+           <!-- other code list end -->
+
+         </div>
+      <!-- shared  code list  container start -->
+
+
+
+         </div>
+
+       </div>
+
+     </section>
+
+     <footer class="site-footer" style="background-color: #699132;">
+       <div class="container">
+         <div class="row mb-5">
+           <div class="col-md-4">
+             <h3>About</h3>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, accusantium optio unde perferendis eum illum voluptatibus dolore tempora, consequatur minus asperiores temporibus reprehenderit.</p>
+           </div>
+           <div class="col-md-6 ml-auto">
+             <div class="row">
+               <div class="col-md-4">
+                 <ul class="list-unstyled">
+                   <li><a href="#">About Us</a></li>
+                   <li><a href="#">Company</a></li>
+                   <li><a href="#">Courses</a></li>
+                   <li><a href="#">Categories</a></li>
+                 </ul>
+               </div>
+               <div class="col-md-4">
+                 <ul class="list-unstyled">
+                   <li><a href="#">About Us</a></li>
+                   <li><a href="#">Company</a></li>
+                   <li><a href="#">Courses</a></li>
+                   <li><a href="#">Categories</a></li>
+                 </ul>
+               </div>
+               <div class="col-md-4">
+                 <ul class="list-unstyled">
+                   <li><a href="#">About Us</a></li>
+                   <li><a href="#">Company</a></li>
+                   <li><a href="#">Courses</a></li>
+                   <li><a href="#">Categories</a></li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="row">
+           <div style="color: #fff;"class="col-md-12">
+
+   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Alilou</a> and <a href="#" target="_blank">Toumi Abderramane</a>
+
+           </div>
+         </div>
+       </div>
+     </footer>
+     <!-- END footer -->
+
+
+
       {% endblock %}
 
       <!-- loader -->

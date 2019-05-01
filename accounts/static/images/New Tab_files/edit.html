@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- saved from url=(0200)chrome-search://most-visited/edit.html?addTitle=Add%20shortcut&editTitle=Edit%20shortcut&nameField=Name&urlField=URL&linkRemove=Remove&linkCancel=Cancel&linkDone=Done&invalidUrl=Type%20a%20valid%20URL -->
+<html><!-- Copyright 2018 The Chromium Authors. All rights reserved.
+     Use of this source code is governed by a BSD-style license that can be
+     found in the LICENSE file. --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--<base target="_top">--><base href="." target="_top">
+  
+  <link rel="stylesheet" type="text/css" href="chrome-search://most-visited/animations.css">
+  <link rel="stylesheet" type="text/css" href="chrome-search://most-visited/constants.css">
+  <link rel="stylesheet" type="text/css" href="chrome-search://most-visited/edit.css">
+  <script src="chrome-search://most-visited/utils.js"></script>
+  <script src="chrome-search://most-visited/animations.js"></script>
+  <script src="chrome-search://most-visited/edit.js"></script>
+<title>Edit shortcut</title></head>
+<body>
+  <dialog id="edit-link-dialog" open="">
+    <div id="dialog-title">Add shortcut</div>
+    <form id="edit-form" action="chrome-search://most-visited/edit.html?addTitle=Add%20shortcut&amp;editTitle=Edit%20shortcut&amp;nameField=Name&amp;urlField=URL&amp;linkRemove=Remove&amp;linkCancel=Cancel&amp;linkDone=Done&amp;invalidUrl=Type%20a%20valid%20URL">
+      <div id="title" class="field-container">
+        <label id="title-field-name" class="field-title" aria-label="Name">Name</label>
+        <div class="input-container">
+          <input id="title-field" class="field-input" type="text" autocomplete="off" tabindex="0">
+          <div class="underline"></div>
+        </div>
+      </div>
+      <div id="url" class="field-container">
+        <label id="url-field-name" class="field-title" aria-label="URL">URL</label>
+        <div class="input-container">
+          <input id="url-field" class="field-input" type="text" autocomplete="off" spellcheck="false" dir="ltr" tabindex="0" required="">
+          <div class="underline"></div>
+        </div>
+        <div id="invalid-url" class="error-msg">Type a valid URL</div>
+      </div>
+      <div class="buttons-container">
+        <span>
+          <button id="delete" class="paper secondary ripple" type="button" tabindex="0" title="Remove">Remove</button>
+        </span>
+        <span>
+          <button id="cancel" class="paper secondary ripple" type="button" tabindex="0" title="Cancel" aria-label="Cancel">Cancel</button>
+          <button type="submit" id="done" class="paper primary ripple" tabindex="0" title="Done">Done</button>
+        </span>
+      </div>
+    </form>
+  </dialog>
+
+
+</body></html>
