@@ -1,4 +1,6 @@
-.card{
+body,  .card{
   background-color: #343A40;
    padding: 1rem;
+   resize: vertical;
+   overflow: auto;
 }

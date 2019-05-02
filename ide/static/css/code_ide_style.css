@@ -1,3 +1,4 @@
+
 textarea{
    resize: none;
 
@@ -28,7 +29,7 @@ textarea{
 }
 
 .main-ide .container{
-  margin-top:-5%;
+  margin-top:-6rem;
 }
 
 .main-ide .btn {
@@ -37,5 +38,11 @@ textarea{
 }
 
 .main-ide .btn-run{
-    padding: 10px 49%;
+    padding: 1rem 3rem;
+}
+
+@media (max-height: 600px) {
+  .main-ide .container{
+    margin-top:-20%;
+  }
 }

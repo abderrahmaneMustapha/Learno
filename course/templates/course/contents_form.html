@@ -4,10 +4,20 @@
 {% block header %}
 
 <h1>About module</h1>
-<p>{{start_first_content.module.description}}</p>
+
 {% if start_first_content %}
+
+<p>{{start_first_content.module.description}}
+<br>
+
+answer  {{count_content}}qestions to complete  this module
+and get  20 more points
+<br>
+by completing all the modules of the course you will get 50 points
+</p>
+
 <p><a class="btn btn-primary" href="{% url 'learn' module start_first_content.slug  %}">
-Start The First Lesson
+Start
 </a></p>
 {%else%}
 <p>there is nothing to learn here </p>

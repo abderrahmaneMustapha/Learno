@@ -79,6 +79,7 @@ def modules(request, subject, course):
 def contents(request, course, module):
     current_module= Module.objects.get(slug = module)
     module_content= Content.objects.filter(module__slug = module)
+    count_content = module_content.count()
     check_taken_module = TakenModule.objects.filter(student = request.user.student, module=current_module )
     start_first_content = None
     if module_content:
@@ -93,8 +94,8 @@ def contents(request, course, module):
     #if count_taken_content == module_content.count():
        #TakenModule.objects.filter(student=request.user.student, module=current_module , course = current_module.course).update(completed = True)
 
-    return render(request,'course/contents_form.html',  {'module':module ,'module_content':module_content
-        ,'student_taken_content': student_taken_content, 'start_first_content':start_first_content, })
+    return render(request,'course/contents_form.html',  {'module':module ,'count_content':count_content
+        ,'student_taken_content': student_taken_content, 'start_first_content':start_first_content,  })
 
 
 @login_required
