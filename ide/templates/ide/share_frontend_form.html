@@ -1,62 +1,76 @@
 {% extends 'ide/forntend_ide_form.html' %}
 
 {% block content %}
-<h1>CSS / HTML / JS  EDITOR</h1>
-  <div class="header"></div>
-     <div class="wrap">
-       <div class="result">
-           <iframe onerror="true" src="" id="preview">
 
-             <!DOCTYPE html>
-             <html lang="en" dir="ltr">
-               <head>
-                 <meta charset="utf-8">
-                 <title>Coding Ground | frontend</title>
-               </head>
-               <body>
+<section class="frontend-section"  style= "background-color:#343A40;">
+    <div class="header"></div>
+       <div class="container-fluid">
+         <div class="row">
+           <div class="col-md-6 result" >
+               <iframe  style="background-color: #fff;" width=100% height=100% onerror="true" src="" id="preview">
+                 <!DOCTYPE html>
+                 <html lang="en" dir="ltr">
+                   <head>
+                     <meta charset="utf-8">
+                     <title></title>
+                   </head>
+                   <body>
 
-               </body>
-             </html>
+                   </body>
+                 </html>
 
-           </iframe>
+               </iframe>
+           </div>
 
+           <div class="code col-md-6  b-3">
 
+             <p>{{err}}</p>
+             <form class="form-code-ajax from-group row " method="POST">
+              {%csrf_token%}
+
+              <i class="mt-4 text-white fas fa-edit col-md- col-xs- col-sm-1"></i>
+                <input class="mt-3 text-white bg-dark form-control
+                border border-dark col-md-5 col-sm-5" type="text" name="title" value="Untitled" required>
+
+                <button type="submit" name="vote"
+                class="btn btn-dark  col-md-2 col-sm-2">
+                {% if voted_check %}
+                <i class="fas fa-star text-warning"></i><br>voted
+                {%else%}
+                <i class="fas fa-star"></i><br>vote
+                {%endif%}
+                </button>
+                  {% if request.user.username == code.code.owner.user.username %}
+              <button type="submit" class="btn btn-dark col-md-2 col-sm-2" name="update">
+                <i class="fas fa-recycle"></i><br>update</button>
+                {% endif %}
+                <a href="{% url 'coding-ground' %}" class="btn btn-dark col-md-2 col-sm-2"
+                  >
+                  <i class="fas fa-times"></i><br>close
+                </a>
+
+              <!--html editor START -->
+             <div  id="html_div" class="card col-md-12 col-sm-12">
+                 <textarea name="html" id="html">{{code.html}}</textarea>
+             </div>
+             <!--html editor END -->
+
+             <!--css editor START -->
+             <div  id="css_div" class="card col-md-12 col-sm-12">
+                   <textarea  name="css" id="css">{{code.css}}</textarea>
+             </div>
+             <!--css editor END -->
+
+             <!--js editor START -->
+             <div  id="js_div"  class="card col-md-12 col-sm-12">
+                   <textarea  name="js" id="js" >{{code.js}}</textarea>
+             </div>
+             <!--js editor END -->
+
+              </form>
+           </div>
+         </div>
        </div>
-
-       <div class="code">
-         <p>{{err}}</p>
-         <form class="form-code-ajax" method="POST">
-          {%csrf_token%}
-          <button type="submit" name="vote"
-           class="btn {% if voted_check %}btn-danger {%else%} btn-info {%endif%}">vote</button>
-          {% if request.user.username == code.code.owner.user.username %}
-          <button type="submit" class="btn btn-success" name="update" >Update</button>
-          {% endif %}
-          <p> title : {{code.code.title}}</p>
-         <button class="accordion">HTML</button>
-         <div  class="pannel">
-
-             <textarea name="html" id="html">{{code.html}}</textarea>
-
-         </div>
-
-         <button class="accordion">CSS</button>
-         <div  class="pannel">
-
-               <textarea  name="css" id="css">{{code.css}}</textarea>
-
-         </div>
-
-         <button class="accordion">JS/jQuery</button>
-
-         <div  class="pannel">
-
-               <textarea  name="js" id="js" >{{code.js}}</textarea>
-
-         </div>
-
-          </form>
-       </div>
-     </div>
+</section>
 
 {% endblock %}

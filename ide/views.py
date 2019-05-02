@@ -17,9 +17,9 @@ permitted_languages = ["c", "cpp","java","ruby", "php", "python2","python3","r",
 
 def ide_index(request):
 
-    languages = SupportedLanguages.objects.all()
-    web_codes = WebCode.objects.all()
-    other_codes = OtherCode.objects.all()
+    languages = SupportedLanguages.objects.order_by('?')
+    web_codes = WebCode.objects.order_by('?')[:15]
+    other_codes = OtherCode.objects.order_by('?')[:15]
 
     return render(request,'ide_index.html', {'languages': languages, 'web_codes':web_codes,
     'other_codes':other_codes })

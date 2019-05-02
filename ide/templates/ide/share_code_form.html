@@ -26,13 +26,9 @@
             <button type="submit" name="vote"
             class="btn btn-dark">
             {% if voted_check %}
-            <i class="fas fa-star text-warning"></i>
-            <br>
-            voted
+            <i class="fas fa-star text-warning"></i><br>voted
             {%else%}
-            <i class="fas fa-star"></i>
-            <br>
-            vote
+            <i class="fas fa-star"></i><br>vote
             {%endif%}
             </button>
             {% if request.user.username == other_code.code.owner.user.username %}
@@ -56,15 +52,9 @@
         </div>
         <div class="row">
 
-      <textarea class="cole-md-12 cole-sm-12" id="code_id" name="code"  form="code_form" autofocus>
-      {{other_code.content}}
-      </textarea>
-      <button type="submit" class="btn btn-success badge" name="run">Run</button>
-        <textarea rows="5"class="col-md-12 cole-sm-12" readonly>
-          {% if output %}
-           {{output}}
-        {% endif %}
-        </textarea>
+      <textarea class="cole-md-12 cole-sm-12" id="code_id" name="code"  form="code_form" autofocus>{{other_code.content}}</textarea>
+      <button type="submit" class="btn btn-success badge btn-run" name="run">Run</button>
+        <textarea rows="5"class="col-md-12 cole-sm-12" readonly>{% if output %}{{output}}{% endif %}</textarea>
         </div>
           </form>
 

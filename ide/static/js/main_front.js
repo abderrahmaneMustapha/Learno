@@ -1,20 +1,20 @@
 var htmlEditor = CodeMirror.fromTextArea(document.getElementById("html"),{
 lineNumbers: true,
 mode : 'xml',
-theme : 'blackboard',
+theme : 'dracula',
 
 });
 
 var cssEditor = CodeMirror.fromTextArea(document.getElementById("css"),{
 lineNumbers: true,
 mode : 'css',
-theme : 'blackboard',
+theme : 'dracula',
 });
 
 var jsEditor = CodeMirror.fromTextArea(document.getElementById("js"),{
 lineNumbers: true,
 mode : 'javascript',
-theme : 'blackboard',
+theme : 'dracula',
 
 });
 

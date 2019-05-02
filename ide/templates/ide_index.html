@@ -62,9 +62,7 @@
               </li>
               {% endif %}
 
-              <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
-              </li>
+            
               <li class="nav-item">
                 <a class="nav-link{% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
               </li>
@@ -159,6 +157,7 @@
                      class="badge badge-light ">
                      <img class="float-left" src="{%static 'images/javascript.jpg' %}"  alt="{{language.name}} code editor logo">
                      <p class="mt-4">{{web_code.code.title}}</p>
+                     <p class="text-muted blockquote-footer">owner :{{web_code.code.owner}}</p>
                    </a>
                    <hr>
                    {% endfor %}
@@ -176,6 +175,7 @@
                    <a  href="{% url 'share-editor-code' other_code.code.slug other_code.code.pk %}" class="badge badge-light">
                      <img class="float-left" src="{{other_code.lang.course.photo.url}}"   alt="{{language.name}} code editor logo">
                       <p class="mt-4">{{other_code.code.title}}</p>
+                         <p class="text-muted blockquote-footer">owner: {{other_code.code.owner}}</p>
                    </a>
                    <hr>
                    {% endfor %}

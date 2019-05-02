@@ -3,84 +3,84 @@
 {% load static %}
 <html lang="en" dir="ltr">
   <head>
-
-
-
     <meta charset="utf-8">
-        <script src="{% static 'js/jquery.min.js' %}"></script>
-
-    <link rel="stylesheet" href="{% static 'css/frontend_style.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+      <script rel="stylesheet" href="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
 
-
-
+        <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/frontend_style.css' %}"/>
     <script  src="{% static 'codemirror/lib/codemirror.js' %}"></script>
     <link rel="stylesheet" href="{% static  'codemirror/lib/codemirror.css' %}">
-    <link rel="stylesheet" href="{% static  'codemirror/theme/blackboard.css' %}">
+    <link rel="stylesheet" href="{% static  'codemirror/theme/dracula.css' %}">
 
 
     <title>Coding Ground | frontend</title>
-    <style media="screen">
-      body {
-        background-color: #eee;
-      }
-    </style>
+
   </head>
+
   <body>
 {% block content %}
-  <h1>CSS / HTML / JS  EDITOR</h1>
-    <div class="header"></div>
-       <div class="wrap">
-         <div class="result">
-             <iframe onerror="true" src="" id="preview">
+  <section class="frontend-section"  style= "background-color:#343A40;">
+      <div class="header"></div>
+         <div class="container-fluid">
+           <div class="row">
+             <div class="col-md-6 result" >
+                 <iframe  style="background-color: #fff;" width=100% height=100% onerror="true" src="" id="preview">
+                   <!DOCTYPE html>
+                   <html lang="en" dir="ltr">
+                     <head>
+                       <meta charset="utf-8">
+                       <title></title>
+                     </head>
+                     <body>
 
-               <!DOCTYPE html>
-               <html lang="en" dir="ltr">
-                 <head>
-                   <meta charset="utf-8">
-                   <title></title>
-                 </head>
-                 <body>
+                     </body>
+                   </html>
 
-                 </body>
-               </html>
+                 </iframe>
+             </div>
 
-             </iframe>
+             <div class="code col-md-6  b-3">
 
+               <p>{{err}}</p>
+               <form class="form-code-ajax from-group row " method="POST">
+                {%csrf_token%}
+                <i class="mt-4 text-white fas fa-edit col-md- col-xs- col-sm-1"></i>
+                  <input class="mt-3 text-white bg-dark form-control
+                  border border-dark col-md-5 col-sm-5" type="text" name="title" value="Untitled" required>
+                <button type="submit" class="btn btn-dark col-md-3 col-sm-3" name="button">
+                  <i class="fas fa-share-alt"></i><br>share</button>
+                  <a href="{% url 'coding-ground' %}" class="btn btn-dark col-md-3 col-sm-3"
+                    >
+                    <i class="fas fa-times"></i><br>close
+                  </a>
 
+                <!--html editor START -->
+               <div  id="html_div" class="card col-md-12 col-sm-12">
+                   <textarea name="html" id="html">{{html}}</textarea>
+               </div>
+               <!--html editor END -->
+
+               <!--css editor START -->
+               <div  id="css_div" class="card col-md-12 col-sm-12">
+                     <textarea  name="css" id="css">{{css}}</textarea>
+               </div>
+               <!--css editor END -->
+
+               <!--js editor START -->
+               <div  id="js_div"  class="card col-md-12 col-sm-12">
+                     <textarea  name="js" id="js" >{{js}}</textarea>
+               </div>
+               <!--js editor END -->
+
+                </form>
+             </div>
+           </div>
          </div>
+  </section>
 
-         <div class="code">
-           <p>{{err}}</p>
-           <form class="form-code-ajax" method="POST">
-            {%csrf_token%}
-            <button type="submit" class="btn btn-primary" name="button">Share</button>
-            title :<input type="text" name="title" value="">
-           <button class="accordion">HTML</button>
-           <div  class="pannel">
-
-               <textarea name="html" id="html">{{html}}</textarea>
-
-           </div>
-
-           <button class="accordion">CSS</button>
-           <div  class="pannel">
-
-                 <textarea  name="css" id="css">{{css}}</textarea>
-
-           </div>
-
-           <button class="accordion">JS/jQuery</button>
-
-           <div  class="pannel">
-
-                 <textarea  name="js" id="js" >{{js}}</textarea>
-
-           </div>
-
-            </form>
-         </div>
-       </div>
 
 {%endblock%}
   </body>

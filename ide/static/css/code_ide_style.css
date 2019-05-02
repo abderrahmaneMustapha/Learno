@@ -1,5 +1,6 @@
-textarea {
+textarea{
    resize: none;
+
 }
 
 .new-code img {
@@ -14,6 +15,10 @@ textarea {
 
 }
 
+.container {
+  padding: -1;
+}
+
 .card, .new-code{
   margin-top: 2rem;
   -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
@@ -24,4 +29,13 @@ textarea {
 
 .main-ide .container{
   margin-top:-5%;
+}
+
+.main-ide .btn {
+  padding: 5px 20px;
+  margin: auto;
+}
+
+.main-ide .btn-run{
+    padding: 10px 49%;
 }
