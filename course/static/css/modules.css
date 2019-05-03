@@ -14,3 +14,15 @@ i {
 .fa-times {
   color: red;
 }
+
+@media (max-width: 500px ){
+  div img{
+     display: none;
+  }
+ .row .lead {
+   font-size: 25px;
+ }
+  .site-hero {
+    font-size: 10px;
+  }
+}

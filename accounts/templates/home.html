@@ -82,7 +82,7 @@
                 <a class="nav-link {% if url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
               </li>
               {% endif %}
-              
+
               <li class="nav-item">
                 <a class="nav-link {% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
               </li>
@@ -148,15 +148,15 @@
 
       <div class="inner">
         <div class="media d-block feature">
-          <div class="icon"><span class="flaticon-video-call"></span></div>
+          <div class="icon"><span class="fas fa-list-ol"></span></div>
           <div class="media-body">
-            <h3 class="mt-0">Online trainings from experts</h3>
+            <h3 class="mt-0">Competitive learning system</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora fuga suscipit numquam esse saepe quam, eveniet iure assumenda dignissimos aliquam!</p>
           </div>
         </div>
 
         <div class="media d-block feature">
-          <div class="icon"><span class="flaticon-student"></span></div>
+          <div class="icon"><span class="fas fa-globe-europe"></span></div>
           <div class="media-body">
             <h3 class="mt-0">Learn anywhere in the world</h3>
             <p>Delectus fuga voluptatum minus amet, mollitia distinctio assumenda voluptate quas repellat eius quisquam odio. Aliquam, laudantium, optio? Error velit, alias.</p>
@@ -164,7 +164,7 @@
         </div>
 
         <div class="media d-block feature">
-          <div class="icon"><span class="flaticon-video-player-1"></span></div>
+          <div class="icon"><span class="fas fa-video"></span></div>
           <div class="media-body">
             <h3 class="mt-0">Creative learning video</h3>
             <p>Delectus fuga voluptatum minus amet, mollitia distinctio assumenda voluptate quas repellat eius quisquam odio. Aliquam, laudantium, optio? Error velit, alias.</p>
@@ -173,9 +173,9 @@
 
 
         <div class="media d-block feature">
-          <div class="icon"><span class="flaticon-audiobook"></span></div>
+          <div class="icon"><span class="fas fa-code"></span></div>
           <div class="media-body">
-            <h3 class="mt-0">Audio learning</h3>
+            <h3 class="mt-0">Try your codes online</h3>
             <p>Harum, adipisci, aspernatur. Vero repudiandae quos ab debitis, fugiat culpa obcaecati, voluptatibus ad distinctio cum soluta fugit sed animi eaque?</p>
           </div>
         </div>
@@ -190,15 +190,15 @@
 
           <div class="inner">
             <div class="media d-block feature">
-              <div class="icon"><span class="flaticon-video-call"></span></div>
+              <div class="icon"><span class="fas fa-list-ol"></span></div>
               <div class="media-body">
-                <h3 class="mt-0">Online trainings from experts</h3>
+                <h3 class="mt-0">Competitive learning system</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora fuga suscipit numquam esse saepe quam, eveniet iure assumenda dignissimos aliquam!</p>
               </div>
             </div>
 
             <div class="media d-block feature">
-              <div class="icon"><span class="flaticon-student"></span></div>
+              <div class="icon"><span class="fas fa-globe-africa"></span></div>
               <div class="media-body">
                 <h3 class="mt-0">Learn anywhere in the world</h3>
                 <p>Delectus fuga voluptatum minus amet, mollitia distinctio assumenda voluptate quas repellat eius quisquam odio. Aliquam, laudantium, optio? Error velit, alias.</p>
@@ -206,7 +206,7 @@
             </div>
 
             <div class="media d-block feature">
-              <div class="icon"><span class="flaticon-video-player-1"></span></div>
+              <div class="icon"><span class="fas fa-video"></span></div>
               <div class="media-body">
                 <h3 class="mt-0">Creative learning video</h3>
                 <p>Delectus fuga voluptatum minus amet, mollitia distinctio assumenda voluptate quas repellat eius quisquam odio. Aliquam, laudantium, optio? Error velit, alias.</p>
@@ -215,15 +215,16 @@
 
 
             <div class="media d-block feature">
-              <div class="icon"><span class="flaticon-audiobook"></span></div>
+              <div class="icon"><span class="fas fa-code"></span></div>
               <div class="media-body">
-                <h3 class="mt-0">Audio learning</h3>
+                <h3 class="mt-0">Try your codes online</h3>
                 <p>Harum, adipisci, aspernatur. Vero repudiandae quos ab debitis, fugiat culpa obcaecati, voluptatibus ad distinctio cum soluta fugit sed animi eaque?</p>
               </div>
             </div>
           </div>
         </section>
 
+<!--
         <section class="school-features text-dark last d-flex">
 
           <div class="inner">
@@ -265,6 +266,7 @@
 
       </div>
     </section>
+    --->
     <!-- END section -->
 {% if not request.user.is_authenticated %}
     <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url({% static 'images/big_image_3.jpg' %});">

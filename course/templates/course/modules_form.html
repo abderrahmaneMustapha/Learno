@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="{% static 'css/modules.css' %}">
 {% endblock %}
 {% block title %}{{course.title}}{% endblock %}
-
 {% block bar %}
 {{ block.super }}
 {% endblock %}
@@ -18,13 +17,13 @@
     <div class="row align-items-center site-hero-inner justify-content-center">
       <div class="col-md-12">
 
-        <div class="mb-5 element-animate">
+        <div class="mt-1 mb-1 element-animate">
 
           <div class="row align-items-center">
             <div class="col-md-8">
               <h1 class="mb-0">{{course.title}}</h1>
               <p>{{course.owner}}</p>
-              <p class="lead mb-5">{{course.overview}}</p>
+              <p class="lead">{{course.overview}}</p>
 
               <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-primary mr-2">
                 {% if next_module.order == 1 %}Start {% else %} Continue {%endif%}</a></p>

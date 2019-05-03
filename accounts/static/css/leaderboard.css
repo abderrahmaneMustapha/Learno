@@ -2,3 +2,10 @@ div.leaderboard  {
   overflow: scroll;
   height: 500px;
 }
+
+@media (max-width : 500px){
+  .hide{
+    display: none;
+  }
+
+}
