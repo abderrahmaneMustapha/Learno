@@ -4,6 +4,7 @@ from course.models import Course
 from django.template.defaultfilters import slugify
 
 
+
 class Code(models.Model):
     owner  = models.ForeignKey(Student, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100, null=True)
@@ -19,9 +20,14 @@ class Code(models.Model):
 class Vote(models.Model):
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     code  = models.ForeignKey(Code, on_delete=models.CASCADE)
-    vote = models.BooleanField(default= False)
+
+    class Meta:
+         unique_together = ('code', 'owner')
+
     def __str__(self):
         return str(self.owner)
+
+
 
 class SupportedLanguages(models.Model):
     name = models.TextField( max_length=500)

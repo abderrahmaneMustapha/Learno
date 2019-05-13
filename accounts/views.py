@@ -317,5 +317,4 @@ from rest_framework import viewsets
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    http_method_names = ['get',]
+    

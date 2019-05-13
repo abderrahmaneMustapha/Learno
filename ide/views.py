@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, render_to_response
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import requests, json, os
@@ -16,7 +16,6 @@ permitted_languages = ["c", "cpp","java","ruby", "php", "python2","python3","r",
 
 
 def ide_index(request):
-
     languages = SupportedLanguages.objects.order_by('?')
     web_codes = WebCode.objects.order_by('?')[:15]
     other_codes = OtherCode.objects.order_by('?')[:15]
@@ -105,31 +104,35 @@ def main_editor(request, language):
 @login_required
 def share_frontend(request,slug,pk):
     code = WebCode.objects.get(code__slug = slug, code__pk = pk)
-    voted_check = Vote.objects.filter(code= code.code, owner=request.user.student, vote= True)
+    voted_check = Vote.objects.filter(code= code.code, owner=request.user.student)
     if request.method == "POST":
         if 'update' in request.POST:
             WebCode.objects.filter(code__pk = pk).update( html = request.POST.get('html'),
                 css = request.POST.get('css'),
                  js = request.POST.get('js'))
+            return redirect(ide_index)
         if 'vote' in request.POST:
             # check if user can vote
-            print(voted_check)
+
             if voted_check.count() > 0:
                 voted_check.delete()
                 code.code.owner.exp -= 2
                 code.code.owner.save()
             else:
-                Vote(code= code.code, owner=request.user.student, vote = True).save()
+                Vote(code= code.code, owner=request.user.student).save()
                 code.code.owner.exp += 2
                 code.code.owner.save()
-    return render(request, 'ide/share_frontend_form.html',{'voted_check':voted_check, 'code': code})
+    voted_check_id = ""
+    if voted_check:
+        voted_check_id = list(voted_check.values_list('pk'))[0][0]
+    return render(request, 'ide/share_frontend_form.html',{'voted_check':voted_check_id, 'code': code})
 
 
 
 @login_required
 def share_code(request,slug,pk):
     other_code = OtherCode.objects.get(code__pk = pk)
-    voted_check = Vote.objects.filter(code= other_code.code, owner=request.user.student, vote= True)
+    voted_check = Vote.objects.filter(code= other_code.code, owner=request.user.student)
     language =other_code.lang.name
     source = None
     output = None
@@ -149,6 +152,7 @@ def share_code(request,slug,pk):
         if 'save' in request.POST:
             if source:
                 OtherCode.objects.filter(code__pk = pk).update(content = source)
+                return redirect(ide_index)
             else:
                 context['err'] = 'cant save empty code'
         if 'vote' in request.POST:
@@ -156,9 +160,12 @@ def share_code(request,slug,pk):
 
             if voted_check.count() > 0:
                 voted_check.delete()
+                other_code.code.owner.exp -= 2
+                other_code.code.owner.save()
             else:
-                Vote(code= other_code.code, owner=request.user.student, vote = True).save()
-
+                Vote(code= other_code.code, owner=request.user.student).save()
+                other_code.code.owner.exp += 2
+                other_code.code.owner.save()
     import re
     language = "".join(re.findall("[a-zA-Z]+", language))
     language_mode = MediaForm.media(language)
@@ -166,3 +173,18 @@ def share_code(request,slug,pk):
 
     context['language'] = language
     return render(request, 'ide/share_code_form.html',context)
+
+
+"""
+REST API
+
+"""
+
+from .serializers import VoteSerializer
+from rest_framework import viewsets
+
+
+class VoteView(viewsets.ModelViewSet):
+    queryset = Vote.objects.all()
+    serializer_class  = VoteSerializer
+    http_method_names = ['get', 'post', 'head', 'delete', 'patch']

@@ -1,22 +1,33 @@
 {% extends 'ide/forntend_ide_form.html' %}
-
+{% load static %}
 {% block content %}
 
 <section class="frontend-section"  style= "background-color:#343A40;">
-    <div class="header"></div>
+
        <div class="container-fluid">
          <div class="row">
            <div class="code col-md-6  b-3">
 
              <p>{{err}}</p>
-             <form class="form-code-ajax from-group row " method="POST">
+             <form class="form-code-ajax from-group row "  method="POST">
               {%csrf_token%}
+
+            <input type="text"  name="code-pk" value="{{code.code.pk}}" hidden>
+            <input type="text"  name="owner-pk" value="{{request.user.student.pk}}" hidden>
+
+            <input type="text"  name="vote-pk" value="{{voted_check}}" hidden>
+
+
 
               <i class="mt-4 text-white fas fa-edit col-md- col-xs- col-sm-1"></i>
                 <input class="mt-3 text-white bg-dark form-control
-                border border-dark col-md-5 col-sm-5" type="text" name="title" value="Untitled" required>
+                border border-dark col-md-5 col-sm-5" type="text" name="title" value="{{code.code.title}}" readonly>
 
-                <button type="submit" name="vote"
+                  {% if request.user.username == code.code.owner.user.username %}
+              <button type="submit" class="btn btn-dark col-md-2 col-sm-2" name="update">
+                <i class="fas fa-recycle"></i><br>update</button>
+                {% else %}
+                <button  id="vote" type="button" name="vote"
                 class="btn btn-dark  col-md-2 col-sm-2">
                 {% if voted_check %}
                 <i class="fas fa-star text-warning"></i><br>voted
@@ -24,9 +35,6 @@
                 <i class="fas fa-star"></i><br>vote
                 {%endif%}
                 </button>
-                  {% if request.user.username == code.code.owner.user.username %}
-              <button type="submit" class="btn btn-dark col-md-2 col-sm-2" name="update">
-                <i class="fas fa-recycle"></i><br>update</button>
                 {% endif %}
                 <a href="{% url 'coding-ground' %}" class="btn btn-dark col-md-2 col-sm-2"
                   >
@@ -53,7 +61,7 @@
 
               </form>
            </div>
-           
+
            <div class="col-md-6 result" >
                <iframe  class="border border-dark" style="background-color: #fff;" width=100% height=100% onerror="true" src="" id="preview">
                  <!DOCTYPE html>
@@ -68,7 +76,13 @@
                  </html>
 
                </iframe>
+
            </div>
+           <script type="text/javascript">
+
+           </script>
+
+            <script src="{%  static 'js/ide_custome.js' %}"></script>
 
 
          </div>

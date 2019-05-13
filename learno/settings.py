@@ -28,7 +28,7 @@ DEBUG = True
 
 # DEBUG = (os.environ.get('HACKIDE_DEBUG') or "").lower() == "true"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 
@@ -160,6 +160,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_by_email',
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 
 TINYMCE_SPELLCHECKER = True
 TINYMCE_COMPRESSOR = True

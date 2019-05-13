@@ -12,7 +12,7 @@
 <section class="site-section main-ide" style= "background-color:#343A40;">
   <div class="container" >
 
-      <form class="form-group" method="POST" id="code_form">
+      <form class="form-code-ajax form-group" method="POST" action="" id="code_form">
         <!--navbar start -->
         <nav class=" navbar d-flex flex-row" >
           {% csrf_token %}
@@ -23,20 +23,21 @@
           <h3 class=" mt-3 text-white text-center col-md-6 col-sm-2
           col-xs-5">{{other_code.lang.name}}</h3>
 
-            <button type="submit" name="vote"
-            class="btn btn-dark">
-            {% if voted_check %}
-            <i class="fas fa-star text-warning"></i><br>voted
-            {%else%}
-            <i class="fas fa-star"></i><br>vote
-            {%endif%}
-            </button>
             {% if request.user.username == other_code.code.owner.user.username %}
             <button type="submit" class="btn btn-dark text-white" name="save">
               <i class="fas fa-recycle"></i>
               <br>
               update
             </button>
+             {%else%}
+             <button id="vote" type="submit" name="vote"
+             class="btn btn-dark">
+             {% if voted_check %}
+             <i class="fas fa-star text-warning"></i><br>voted
+             {%else%}
+             <i class="fas fa-star"></i><br>vote
+             {%endif%}
+             </button>
             {% endif %}
             <a href="{% url 'coding-ground' %}" class="btn btn-dark text-white">
               <i class="fas fa-times"></i>
