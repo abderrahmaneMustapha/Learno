@@ -420,8 +420,25 @@ div .info-profile {
     box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
 }
 
-#badge_container img{
+#badge_modal .modal-body{
+display: flex;
+}
+
+#badge_modal .modal-body{
+display: flex;
+
+}
+
+#badge_details{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+margin: 1rem;
+}
+#badge_details img{
   display: block;
-  width: 3rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.1rem;
 }

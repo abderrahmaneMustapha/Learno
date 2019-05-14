@@ -67,12 +67,32 @@
                </div>
                <h4 class="text-center">Badges</h4>
                <div id="badge_container" class="card-footer text-center  d-flex flex-row">
+                 <button data-target="#badge_modal" data-toggle="modal" class="select btn btn-success col-12" type="button" name="button" >badges</button>
+               <!-- note text -->
+               <div class="modal fade" id="badge_modal" role="dialog">
+                 <div class="modal-dialog modal-lg">
+                   <div class="modal-content">
+                     <div class="modal-header">
+                       <h4 class="modal-title">Badges</h4>
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <div class="modal-body">
+                       {% for badge in taken_badge %}
+                       <div class="card bg-light">
+                           <div id="badge_details" class="card-body" >
+                             <img src="{{badge.badge.logo.url}}" alt="{{badge.badge.description}}">
+                             <p>{{badge.badge.name}}</p>
+                             <p>{{badge.badge.description}}</p>
+                           </div>
+                       </div>
+                       {% endfor %}
+              
+                     </div>
 
-                 {% for badge in taken_badge %}
-                  <div id="badge_details" class="d-flex  justify-content-center ">
-                    <img src="{{badge.badge.logo.url}}" alt="{{badge.badge.description}}">
-                  </div>
-                 {% endfor %}
+                   </div>
+                 </div>
+               </div>
+
                </div>
              </div>
            </div>
