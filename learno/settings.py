@@ -265,10 +265,12 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
+
 'task-number-one': {
         'task': 'accounts.tasks.calculate_rank_task',
         'schedule': 604800.0,
-    }
+    },
+
 }
 
 """

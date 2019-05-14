@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 
 from .forms import StudentForm, UserForm, EditUserForm,SearchForm,ContactUs
 from .models import ( Student, Tag, Quiz, Question, Answer,StudentAnswer,Badge,
-TakenQuiz, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
+TakenQuiz,TakenBadge, Stage, CompletedStage, LastStudentAnswer, StudentLevel, calculate_rank)
 
 from course.models import ContentNote,  TakenCourse, TakenModule, TakenContent,Subject,Course,Subject,Module
 from . serializers import StudentSerializer
@@ -119,11 +119,16 @@ def edit_profile(request):
 
 
 
-
+from ide.models import Vote
+from ide.tasks import calculate_votebadges_task
 @login_required
 def profile(request):
+    taken_badge = TakenBadge.objects.filter(student = request.user.student)
     interests = request.user.student.interests.all()
-
+    #calcuate user badges
+    vote = Vote.objects.filter(code__owner = request.user.student)
+    current_student = request.user.student
+    calculate_votebadges_task(vote, current_student)
     #get the user taken course and user created course number
     taken_course = TakenCourse.objects.filter(student = request.user.student )
     total_course =  Course.objects.filter(owner = request.user).count()
@@ -149,21 +154,28 @@ def profile(request):
     total_answers = StudentAnswer.objects.filter(student = request.user.student).count()
 
     level = Student.calculate_level(request.user.student)
-    print(level)
+
     next_level_exp = (4*(level+1))*(4*(level+1))
 
     #get all student notes
     taken_note = ContentNote.objects.filter(user = request.user)
     #providers = request.user.social_auth.values_list('provider')
-    return render(request, 'accounts/profile.html',{'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3], 'interests' : interests ,'total_code' : total_code,
-    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course, 'taken_note':taken_note})
+    return render(request, 'accounts/profile.html',{'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3],
+    'interests' : interests ,'total_code' : total_code,
+    'total_answers':total_answers, 'taken_course' : taken_course,
+    'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course,
+    'taken_note':taken_note, 'taken_badge':taken_badge})
 
 
 
 def profiles(request,user):
     this_student = Student.objects.get(user__username = user)
+    taken_badge = TakenBadge.objects.filter(student = this_student)
     interests = this_student.interests.all()
-
+    #calcuate voting badges
+    vote = Vote.objects.filter(code__owner = this_student)
+    current_student = this_student
+    calculate_votebadges_task(vote, current_student)
     #get the user taken course and user created course number
     taken_course = TakenCourse.objects.filter(student = this_student )
     total_course =  Course.objects.filter(owner = this_student.user).count()
@@ -192,7 +204,8 @@ def profiles(request,user):
     next_level_exp = (4*(level+1))*(4*(level+1))
     return render(request, 'accounts/profiles.html', {'this_student' : this_student, 'skills_mod':skills_mod, 'skills_comp':skills_comp, 'other_code': other_code[:3], 'web_code': web_code[:3],
     'interests' : interests ,'total_code' : total_code,
-    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp, 'total_course' : total_course})
+    'total_answers':total_answers, 'taken_course' : taken_course, 'level':level,'next_level_exp':next_level_exp,
+    'total_course' : total_course, 'taken_badge':taken_badge })
 
 @login_required
 def leaderboard_view(request):
@@ -317,4 +330,3 @@ from rest_framework import viewsets
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    

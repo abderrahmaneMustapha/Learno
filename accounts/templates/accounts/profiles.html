@@ -65,8 +65,14 @@
                     </div>
                  </div>
                </div>
-               <div class="card-footer text-center">
-                 <a href="{{this_student.user.social_auth.providers}}" class="btn-social btn-github waves-effect waves-light m-1"><i class="fa fa-github"></i></a>
+               <h4 class="text-center">Badges</h4>
+               <div id="badge_container" class="card-footer text-center  d-flex flex-row">
+
+                 {% for badge in taken_badge %}
+                  <div id="badge_details" class="d-flex  justify-content-center ">
+                    <img src="{{badge.badge.logo.url}}" alt="{{badge.badge.description}}">
+                  </div>
+                 {% endfor %}
                </div>
              </div>
            </div>

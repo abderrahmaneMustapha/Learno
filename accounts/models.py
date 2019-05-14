@@ -89,7 +89,7 @@ class Answer(models.Model):
 class Badge(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=300)
-    point_required = models.FloatField()
+    point = models.FloatField()
     logo = models.ImageField(upload_to='badge_logo/',null=True,blank=True)
 
 class StudentLevel(models.Model):
@@ -227,4 +227,3 @@ class TakenBadge(models.Model):
      student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='taken_badges')
      badge = models.ForeignKey(Badge, on_delete=models.CASCADE, related_name='taken_badges', default='')
      date = models.DateTimeField(auto_now_add=True)
-     score = models.FloatField()

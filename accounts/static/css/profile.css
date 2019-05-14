@@ -419,3 +419,9 @@ div .info-profile {
     -webkit-box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
     box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
 }
+
+#badge_container img{
+  display: block;
+  width: 3rem;
+  height: 2rem;
+}

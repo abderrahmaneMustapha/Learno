@@ -111,6 +111,7 @@ def share_frontend(request,slug,pk):
                 css = request.POST.get('css'),
                  js = request.POST.get('js'))
             return redirect(ide_index)
+        """
         if 'vote' in request.POST:
             # check if user can vote
 
@@ -122,6 +123,7 @@ def share_frontend(request,slug,pk):
                 Vote(code= code.code, owner=request.user.student).save()
                 code.code.owner.exp += 2
                 code.code.owner.save()
+        """
     voted_check_id = ""
     if voted_check:
         voted_check_id = list(voted_check.values_list('pk'))[0][0]
