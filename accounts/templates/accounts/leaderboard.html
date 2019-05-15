@@ -13,18 +13,18 @@ Leader Board
 {% block main %}
 <section class="site-section">
   <div class="container">
-    <section class="school-features text-dark d-flex">
+    <section class="school-features text-dark ">
       <div class="inner">
-        <div class="col-sm-4 col-xl-4 col-xs-4 col-lg-4 col-md-4">
+        <div class=" col-sm-12 col-md-12 d-flex justify-content-center ">
           <div class="card text-center">
-            <div class="card-body col">
+            <div class=" card-king card-body col ">
 
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
-                  <img class="rounded-circle img-responsive"
+                <div class="col-md-12 col-sm-12">
+                  <img class="img-responsive"
                   src="{{MEDIA_URL}}{{king.rank.logo.url}}" width="20%" height="40%" />
                      <h4>King</h4>
                     <img class="rounded-circle img-responsive"
-                    src="{{MEDIA_URL}}{{king.photo.url}}" width="40%" height="60%" />
+                    src="{{MEDIA_URL}}{{king.photo.url}}" width="35%" height="60%" />
                 </div>
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
                     {{king.user.username}}
@@ -36,7 +36,7 @@ Leader Board
         </div>
 
         <!-- leaderboard -->
-        <div  class="scrollbar scrollbar-primary leaderboard table-responsive-sm">
+        <div  class=" leaderboard table-responsive-sm">
 
           <table class="table  mh-50 table-sm table-hover  table-striped ">
             <thead>

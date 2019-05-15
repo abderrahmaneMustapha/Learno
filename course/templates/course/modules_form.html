@@ -25,7 +25,7 @@
               <p>{{course.owner}}</p>
               <p class="lead">{{course.overview}}</p>
 
-              <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-primary mr-2">
+              <p><a href="{% url 'contents' next_module.course.slug next_module.slug %}" class="btn btn-success mr-2">
                 {% if next_module.order == 1 %}Start {% else %} Continue {%endif%}</a></p>
             </div>
             <div class="col-md-4">
@@ -48,7 +48,7 @@
    {% for module in  course_module %}
     {% if module.approved %}
 
-      <!-- note text -->
+      <!-- cant access text -->
       <div class="modal fade text-white" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -58,20 +58,20 @@
           </div>
         </div>
       </div>
-      <!-- end of note -->
+      <!-- end of cant access -->
 
   <a {% if module in completed_module or  module == next_module %}
     href="{% url 'contents' course module.slug %}" {% else %} href="#"
      data-target="#myModal" data-toggle="modal" {%endif%}>
 
-   <div class="row bg-light align-items-center p-4 episode">
+   <div class="row bg-light d-flex align-items-center justify-content-center p-4 m-3 episode">
      <div class="col-md-3">
        <span class="episode-number">{{forloop.counter}}</span>
      </div>
      <div class="col-md-7">
 
        <h2>{{module.title}}</h2>
-       <p>{{module.description}}</p>
+       <p class="text-success">{{module.description}}</p>
 
      </div>
      <div class="float-right col-md-2">

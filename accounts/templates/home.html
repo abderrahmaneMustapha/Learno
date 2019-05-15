@@ -127,7 +127,7 @@
           <h1>Learn by Doing</h1>
           <p class="lead">"say goodbye for teaching hello for learning"</p>
             {% if not request.user.is_authenticated %}
-          <p><a href="{% url  'signup' %}" class="btn btn-primary">Sign up </a></p>
+          <p><a href="{% url  'signup' %}" class="btn btn-success">Sign up </a></p>
             {% endif %}
           {% endblock %}
         </div>
@@ -275,7 +275,7 @@
           <div class="col-md-7 text-center element-animate">
             <h2>Sign Up </h2>
             <p class="lead mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quidem tempore expedita facere facilis, dolores!</p>
-            <p><a href="{% url 'signup' %}" class="btn btn-primary">Sign up </a></p>
+            <p><a href="{% url 'signup' %}" class="btn btn-success">Sign up </a></p>
           </div>
         </div>
       </div>

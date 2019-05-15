@@ -239,7 +239,7 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .episodes .episode-number {
-  border: 2px solid #0062cc;
+  border: 2px solid ##699132;
   text-align: center;
   display: inline-block;
   width: 80px;
@@ -251,6 +251,7 @@ header .navbar.navbar-light .nav-link.active {
   color: #fff;
   font-size: 30px;
 }
+
 
 .site-hero-innerpage, .site-hero-innerpage .site-hero-inner {
   min-height: 550px;
@@ -690,13 +691,15 @@ textarea.form-control {
   color: #fff;
 }
 
-.owl-carousel.home-slider .slider-item .slider-text h1 {
+.owl-carousel.home-slider .slider-item .slider-text h1{
   font-size: 40px;
   color: #fff;
   line-height: 1.2;
   font-weight: 800 !important;
   text-transform: uppercase;
 }
+
+
 
 @media (max-width: 991.98px) {
   .owl-carousel.home-slider .slider-item .slider-text h1 {

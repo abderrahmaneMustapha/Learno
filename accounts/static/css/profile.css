@@ -208,6 +208,7 @@ div .info-profile {
     border-top: 3px solid #75808a;
 }
 
+
 .tabs-vertical .nav-tabs .nav-link {
     color: #223035;
     font-size: 12px;
@@ -421,21 +422,22 @@ div .info-profile {
 }
 
 #badge_modal .modal-body{
-display: flex;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#badge_modal .modal-body{
-display: flex;
-
+#badge_modal .modal-body .card{
+ margin: 1rem;
 }
+
 
 #badge_details{
  display: flex;
+ flex-wrap: wrap;
  flex-direction: column;
  justify-content: center;
-align-items: center;
-flex-wrap: wrap;
-margin: 1rem;
+ align-items: center;
+
 }
 #badge_details img{
   display: block;

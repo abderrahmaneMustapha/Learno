@@ -171,9 +171,13 @@ def share_code(request,slug,pk):
     import re
     language = "".join(re.findall("[a-zA-Z]+", language))
     language_mode = MediaForm.media(language)
-    context = {'voted_check':voted_check ,'output' : output , 'source': source, 'language_mode' : language_mode, 'other_code' : other_code}
+    voted_check_id = ""
+    if voted_check:
+        voted_check_id = list(voted_check.values_list('pk'))[0][0]
+    context = {'voted_check':voted_check_id ,'output' : output , 'source': source, 'language_mode' : language_mode, 'other_code' : other_code}
 
     context['language'] = language
+
     return render(request, 'ide/share_code_form.html',context)
 
 

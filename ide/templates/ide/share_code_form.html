@@ -1,5 +1,5 @@
 {% extends 'ide_index.html' %}
-
+{% load static %}
 {% block script %}
 {{language_mode}}
 {% endblock %}
@@ -16,6 +16,11 @@
         <!--navbar start -->
         <nav class=" navbar d-flex flex-row" >
           {% csrf_token %}
+          <input type="text"  name="code-pk" value="{{other_code.code.pk}}" hidden>
+          <input type="text"  name="owner-pk" value="{{request.user.student.pk}}" hidden>
+
+          <input type="text"  name="vote-pk" value="{{voted_check}}" hidden>
+
           <input class="form-control col-md-2 col-sm-12 bg-dark border
                border-dark text-white"
           type="text" name="title" value="{{other_code.code.title}}" readonly>
@@ -30,7 +35,7 @@
               update
             </button>
              {%else%}
-             <button id="vote" type="submit" name="vote"
+             <button id="vote" type="button" name="vote"
              class="btn btn-dark">
              {% if voted_check %}
              <i class="fas fa-star text-warning"></i><br>voted
@@ -57,7 +62,7 @@
 
 
   </div>
-
+    <script src="{%  static 'js/ide_custome.js' %}"></script>
 
 </section>
 

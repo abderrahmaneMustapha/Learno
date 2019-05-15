@@ -11,27 +11,19 @@ Edit Profile
 
 
 {% block main %}
-<div class="container">
-   <div class="row">
-     <div class="col-lg-8 col-md-8 col-sm-12">
+<section class="site-section bg-light p-2 m-3">
+  <div class="container">
+   <h4 class="text-center">Edit Profile</h4>
+  <form  class="form-group" method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {% bootstrap_form user_form %}
+    {% bootstrap_form student_form %}
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
 
-       <div>
-         <div class="card">
-           <div class="card-body">
-                 <h4 class="card-title">Edit Profile</h4>
-<form  class="form-group" method="POST" enctype="multipart/form-data" >
-  {% csrf_token %}
-  {% bootstrap_form user_form %}
-  {% bootstrap_form student_form %}
-    <button type="submit" class="btn btn-primary">Save</button>
-  </form>
 
- <br/>
-</div>
-</div>
-</div>
-</div>
-</div>
+</section>
+
 
 {% endblock %}
 

@@ -39,7 +39,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR){
   var owner = $("input[name=owner-pk]").val();
   var code = $("input[name=code-pk]").val();
   var vote =  $("input[name=vote-pk]").val();
-  console.log(vote)
+
   if (check_vote === true){
     type = "delete"
     url = "http://127.0.0.1:8000/coding-ground/api-votes/votes/"+vote+"/";
@@ -67,8 +67,7 @@ $.ajaxPrefilter(function(options, originalOptions, jqXHR){
               temp0 = $("button[name=vote] i")
               if (type ==="post" ){
                   temp = $("input[name=vote-pk]")
-                  temp.attr('value', data['pk']);
-                  console.log(temp.val())
+                  temp.attr('value', data['pk']);              
 
                   temp0.attr('class', 'fas fa-star text-warning')
               }

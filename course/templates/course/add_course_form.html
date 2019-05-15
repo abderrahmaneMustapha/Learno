@@ -1,14 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'home.html' %}
 
 {% block title %}add course{% endblock %}
 {% load bootstrap4 %}
+{% block bar %}
+{% endblock %}
+{% block headercontain %}
+{% endblock %}
+{% block main %}
+<section class="site-section bg-light m-3">
+  <div class="container ">
+    <h1 class="text-center">Add your course here</h1>
+    <form class="form-group" method="POST">
+      {% csrf_token %}
+    {% bootstrap_form course_form %}
 
-{% block content %}
-<h1>Add your course here :</h1>
-<form class="form-group" method="POST">
-  {% csrf_token %}
-{% bootstrap_form course_form %}
+    <button class="btn btn-success"type="submit">Save</button>
+    </form>
+  </div>
 
-<button type="submit">Save</button>
-</form>
+</section>
+
 {% endblock %}

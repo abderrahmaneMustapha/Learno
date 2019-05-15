@@ -22,7 +22,7 @@ Login
 <form class="form-group" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Sign In</button>
+    <button type="submit" class="btn btn-success">Sign In</button>
     <br>
     <p><a href="{% url 'password_reset' %}">reset password</a></p>
     <br>
