@@ -1,6 +1,16 @@
-div.leaderboard  {
+header .navbar {
+  background-color:  #999999 !important;
+}
+
+section{
+    background-color: #F8F9FA;
+}
+
+div .leaderboard  {
   overflow: scroll;
-  height: 500px;
+    width: 100%;
+  height: auto;
+
 }
 
 @media (max-width : 500px){
@@ -10,7 +20,35 @@ div.leaderboard  {
 
 }
 
-.card-king{
+.card-body{
   border-radius: 2px;
   margin-top: -1rem;
+  width: 8rem;
+  height: auto;
+
+}
+
+.card-body:hover{
+  opacity: 0.7;
+  cursor: grab;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+}
+
+.card-body img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  background-color: #28a745;
+  margin: 0% 0% 0% 40%;
 }

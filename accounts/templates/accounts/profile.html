@@ -6,12 +6,12 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
-{% block header %}
-<h1>Profile</h1>
+
+{% block headercontain %}
 {% endblock %}
 
 {% block main %}
-<section>
+<section class="site-section">
 <div class="container">
 <div class="row info-profile">
         <div class="col-lg-4">
@@ -88,7 +88,7 @@
                              <p>{{badge.badge.description}}</p>
                            </div>
                        </div>
-                       
+
                        {% endfor %}
                      </div>
 

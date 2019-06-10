@@ -1,3 +1,14 @@
+.site-section{
+    background-color: #F8F9FA;
+}
+.site-section .container {
+  margin-top: 6rem;
+
+}
+
+header .navbar {
+  background-color:  #999999 !important;
+}
 div .info-profile {
   margin-top: 1%;
   margin-bottom: 1%;

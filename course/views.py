@@ -140,10 +140,10 @@ def learn_question(request, module, content, question):
     result = None
     if request.method == "POST":
         count = 0
-        result= False
+        result= True
         student_answers = request.POST.getlist('answer')
         for answer_id in student_answers:
-            result = True
+
             answered = Answer.objects.get(id = answer_id)
             if answered.is_correct == True:
                 count+=1

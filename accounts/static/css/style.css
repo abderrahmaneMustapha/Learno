@@ -127,12 +127,12 @@ header .navbar .dropdown-menu:before {
 }
 
 header .navbar .dropdown-menu .dropdown-item:hover {
-  background: #699132;
+  background: #28A745;
   color: #fff;
 }
 
 header .navbar .dropdown-menu .dropdown-item.active {
-  background: #699132;
+  background: #28A745;
   color: #fff;
 }
 
@@ -239,7 +239,7 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .episodes .episode-number {
-  border: 2px solid ##699132;
+  border: 2px solid #28A745;
   text-align: center;
   display: inline-block;
   width: 80px;
@@ -247,7 +247,7 @@ header .navbar.navbar-light .nav-link.active {
   text-transform: uppercase;
   line-height: 74px;
   border-radius: 50%;
-  background: #699132;
+  background: #28A745;
   color: #fff;
   font-size: 30px;
 }
@@ -432,7 +432,7 @@ header .navbar.navbar-light .nav-link.active {
 .school-instructors.text-dark .feature .icon > span:before {
   font-size: 50px;
   margin-left: 0;
-  color: #699132;
+  color: #28A745;
 
 }
 
@@ -544,7 +544,7 @@ textarea.form-control {
 
 .btn.btn-outline-primary {
   border-width: 2px;
-  color: #699132;
+  color: #28A745;
 }
 
 .btn.btn-outline-primary:hover, .btn.btn-outline-primary:focus, .btn.btn-outline-primary:active {
@@ -636,7 +636,7 @@ textarea.form-control {
 }
 
 .owl-carousel .owl-dots .owl-dot.active {
-  background: #699132;
+  background: #28A745;
 }
 
 .owl-carousel.home-slider {
@@ -853,10 +853,10 @@ textarea.form-control {
 }
 
 .box.hover:hover .box-body, .box.hover:focus .box-body {
-  background: #699132;
+  background: #28A745;
   color: #fff;
   padding: 30px 20px;
-  border-color: #699132;
+  border-color: #28A745;
 }
 
 .box.hover:hover h2, .box.hover:focus h2 {
@@ -869,7 +869,7 @@ textarea.form-control {
 }
 
 .breadcrumb-custom li a {
-  color: #699132;
+  color: #28A745;
 }
 
 .breadcrumb-custom li a:hover {
@@ -976,7 +976,7 @@ textarea.form-control {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: #699132;
+  background: #28A745;
 }
 
 .text-black {
@@ -1005,7 +1005,7 @@ textarea.form-control {
 
 .media-feature .icon {
   font-size: 60px;
-  color: #699132;
+  color: #28A745;
 }
 
 .media-feature h3 {
@@ -1020,7 +1020,7 @@ textarea.form-control {
   -ms-transform: scale(1.05);
   transform: scale(1.05);
   z-index: 2;
-  border-bottom: 10px solid #699132;
+  border-bottom: 10px solid #28A745;
 }
 
 .media-custom {
@@ -1092,7 +1092,7 @@ textarea.form-control {
   display: block;
   text-align: left;
   text-decoration: none;
-  color: #699132;
+  color: #28A745;
   position: relative;
   -webkit-box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;

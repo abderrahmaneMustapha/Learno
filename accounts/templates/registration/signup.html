@@ -19,7 +19,7 @@ Sign Up
     {% bootstrap_form user_form %}
     {% bootstrap_form student_form %}
     <button type="submit" class="btn btn-success">Sign Up</button><br>
-    <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><br>
+    <a href="{% url 'social:begin' 'google-oauth2' %}">Signup with Google</a><i class="fas fa-git"></i><br>
     <a href="{% url 'social:begin' 'github' %}">Signup with GitHub</a><br>
     <br>
   Already have account<a href="{% url 'login' %}">login</a>

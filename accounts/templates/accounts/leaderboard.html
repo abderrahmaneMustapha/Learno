@@ -3,37 +3,38 @@
 {% block title %}
 Leader Board
 {% endblock %}
-
-{% block bar %}
-{{block.super}}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
 {% endblock %}
- {% block header %}
- <h1>leaderboard</h1>
+
+
+
+{% block headercontain %}
  {% endblock %}
 {% block main %}
 <section class="site-section">
   <div class="container">
     <section class="school-features text-dark ">
       <div class="inner">
-        <div class=" col-sm-12 col-md-12 d-flex justify-content-center ">
-          <div class="card text-center">
-            <div class=" card-king card-body col ">
 
-                <div class="col-md-12 col-sm-12">
-                  <img class="img-responsive"
-                  src="{{MEDIA_URL}}{{king.rank.logo.url}}" width="20%" height="40%" />
-                     <h4>King</h4>
-                    <img class="rounded-circle img-responsive"
-                    src="{{MEDIA_URL}}{{king.photo.url}}" width="35%" height="60%" />
-                </div>
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
-                    {{king.user.username}}
-                </div>
+          <div class="card text-center">
+            <div class="card-body  ">
+              <div class="logo">
+                <img class="img-responsive"
+                src="{{MEDIA_URL}}{{king.rank.logo.url}}"/>
+              </div>
+              <h4>King</h4>
+              <div class="profile-img">
+                <img class="rounded-circle img-responsive"
+                src="{{MEDIA_URL}}{{king.photo.url}}" />
+              </div>
+
+                <p>{{king.user.username}}</p>
 
                 {{king.exp}} exp
           </div>
         </div>
-        </div>
+
 
         <!-- leaderboard -->
         <div  class=" leaderboard table-responsive-sm">
