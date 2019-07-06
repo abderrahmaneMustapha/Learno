@@ -125,13 +125,16 @@ from ide.tasks import calculate_votebadges_task
 def profile(request):
     taken_badge = TakenBadge.objects.filter(student = request.user.student)
     interests = request.user.student.interests.all()
+
     #calcuate user badges
     vote = Vote.objects.filter(code__owner = request.user.student)
     current_student = request.user.student
     calculate_votebadges_task(vote, current_student)
+
     #get the user taken course and user created course number
     taken_course = TakenCourse.objects.filter(student = request.user.student )
     total_course =  Course.objects.filter(owner = request.user).count()
+
     #get completed modules and total modules for each course
     #number of completed modules in each course
     skills_comp= []

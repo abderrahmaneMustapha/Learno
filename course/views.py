@@ -51,6 +51,10 @@ def modules(request, subject, course):
     check_taken_course = TakenCourse.objects.filter(student =request.user.student, course=actual_course)
     completed_taken_module = TakenModule.objects.filter(student =request.user.student , course=actual_course, completed= True)
     last_taken_module = completed_taken_module.last()
+
+    completed_taken_module_count = 0;
+    course_module_count = 0;
+
     if check_taken_course.count()==0:
         new_taken_course = TakenCourse.objects.create(student = request.user.student, course=actual_course,  subject= actual_course.subject, completed = False)
     completed_module = ''
@@ -62,17 +66,20 @@ def modules(request, subject, course):
 
             next_module = Module.objects.filter( course=actual_course, pk__gt = completed_module.last().pk ).first()
             student_taken_module = TakenModule.objects.filter(student =request.user.student, course=actual_course).values_list('module', flat=True)
-            print(completed_taken_module.count())
-            print(course_module.count())
+
+            completed_taken_module_count = completed_taken_module.count()
+            course_module_count = course_module.count()
             if  completed_taken_module.count()  == course_module.count():
+                next_module = Module.objects.filter( course=actual_course).first()
                 TakenCourse.objects.filter(student = request.user.student, course=actual_course,  subject= actual_course.subject).update(completed = True)
                 request.user.student.exp += 50
                 request.user.student.save()
 
     else:
         next_module = Module.objects.first()
-    return render(request,'course/modules_form.html', {'student_taken_module':student_taken_module,
-    'course':actual_course ,'course_module':course_module, 'completed_module': completed_module , 'completed_taken_module':completed_taken_module, 'next_module': next_module })
+    return render(request,'course/modules_form.html', {'course_module_count':course_module_count,'completed_taken_module_count':completed_taken_module_count,'student_taken_module':student_taken_module,
+    'course':actual_course ,'course_module':course_module, 'completed_module': completed_module ,
+    'completed_taken_module':completed_taken_module, 'next_module': next_module })
 
 @login_required
 
