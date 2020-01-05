@@ -13,7 +13,7 @@ $ git clone https://github.com/abderrahmaneMustapha/Learno.git
 > install requirements using
 
 ```shell
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 ### Team
 
