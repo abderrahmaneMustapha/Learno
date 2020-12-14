@@ -17,10 +17,10 @@ $ pip install -r requirements.txt
 ```
 ### Team
 
-| <a href="http://learno.com" target="_blank">Toumi Abderrahmane</a> | <a href="http://learno.com" target="_blank">Kouriba Ali</a> | 
-| :---: |:---:|
-| [![FVCproductions](https://avatars1.githubusercontent.com/u/34008130?v=4&s=200)](http://fvcproductions.com)    | [![FVCproductions](https://avatars1.githubusercontent.com/u/47328719?v=4&s=200)](http://fvcproductions.com) |  
-| <a href="https://github.com/abderrahmaneMustapha" target="_blank">`github.com/abderrahmaneMustapha`</a> | <a href="https://github.com/Alilougt" target="_blank">`github.com/Alilougt`</a> |  
+| <a href="http://learno.com" target="_blank">Toumi Abderrahmane</a> |
+| :---: |
+| [![FVCproductions](https://avatars1.githubusercontent.com/u/34008130?v=4&s=200)](http://fvcproductions.com)    | 
+| <a href="https://github.com/abderrahmaneMustapha" target="_blank">`github.com/abderrahmaneMustapha`</a> | 
 
 ## Contributing
 
