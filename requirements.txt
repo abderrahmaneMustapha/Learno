@@ -31,7 +31,7 @@ graphviz==0.10.1
 gunicorn==19.9.0
 idna==2.8
 itypes==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 jsonhyperschema-codec==1.0.3
 kombu==4.5.0
 MarkupSafe==1.1.1
