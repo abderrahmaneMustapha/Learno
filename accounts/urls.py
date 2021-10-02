@@ -9,14 +9,6 @@ router = routers.DefaultRouter()
 router.register('students', views.StudentView)
 
 
-"""
-CELERY WORKER
-
-"""
-from .tasks import calculate_rank_task
-calculate_rank_task.apply_async()
-
-
 urlpatterns = [
     #rest api urls
     path('api-students/', include(router.urls)),

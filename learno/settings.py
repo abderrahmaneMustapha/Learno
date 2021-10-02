@@ -107,7 +107,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'learno',
-        'USER': 'abderrahmane',
+        'USER': 'postgres',
         'PASSWORD': '030898',
         'HOST': 'localhost',
         'PORT': '',
@@ -256,7 +256,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = ''
 
 """
 celery configuration
-"""
+
 
 # Celery application definition
 CELERY_BROKER_URL = 'redis://localhost:6379'
@@ -273,7 +273,7 @@ CELERY_BEAT_SCHEDULE = {
 
 }
 
-"""
+
 end of celery configuration
 
 """
