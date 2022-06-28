@@ -1,6 +1,6 @@
 amqp==2.4.1
 APScheduler==3.6.0
-arrow==0.13.1
+arrow==0.15.1
 asgiref==3.4.1
 billiard==3.6.0.0
 blessed==1.15.0
